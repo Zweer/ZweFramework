@@ -49,7 +49,7 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
 			                                                       'basePath' => APPLICATION_PATH));
         $Dir = dirname(APPLICATION_PATH) . '/library/';
         $D = opendir($Dir);
-        while($LibraryDir = opendir($D))
+        while($LibraryDir = readdir($D))
             if($LibraryDir != '.' && $LibraryDir != '..' && $LibraryDir != 'Zend')
                 $Autoloader->addResourceType(strtolower($LibraryDir), dirname(APPLICATION_PATH) . '/library/' . $LibraryDir, $LibraryDir);
 
@@ -72,7 +72,7 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
     /**
      * Initializes the Translate and the Locale
      */
-    protected function _initTranslate()
+    protected function r_initTranslate()
     {
         Zend_Registry::set('Zend_Translate',
                            new Zend_Translate('array',
