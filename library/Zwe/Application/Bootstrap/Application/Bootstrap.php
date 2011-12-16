@@ -120,10 +120,16 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
 
     /**
      * Sets the routing, taking it from the ini file.
+     * If the routing config file doesn't exist, it will exit.
      */
-    protected function _initRouting()
+    protected function _initRoutingFromConfig()
     {
-        $Config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routes.ini', 'production');
+        $ConfigFile = APPLICATION_PATH . '/configs/routes.ini';
+
+        if(!file_exists($ConfigFile))
+            return;
+
+        $Config = new Zend_Config_Ini($ConfigFile, 'production');
         $Router = Zend_Controller_Front::getInstance()->getRouter();
 
         $Router->addConfig($Config, 'routes');
