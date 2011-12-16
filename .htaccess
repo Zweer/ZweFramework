@@ -1,3 +1,10 @@
+# /**
+#  * @file .htaccess
+#  * Main htaccess file with the redirect of the entire site and the initialization of APPLICATION_ENV
+#  *
+#  * @category  public
+#  * @package   root
+#  */
 SetEnv APPLICATION_ENV development
 
 RewriteEngine On
