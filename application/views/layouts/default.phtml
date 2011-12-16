@@ -1,0 +1,27 @@
+<?php
+
+$this->import_Css('http://fonts.googleapis.com/css?family=Arimo:400,700,400italic,700italic', true, true);
+$this->import_Css(array('main', 'container'), false, true);
+$this->import_Css();
+
+$this->import_Js(array('mootools/core', 'mootools/more', 'main'), false, true);
+$this->import_Js();
+
+?>
+<?= $this->doctype() . "\n" ?>
+<html>
+
+<head>
+    <?= $this->headTitle() . "\n" ?>
+    <?= str_replace("\n", "\n    ", $this->headMeta()) . "\n" ?>
+    <?= str_replace("\n", "\n    ", $this->headLink()) . "\n" ?>
+    <?= str_replace("\n", "\n    ", $this->headStyle()) . "\n" ?>
+    <?= str_replace("\n", "\n    ", $this->headScript()) . "\n" ?>
+</head>
+
+<body>
+    <div id="contenitore">
+        <?= $this->layout()->content ?>
+    </div>
+</body>
+</html>
