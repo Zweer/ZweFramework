@@ -30,4 +30,8 @@ $this->headTitle()->append($this->message);
 <pre><?= $this->escape(var_export($this->request->getParams(), true)) ?>
 </pre>
 
+<h3>Language:</h3>
+<pre><?= Zend_Registry::get('Zend_Locale')->getLanguage() ?>
+</pre>
+
 <?php endif ?>

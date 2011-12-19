@@ -25,10 +25,8 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
      */
     protected function _initStripSlashes()
     {
-        if(get_magic_quotes_gpc())
-        {
-            function stripslashes_gpc(&$Value)
-            {
+        if(get_magic_quotes_gpc()) {
+            function stripslashes_gpc(&$Value) {
                 $Value = stripslashes($Value);
             }
 
