@@ -10,6 +10,11 @@
  */
 
 /**
+ * It defines the url of the site.
+ */
+defined('SITE_URL') || define('SITE_URL', $_SERVER['HTTP_HOST']);
+
+/**
  * It defines the application path.
  * It is "/application"
  */

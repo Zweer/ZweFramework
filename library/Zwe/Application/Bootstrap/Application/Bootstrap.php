@@ -58,12 +58,15 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
 
     /**
      * Takes the site parameters from the config file.
+     * If in the siteUrl param there is "localhost", it substitutes it with the ip address of the machine.
      *
      * @return Zend_Config_Ini
      */
     protected function _initParameters()
     {
-        $Config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/parameters.ini');
+        $Config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/parameters.ini', null, array('allowModifications' => true));
+        $Config->registry->siteUrl = preg_replace('/localhost/', $_SERVER["HTTP_HOST"], $Config->registry->siteUrl);
+        $Config->setReadOnly();
         Zend_Registry::set('parameters', $Config);
 
         return $Config;
@@ -72,14 +75,15 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
     /**
      * Initializes the Translate and the Locale
      */
-    protected function r_initTranslate()
+    protected function _initTranslate()
     {
         Zend_Registry::set('Zend_Translate',
                            new Zend_Translate('array',
                                               realpath(APPLICATION_PATH . '/../language'),
                                               Zend_Registry::get('parameters')->registry->defaultLanguage,
                                               array('scan' => Zend_Translate::LOCALE_DIRECTORY)));
-        Zend_Registry::set('Zend_Locale', new Zend_Locale());
+
+        Zend_Registry::set('Zend_Locale', new Zend_Locale(Zend_Registry::get('parameters')->registry->defaultLanguage));
     }
 
     /**
@@ -124,6 +128,8 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
      */
     protected function _initRoutingFromConfig()
     {
+        Zend_Controller_Front::getInstance()->setBaseUrl(Zend_Registry::get('parameters')->registry->baseUrl);
+
         $ConfigFile = APPLICATION_PATH . '/configs/routes.ini';
 
         if(!file_exists($ConfigFile))
