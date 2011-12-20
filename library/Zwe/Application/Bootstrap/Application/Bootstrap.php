@@ -99,12 +99,9 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
 		$View->addHelperPath('Zwe/View/Helper', 'Zwe_View_Helper');
 
         $View->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
-        $View->headMeta()->appendHttpEquiv('Content-Style-Type', 'text/css');
-        $View->headMeta()->appendHttpEquiv('Content-Script-Type', 'text/javascript');
-        $View->headMeta()->appendHttpEquiv('imagetoolbar', 'no');
 
         $View->headLink()->headLink(array(
-            'rel' => 'favicon',
+            'rel' => 'shortcut icon',
             'type' => 'image/ico',
             'href' => $View->baseUrl('favicon.ico')));
 
