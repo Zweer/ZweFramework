@@ -21,6 +21,12 @@ defined('SITE_URL') || define('SITE_URL', $_SERVER['HTTP_HOST']);
 defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
 /**
+ * It defines the application path.
+ * It is "/application"
+ */
+defined('LIBRARY_PATH') || define('LIBRARY_PATH', realpath(dirname(__FILE__) . '/../library'));
+
+/**
  * It defines the temporary directory path.
  * It is "/temp"
  */
