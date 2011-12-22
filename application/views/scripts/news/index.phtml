@@ -1,0 +1,11 @@
+<div class="news_list">
+    <?php foreach($this->news as $news) : ?>
+    <?php $date = new Zend_Date($news->CreationDate); ?>
+    <div class="news_container">
+        <div class="news_title"><?= $this->escape($news->Title) ?></div>
+        <div class="news_date"><?= $date ?> - <?= $news->IDUser ?></div>
+        <div class="news_text"><?= $this->escape($news->Text) ?></div>
+        <div class="news_comments"></div>
+    </div>
+    <?php endforeach; ?>
+</div>
