@@ -1,0 +1,17 @@
+<?php
+switch($this->ko) {
+    case Zwe_Controller_Action_Login::LOGIN_CREDENTIALS:
+        echo $this->translate(Zwe_Controller_Action_Login::LOGIN_CREDENTIALS);
+    break;
+
+    case Zwe_Controller_Action_Login::LOGIN_ALLOW:
+        echo $this->translate(Zwe_Controller_Action_Login::LOGIN_ALLOW);
+    break;
+}
+?>
+<?= $this->form ?>
+
+<div>
+    <a href="<?= $this->url(array('controller' => 'login', 'action' => 'register', 'module' => 'default'), 'default') ?>">Register</a>
+    <a href="<?= $this->url(array('controller' => 'login', 'action' => 'recover', 'module' => 'default'), 'default') ?>">Recover Password</a>
+</div>

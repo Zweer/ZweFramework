@@ -45,4 +45,16 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
         if(file_exists(LIBRARY_PATH . DIRECTORY_SEPARATOR . str_replace('_', DIRECTORY_SEPARATOR, $rowsetClass) . '.php'))
             $this->_rowsetClass = $rowsetClass;
     }
+
+    public static function findByPrimary($primary)
+    {
+        $model = new static();
+        return $model->find($primary);
+    }
+
+    public static function create(array $data = array(), $defaultSource = null)
+    {
+        $model = new static();
+        return $model->createRow($data, $defaultSource);
+    }
 }
