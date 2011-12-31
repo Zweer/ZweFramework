@@ -10,6 +10,9 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
     const REGISTRATION_EMAIL_SUBJECT = 'RegistrationEmailSubject';
     const REGISTRATION_EMAIL_TEXT = 'RegistrationEmailText';
 
+    const ACTIVATE_OK = 'ActivateOK';
+    const ACTIVATE_KO = 'ActivateKO';
+
     protected function _indexAction()
     {
         $this->view->form = new Zwe_Form_Login();
@@ -71,5 +74,15 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
                 $this->view->ok = true;
             }
         }
+    }
+
+    protected function _activateAction()
+    {
+        $user = $this->_getParam('user');
+        $sha = $this->_getParam('activate');
+        $this->view->ok = false;
+
+        if(Zwe_Model_User::activate($user, $sha))
+            $this->view->ok = true;
     }
 }

@@ -29,4 +29,10 @@ class Zwe_Model_User extends Zwe_Model
 
         return null;
     }
+
+    public static function activate($user, $code)
+    {
+        $userManager = new static();
+        return $userManager->update(array('Active' => '1'), "Username = '$user' AND SHA1(CONCAT(Password, Salt)) = '$code'") > 0;
+    }
 }
