@@ -13,6 +13,9 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
     const ACTIVATE_OK = 'ActivateOK';
     const ACTIVATE_KO = 'ActivateKO';
 
+    const RECOVER_EMAIL_SUBJECT = 'RecoverEmailSubject';
+    const RECOVER_EMAIL_TEXT = 'RecoverEmailText';
+
     protected function _indexAction()
     {
         $this->view->form = new Zwe_Form_Login();
@@ -84,5 +87,32 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
 
         if(Zwe_Model_User::activate($user, $sha))
             $this->view->ok = true;
+    }
+
+    protected function _recoverAction()
+    {
+        $this->view->form = new Zwe_Form_Recover();
+        $this->view->form->initEmail();
+        $this->view->ok = false;
+
+        if($this->getRequest()->isPost()) {
+            if($this->view->form->isValid($this->getRequest()->getPost())) {
+                $user = Zwe_Model_User::findByEmail($this->view->form->getValue('email'))->current();
+
+                $mail = new Zend_Mail();
+                $mail->setFrom(Zend_Registry::get('parameters')->registry->email, Zend_Registry::get('parameters')->registry->emailName);
+                $mail->addTo($user->Email);
+                $mail->setSubject($this->view->translate(self::RECOVER_EMAIL_SUBJECT));
+                $mail->setBodyText(str_replace(array('%link%'), array($_SERVER['HTTP_HOST'] . $this->view->url(array('controller' => 'login', 'action' => 'doRecover', 'module' => 'default', 'recover' => sha1($user->Salt . $user->Password), 'user' => $user->Username), 'default')), $this->view->translate(self::RECOVER_EMAIL_TEXT)));
+                $mail->send();
+
+                $this->view->ok = true;
+            }
+        }
+    }
+
+    protected function _doRecoverAction()
+    {
+
     }
 }

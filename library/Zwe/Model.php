@@ -57,4 +57,23 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
         $model = new static();
         return $model->createRow($data, $defaultSource);
     }
+
+    public static function __callStatic($name, array $arguments)
+    {
+        switch(true) {
+            case strpos($name, 'findBy') === 0 && strlen($name) > strlen('findBy'):
+                $field = substr($name, strlen('findBy'));
+                $model = new static();
+                if(!in_array($field, $model->info(Zend_Db_Table_Abstract::COLS)))
+                    throw new Exception("Field $field is not part of the data");
+
+                $select = $model->select()->where("$field = ?", $arguments[0]);
+                return $model->fetchAll($select);
+            break;
+
+            default:
+                throw new Exception("Static method '$name' not implemented'");
+            break;
+        }
+    }
 }
