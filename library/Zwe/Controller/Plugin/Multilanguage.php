@@ -17,7 +17,7 @@ class Zwe_Controller_Plugin_Multilanguage extends Zend_Controller_Plugin_Abstrac
     {
         $language = $request->getParam('language');
         if(!isset($language))
-            $language = Zend_Registry::getInstance()->registry->defaultLanguage;
+            $language = Zend_Registry::getInstance()->parameters->registry->defaultLanguage;
         $this->_setLanguage($language);
     }
 
