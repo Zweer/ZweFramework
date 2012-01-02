@@ -13,5 +13,8 @@ return array(
     Zwe_Controller_Action_Login::ACTIVATE_KO => 'Activation completed with errors. Please be sure to copy the entire link in the address bar',
 
     Zwe_Controller_Action_Login::RECOVER_EMAIL_SUBJECT => 'Password Recovery',
-    Zwe_Controller_Action_Login::RECOVER_EMAIL_TEXT => "This message has been sent to you after a password recory request.\nIf you haven't done any request so, please, don't consider this email.\n\nOtherwise please visit %link% to change your password"
+    Zwe_Controller_Action_Login::RECOVER_EMAIL_TEXT => "This message has been sent to you after a password recory request.\nIf you haven't done any request so, please, don't consider this email.\n\nOtherwise please visit %link% to change your password",
+    Zwe_Controller_Action_Login::RECOVER_OK => 'An email has been sent to you with the link to do the recovery',
+
+    Zwe_Controller_Action_Login::CHANGE_OK => 'Password changed successfully'
 );

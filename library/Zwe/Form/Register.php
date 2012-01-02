@@ -6,7 +6,7 @@ class Zwe_Form_Register extends Zwe_Form
     {
         $this->addElement('text', 'username');
         $this->getElement('username')->setLabel('Username:');
-        $this->getElement('username')->setValidators(array(array('Db_NoRecordExists',
+        $this->getElement('username')->addValidators(array(array('Db_NoRecordExists',
                                                                  false,
                                                                  array('table' => 'user',
                                                                        'field' => 'Username'))));
@@ -16,13 +16,13 @@ class Zwe_Form_Register extends Zwe_Form
 
         $this->addElement('password', 'password2');
         $this->getElement('password2')->setLabel('Repeat Password:');
-        $this->getElement('password2')->setValidators(array(array('Identical',
+        $this->getElement('password2')->addValidators(array(array('Identical',
                                                                   false,
                                                                   array('token' => 'password'))));
 
         $this->addElement('email', 'email');
         $this->getElement('email')->setLabel('Email Address:');
-        $this->getElement('email')->setValidators(array(array('Db_NoRecordExists',
+        $this->getElement('email')->addValidators(array(array('Db_NoRecordExists',
                                                               false,
                                                               array('table' => 'user',
                                                                     'field' => 'Email'))));

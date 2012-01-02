@@ -2,9 +2,9 @@
 
 class Zwe_Db_Table_Row_User extends Zend_Db_Table_Row_Abstract
 {
-    public function isAllowed()
+    public function canLogin()
     {
-        return $this->_isActive() && $this->_isAllowed();
+        return $this->_isActive();
     }
 
     protected function _isActive()
@@ -29,5 +29,16 @@ class Zwe_Db_Table_Row_User extends Zend_Db_Table_Row_Abstract
         }
 
         return parent::setFromArray($data);
+    }
+
+    public function changePassword($password, $code = null)
+    {
+        if(isset($code) && sha1($this->Salt . $this->Password) != $code)
+            return false;
+
+        $this->Salt = sha1(mt_rand());
+        $this->Password = new Zend_Db_Expr("SHA1(CONCAT('$password', '" . $this->Salt . "'))");
+
+        return $this->save();
     }
 }

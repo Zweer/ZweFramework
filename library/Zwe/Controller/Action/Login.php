@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * TODO:
+ * - Cookie
+ */
+
 class Zwe_Controller_Action_Login extends Zwe_Controller_Action
 {
     const LOGIN_NOTHING = 'LoginErrorOK';
@@ -15,6 +20,9 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
 
     const RECOVER_EMAIL_SUBJECT = 'RecoverEmailSubject';
     const RECOVER_EMAIL_TEXT = 'RecoverEmailText';
+    const RECOVER_OK = 'RecoverOK';
+
+    const CHANGE_OK = 'ChangeOK';
 
     protected function _indexAction()
     {
@@ -25,7 +33,12 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
 
             if($this->view->form->isValid($this->getRequest()->getPost())) {
                 if($user = Zwe_Model_User::isValidUser($this->view->form->getValue('email'), $this->view->form->getValue('password'))) {
-                    if($user->isAllowed()) {
+                    if($user->canLogin()) {
+                        if($this->view->form->isCookie()) {
+                            setcookie('login', $user->Username, time() + 60 * 60 * 24 * 30);
+                            setcookie('hash', $user->Password, time() + 60 * 60 * 24 * 30);
+                        }
+
                         $this->_redirectAction();
                     } else {
                         $this->view->ko = self::LOGIN_ALLOW;
@@ -113,6 +126,24 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
 
     protected function _doRecoverAction()
     {
+        $user = $this->_getParam('user');
+        $sha = $this->_getParam('recover');
+        $this->view->ok = false;
 
+        $this->view->form = new Zwe_Form_Recover();
+        $this->view->form->initPassword();
+
+        if($this->getRequest()->isPost()) {
+            if($this->view->form->isValid($this->getRequest()->getPost())) {
+                if(Zwe_Model_User::changePassword($this->view->form->getValue('user'),
+                                                  $this->view->form->getValue('password'),
+                                                  $this->view->form->getValue('recover'))) {
+                    $this->view->ok = true;
+                }
+            }
+        } else {
+            $this->view->form->setDefault('user', $user);
+            $this->view->form->setDefault('recover', $sha);
+        }
     }
 }

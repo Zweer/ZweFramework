@@ -21,4 +21,9 @@ class LoginController extends Zwe_Controller_Action_Login
     {
         parent::_recoverAction();
     }
+
+    public function dorecoverAction()
+    {
+        parent::_doRecoverAction();
+    }
 }

@@ -16,4 +16,9 @@ class Zwe_Form_Login extends Zwe_Form
         $this->addElement('submit', 'submit');
         $this->getElement('submit')->setLabel('Login');
     }
+
+    public function isCookie()
+    {
+        return $this->getValue('cookie') == '1';
+    }
 }

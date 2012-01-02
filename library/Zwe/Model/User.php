@@ -35,4 +35,10 @@ class Zwe_Model_User extends Zwe_Model
         $userManager = new static();
         return $userManager->update(array('Active' => '1'), "Username = '$user' AND SHA1(CONCAT(Password, Salt)) = '$code'") > 0;
     }
+
+    public static function changePassword($user, $password, $code = null)
+    {
+        $user = self::findByUsername($user)->current();
+        return $user->changePassword($password, $code);
+    }
 }
