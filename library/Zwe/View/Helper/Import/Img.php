@@ -71,7 +71,7 @@ class Zwe_View_Helper_Import_Img extends Zwe_View_Helper_Import
         else
         {
             $ImagePath = $this->_baseurl . ($Absolute ? '' : $this->_directory . '/') . ltrim($File, '/');
-            $RealPath = realpath(PUBLIC_PATH . '/' . $ImagePath);
+            $RealPath = realpath(PUBLIC_PATH . '/' . substr($ImagePath, strlen($this->_baseurl)));
 
             if(key_exists('url', $Params) && $Params['url'])
                 return $ImagePath;

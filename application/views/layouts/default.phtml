@@ -20,6 +20,45 @@ $this->import_Js();
 </head>
 
 <body>
+    <div id="layout-top">
+        <div id="layout-top-right">
+            <ul>
+                <li>
+                    <a href="http://www.facebook.com/zweer">
+                        <?= $this->import_Img('social_network/facebook_16.png', array('alt' => $this->translate('Follow me on') . ' Facebook', 'title' => $this->translate('Follow me on') . ' Facebook')) ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/111514767804391444725">
+                        <?= $this->import_Img('social_network/google_plus_16.png', array('alt' => $this->translate('Follow me on') . ' Google+', 'title' => $this->translate('Follow me on') . ' Google+')) ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/#!/dotzweer">
+                        <?= $this->import_Img('social_network/twitter_16.png', array('alt' => $this->translate('Follow me on') . ' Twitter', 'title' => $this->translate('Follow me on') . ' Twitter')) ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.youtube.com/zweer">
+                        <?= $this->import_Img('social_network/youtube_16.png', array('alt' => $this->translate('Follow me on') . ' Youtube', 'title' => $this->translate('Follow me on') . ' Youtube')) ?>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="layout-top-left">
+            <ul>
+<?php
+$layoutLogin = $this->switchLogin();
+foreach($layoutLogin as $login) {
+?>
+                <li><?= $login ?></li>
+<?php
+}
+?>
+            </ul>
+        </div>
+    </div>
     <div id="contenitore">
         <?= $this->layout()->content ?>
     </div>
