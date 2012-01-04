@@ -17,6 +17,8 @@ provides:
   - Element.zweboxGallery
 
 changelog:
+  - v 1.2.1:
+    - thumbnails for the demo version
   - v 1.2:
     - mootools/more is no longer needed
     - added the "localization" option: usefull if you want to add the Locale (more) support
