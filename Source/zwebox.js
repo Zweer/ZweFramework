@@ -9,7 +9,7 @@ authors:
 license:
   - MIT-style license
 
-requires: []
+requires: [Core]
 
 provides:
   - ZweBox
@@ -17,6 +17,10 @@ provides:
   - Element.zweboxGallery
 
 changelog:
+  - v 1.2:
+    - mootools/more is no longer needed
+    - added the "localization" option: usefull if you want to add the Locale (more) support
+      - added the zwebox-locale.js -> reimplements the Locale support (requires More/Locale)
   - v 1.1:
     - ported to Mootools 1.4.2
     - minor coding refactors
@@ -82,6 +86,16 @@ var ZweBox = new Class({
         autoResize: true,
         force: null,            // Forces the size of the box
         cufon: false,           // Whether you use Cufon or not
+
+        localization: {
+            close: 'Close',
+            prev: 'Previous',
+            max: 'Maximize',
+            next: 'Next',
+
+            error_loading_image: 'The requested image cannot be loaded. Please try again later',
+            error_loading_ajax: 'The requested content cannot be loaded. Please try again later'
+        },
 
         onOpen: function(){},
         onClose: function(){}
@@ -262,23 +276,23 @@ var ZweBox = new Class({
             new Element('div', { 'class': this.options.name + '-border-top-right' }),
 
             this.elements.buttons.close = new Element('a', { 'class': this.options.name + '-button-close', href: '#' }).adopt(
-                new Element('span', { text: Locale.get('ZweBox.close') })
+                new Element('span', { text: this.options.localization.close })
             ),
 
             this.elements.buttons.div = new Element('div', { 'class': this.options.name + '-buttons' }).adopt(
                 new Element('div', { 'class': this.options.name + '-buttons-init' }),
 
                 this.elements.buttons.prev = new Element('a', { 'class': this.options.name + '-button-left', href: '#' }).adopt(
-                    new Element('span', { text: Locale.get('ZweBox.prev') })
+                    new Element('span', { text: this.options.localization.prev })
                 ),
                 this.elements.buttons.max = new Element('a', { 'class': this.options.name + '-button-max', href: '#' }).adopt(
-                    new Element('span', { text: Locale.get('ZweBox.max') })
+                    new Element('span', { text: this.options.localization.max })
                 ),
 
                 this.elements.buttons.custom = new Element('div', { 'class': this.options.name + '-buttons-custom' }),
 
                 this.elements.buttons.next = new Element('a', { 'class': this.options.name + '-button-right', href: '#' }).adopt(
-                    new Element('span', { text: Locale.get('ZweBox.next') })
+                    new Element('span', { text: this.options.localization.next })
                 ),
 
                 new Element('div', { 'class': this.options.name + '-buttons-end' })
@@ -369,7 +383,7 @@ var ZweBox = new Class({
                 this._resize(this.current.options.width, this.current.options.height);
             else if(this.current.options.autoResize) {
                 if(this.mode == 'image' && !this.elements.buttons.custom.match(':empty'))
-                    this.elements.buttons.div.show();
+                    this.elements.buttons.div.setStyle('display', 'block');
                 this._resize(objSize.x, objSize.y);
             } else
                 this._resize(this.current.width, this.current.height);
@@ -380,7 +394,7 @@ var ZweBox = new Class({
             this._loading();
 
             if(this.mode == 'image')
-                this.elements.buttons.div.show();
+                this.elements.buttons.div.setStyle('display', 'block');
             this._resize(this.current.width, this.current.height);
         }
     },
@@ -392,7 +406,9 @@ var ZweBox = new Class({
         this.elements.background.empty();
         this.elements.background.addClass(this.options.name + '-loading');
 
-        this.elements.buttons.div.hide();
+        try {
+            this.elements.buttons.div.setStyle('display', 'none');
+        } catch (e) {}
 
         if(!this.visible) {
             this._moveBox(this.options.width, this.options.height);
@@ -466,14 +482,16 @@ var ZweBox = new Class({
                 }.bind(this));
             }
         }
-        
+
         if(this.gallery.total > 1) {
-            this.elements.buttons.div.show();
-            this.elements.buttons.prev.show();
-            this.elements.buttons.next.show();
+            this.elements.buttons.div.setStyle('display', 'block');
+            this.elements.buttons.prev.setStyle('display', 'block');
+            this.elements.buttons.next.setStyle('display', 'block');
         } else {
-            this.elements.buttons.prev.hide();
-            this.elements.buttons.next.hide();
+            try {
+                this.elements.buttons.prev.setStyle('display', 'none');
+                this.elements.buttons.next.setStyle('display', 'none');
+            } catch (e) {}
         }
     },
 
@@ -564,7 +582,7 @@ var ZweBox = new Class({
             );
         }, this);
 
-        this.elements.buttons.div.show();
+        this.elements.buttons.div.setStyle('display', 'block');
     },
 
     _moveBox: function(width, height) {
@@ -694,7 +712,7 @@ var ZweBox = new Class({
             this.elements.buttons.div.setStyle('position', 'static').setStyle('position', 'absolute');
         }
 
-        this.elements.move.setStyles({ display: 'block', overflow: 'visible' }).show();
+        this.elements.move.setStyles({ display: 'block', overflow: 'visible' }).setStyle('display', 'block');
         this.elements.overlay.open();
     },
 
@@ -769,7 +787,7 @@ var ZweBox = new Class({
             this._customButtons(options.buttons, element);
 
         if(!this.elements.buttons.custom.match(':empty'))
-            this.elements.buttons.div.show();
+            this.elements.buttons.div.setStyle('display', 'block');
 
         if(options.type && options.type != '')
             type = options.type;
@@ -818,7 +836,9 @@ var ZweBox = new Class({
 
         switch(type) {
             case 'image':
-                this.elements.buttons.max.hide();
+                try {
+                    this.elements.buttons.max.setStyle('display', 'none');
+                } catch (e) {}
 
                 var image = new Image(),
                     width, height;
@@ -848,8 +868,8 @@ var ZweBox = new Class({
 
                             if(image.width != width || image.height != height) {
                                 this.maximized = false;
-                                this.elements.buttons.div.show();
-                                this.elements.buttons.max.show();
+                                this.elements.buttons.div.setStyle('display', 'block');
+                                this.elements.buttons.max.setStyle('display', 'block');
                             }
                         } else {
                             width = image.width;
@@ -876,7 +896,9 @@ var ZweBox = new Class({
                                 })
                             );
 
-                        document.id(image).hide();
+                        try {
+                            document.id(image).setStyle('display', 'none');
+                        } catch (e) {}
                         this.elements.background.adopt(image);
                         document.id(image).get('tween').cancel();
                         document.id(image).set('tween', {
@@ -885,36 +907,45 @@ var ZweBox = new Class({
                             onComplete: function(){
                                 this.elements.background.removeClass(this.options.name + '-loading');
                             }.bind(this)
-                        }).show();
+                        }).setStyle('display', 'block');
                     }.bind(this));
                 }.bind(this);
 
                 image.onError = function() {
-                    this.error(Locale.get('ZweBox.error_loading_image'));
+                    this.error(this.options.localization.error_loading_image);
                 }.bind(this);
 
                 image.src = href;
             break;
 
             case 'inline':
-                var inlineElement = document.id(href);
+                var inlineElement = document.id(href),
+                    clonedElement = inlineElement.clone();
 
                 if(options.width || options.height ) {
                     if(options.width)
-                        inlineElement.setStyle('width', options.width);
+                        clonedElement.setStyle('width', options.width);
                     if(options.height)
-                        inlineElement.setStyle('height', options.height);
+                        clonedElement.setStyle('height', options.height);
                 }
 
+                clonedElement.setStyles({
+                    position: 'absolute',
+                    top: -9999,
+                    left: -9999,
+                    display: 'block'
+                }).inject(document.body);
                 this.current = {
-                    width: inlineElement.getDimensions().x,
-                    height: inlineElement.getDimensions().y,
+                    width: clonedElement.getSize().x,
+                    height: clonedElement.getSize().y,
                     src: href,
                     options: options
                 };
 
-                this.elements.buttons.max.hide();
-                this._appendHtml(inlineElement.clone().show(), 'html');
+                try {
+                    this.elements.buttons.max.setStyle('display', 'none');
+                } catch (e) {}
+                this._appendHtml(inlineElement.clone().setStyle('display', 'block'), 'html');
             break;
 
             case 'ajax':
@@ -930,14 +961,16 @@ var ZweBox = new Class({
                     options: options
                 };
 
-                this.elements.buttons.max.hide();
+                try {
+                    this.elements.buttons.max.setStyle('display', 'none');
+                } catch (e) {}
                 this.animations.ajax = new Request({
                     url: href,
                     noCache: true,
                     evalScripts: true,
 
                     onFailure: function() {
-                        this.error(Locale.get('ZweBox.error_loading_ajax'));
+                        this.error(this.options.localization.error_loading_ajax);
                     }.bind(this),
                     onSuccess: function(html) {
                         this._appendHtml(new Element('div', { html: html }), 'html');
@@ -1025,7 +1058,7 @@ ZweBox.getInstance = function(instanceName) {
         if(instanceName && instance.options.name == instanceName)
             return instance;
 
-        if(element.isDisplayed() && element.isVisible())
+        if(element.getStyle('display') != 'none' && element.offsetWidth > 0 && element.offsetHeight > 0)
             return instance;
     });
 
@@ -1091,26 +1124,4 @@ Element.implement({
             instance.show(elements[0]);
         });
     }
-});
-
-Locale.define('en-US', 'ZweBox', {
-    close: 'Close',
-    prev: 'Previous',
-    max: 'Maximize',
-    next: 'Next',
-
-    error_loading_image: 'The requested image cannot be loaded. Please try again later',
-    error_loading_ajax: 'The requested content cannot be loaded. Please try again later',
-    error_size: 'You need to specify the size of the box'
-});
-
-Locale.define('it-IT', 'ZweBox', {
-    close: 'Chiudi',
-    prev: 'Precedente',
-    max: 'Massimizza',
-    next: 'Successiva',
-
-    error_loading_image: 'L\'immagine richiesta non può essere caricata. Si prega di riprovare più tardi',
-    error_loading_ajax: 'Il contenuto richiesto non può essere caricato. Si prega di riprovare più tardi',
-    error_size: 'Bisogna specificare le dimensioni della box'
 });
