@@ -1,0 +1,23 @@
+<div style="text-align:right;">
+    <form id="loginform" action="" method="post" onsubmit="return loginFormSubmit()">
+        <label><em>Username : </em><input type="text" id="username" name="username" class="input"/></label><br />
+        <label><em>Password : </em><input type="password" id="password" name="password" class="input"/></label><br />
+        <input type="submit" class="button alignright" name="submit" id="submit" value="Login" style="margin: 0;"/>
+    </form>
+    hint: zwebox/zwebox
+</div>
+
+<script type="text/javascript">
+
+    var loginFormSubmit = function(){
+        var instance = ZweBox.getInstance();
+
+        if(document.id('username').get('value') == 'zwebox' && document.id('password').get('value') == 'zwebox')
+            instance.shake('top', function(){ this.close(); });
+        else
+            instance.shake();
+
+        return false;
+    };
+
+</script>
