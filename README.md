@@ -7,7 +7,7 @@ If you don't know anything about Lightbox, this is beautiful and easy way to sho
 
 In this particular version of Lightbox I've taken a BIG inspiration from the JQuery script [JQuery Lightbox Evolution](http://codecanyon.net/item/jquery-lightbox-evolution/115655) by [Eduardo Sada](http://codecanyon.net/user/aeroalquimia). I've rewritten everything from Eduardo with MooTools in mind and making some improvements such as resizing after having resized the window, gallery not only of images and mutch more. I also give complete credit to Eduardo for what concerns the stylesheets (I've only made one or two modifications to match the new gallery way).
 
-This script uses the version 1.3 of MooTools, and I've worked with the full library included. (In a future momento I'll try to write an "include only" list.
+This script uses the version 1.4 of MooTools, and I've worked with the full library included. (In a future momento I'll try to write an "include only" list.
 
 Hot to use
 -------------------
