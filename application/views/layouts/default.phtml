@@ -1,11 +1,12 @@
 <?php
 
-$this->import_Css('http://fonts.googleapis.com/css?family=Arimo:400,700,400italic,700italic', true, true);
-$this->import_Css(array('main', 'container'), false, true);
+$this->import_Css(array('layout', 'main'), false, true);
+$this->import_Css('http://fonts.googleapis.com/css?family=Lora:400italic,700italic', true, true);
 $this->import_Css();
 
-$this->import_Js(array('mootools/core', 'mootools/more', 'main'), false, true);
+$this->import_Js(array('main', 'mootools/mootools-more-1.4.0.1', 'mootools/mootools-core-1.4.2'), false, true);
 $this->import_Js();
+
 
 ?>
 <?= $this->doctype() . "\n" ?>
@@ -16,30 +17,31 @@ $this->import_Js();
     <?= str_replace("\n", "\n    ", $this->headMeta()) . "\n" ?>
     <?= str_replace("\n", "\n    ", $this->headLink()) . "\n" ?>
     <?= str_replace("\n", "\n    ", $this->headStyle()) . "\n" ?>
-    <?= str_replace("\n", "\n    ", $this->headScript()) . "\n" ?>
+    <?= str_replace(array("\n", ">script>"), array("\n    ", "></script>"), $this->headScript()) . "\n" ?>
 </head>
 
 <body>
-    <div id="layout-top">
+    <a id="top"></a>
+    <div id="layout-top" class="autoclear">
         <div id="layout-top-right">
-            <ul>
+            <ul class="no-list">
                 <li>
-                    <a href="http://www.facebook.com/zweer">
+                    <a href="http://www.facebook.com/zweer" target="_blank">
                         <?= $this->import_Img('social_network/facebook_16.png', array('alt' => $this->translate('Follow me on') . ' Facebook', 'title' => $this->translate('Follow me on') . ' Facebook')) ?>
                     </a>
                 </li>
                 <li>
-                    <a href="https://plus.google.com/u/0/111514767804391444725">
+                    <a href="https://plus.google.com/u/0/111514767804391444725" target="_blank">
                         <?= $this->import_Img('social_network/google_plus_16.png', array('alt' => $this->translate('Follow me on') . ' Google+', 'title' => $this->translate('Follow me on') . ' Google+')) ?>
                     </a>
                 </li>
                 <li>
-                    <a href="https://twitter.com/#!/dotzweer">
+                    <a href="https://twitter.com/#!/dotzweer" target="_blank">
                         <?= $this->import_Img('social_network/twitter_16.png', array('alt' => $this->translate('Follow me on') . ' Twitter', 'title' => $this->translate('Follow me on') . ' Twitter')) ?>
                     </a>
                 </li>
                 <li>
-                    <a href="http://www.youtube.com/zweer">
+                    <a href="http://www.youtube.com/zweer" target="_blank">
                         <?= $this->import_Img('social_network/youtube_16.png', array('alt' => $this->translate('Follow me on') . ' Youtube', 'title' => $this->translate('Follow me on') . ' Youtube')) ?>
                     </a>
                 </li>
@@ -47,20 +49,81 @@ $this->import_Js();
         </div>
 
         <div id="layout-top-left">
-            <ul>
+            <ul class="no-list">
 <?php
 $layoutLogin = $this->switchLogin();
-foreach($layoutLogin as $login) {
+foreach($layoutLogin as $id => $login) {
 ?>
-                <li><?= $login ?></li>
+                <li id="layout-top-left-<?= $id ?>"><?= $login ?></li>
 <?php
 }
 ?>
             </ul>
         </div>
     </div>
-    <div id="contenitore">
+
+    <div id="layout-header-middle" class="autoclear">
+        <div id="layout-header-top">
+            <div id="layout-header-bottom">
+                <div id="layout-header">
+                    <div id="layout-header-logo">
+                        <a href="<?= $this->url() ?>">
+                            <?= $this->import_Img('layout/title.png', array('alt' => 'noliv')) ?>
+                        </a>
+                    </div>
+
+                    <div id="layout-header-title">
+                        <div id="layout-header-title-search">
+                            <input type="text" value="search" name="search">
+                            <a href="#">
+                                <?= $this->import_Img('layout/search-icon.png', array('alt' => 'find')) ?>
+                            </a>
+                        </div>
+                        <div id="layout-header-title-path"></div>
+                        <h1><?= $this->title ?></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout-container" class="autoclear">
         <?= $this->layout()->content ?>
+    </div>
+
+    <div id="layout-additional-footer-bg">
+        <div id="layout-additional-footer">
+
+        </div>
+    </div>
+
+    <div id="layout-footer-bg">
+        <div id="layout-footer">
+
+
+            <div id="layout-footer-small-footer">
+                <div id="layout-footer-small-footer-gototop">
+                    <a href="#top">
+                        <span><?= $this->translate('Go to top') ?></span>
+                    </a>
+                </div>
+
+                <div id="layout-footer-small-footer-right">
+                    <ul class="no-list">
+                        <li>
+                            <?= $this->translate('Contact me') ?> @ <a href="mailto:<?= Zend_Registry::get('parameters')->registry->email ?>"><?= Zend_Registry::get('parameters')->registry->email ?></a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="layout-footer-small-footer-left">
+                    <ul class="no-list">
+                        <li>
+                            Niccol&ograve; Olivieri
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

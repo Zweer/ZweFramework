@@ -1,0 +1,152 @@
+body {
+    background: url(../images/layout/top.jpg) repeat-x #E8E8E8;
+}
+
+/* Top Bar */
+#layout-top {
+    margin: 0 auto;
+    width: 960px;
+    height: 30px;
+
+    padding-top: 8px;
+
+    font-size: 11px;
+    color: #FDFBFB;
+}
+
+#layout-top-right {
+    float: right;
+}
+#layout-top ul li {
+    opacity: .5;
+}
+#layout-top ul li:hover {
+    opacity: 1;
+}
+
+#layout-top-right ul li {
+    padding: 4px;
+}
+
+/* Middle Header */
+#layout-header-middle {
+    background: url(../images/layout/header-middle.jpg) repeat-y 50% 0;
+}
+#layout-header-top {
+    background: url(../images/layout/header-top.jpg) no-repeat 50% 0;
+}
+#layout-header-bottom {
+    background: url(../images/layout/header-bottom.jpg) no-repeat 50% 100%;
+    padding-bottom: 10px;
+}
+#layout-header {
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 187px;
+}
+#layout-header-logo {
+    width: 271px;
+    height: 115px;
+
+    position: absolute;
+    left: 366px;
+    top: 35px;
+}
+
+#layout-header-title {
+    width: 994px;
+    height: 55px;
+
+    background: url(../images/layout/title-bar.jpg) no-repeat;
+
+    margin-left: 4px;
+}
+#layout-header-title-search {
+    float: right;
+    margin-top: 15px;
+    margin-right: 18px;
+    height: 25px;
+}
+#layout-header-title-search input {
+    width: 100px;
+    height: 23px;
+    line-height: 23px;
+
+    border: 1px solid gainsboro;
+    float: left;
+    background: white;
+
+    padding: 0 6px 0 8px;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: #767676;
+
+    border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
+}
+
+#layout-header-title h1 {
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 55px;
+    padding-left: 18px;
+}
+
+/* Container */
+#layout-container {
+    width: 960px;
+    margin: 25px auto 30px auto;
+}
+
+/* Additional Footer */
+#layout-additional-footer-bg {
+    background: #F4F4F4 url(../images/layout/additional-footer.jpg) repeat-x;
+    min-height: 109px;
+    color: #212121;
+}
+#layout-additional-footer {
+    width: 960px;
+    margin: 0 auto;
+}
+
+/* Footer */
+#layout-footer-bg {
+    background: #1F2324 url(../images/layout/footer.jpg) repeat-x 50% 0;
+}
+#layout-footer {
+    color: #838383;
+    width: 960px;
+    margin: 0 auto;
+    padding: 49px 0 0 0;
+}
+#layout-footer a {
+    color: white;
+    text-decoration: none;
+}
+
+#layout-footer-small-footer {
+    margin-top: 20px;
+    height: 49px;
+    line-height: 49px;
+    color: #939393;
+    background: url(../images/layout/small-footer.jpg) no-repeat;
+}
+#layout-footer-small-footer-gototop {
+    position: absolute;
+    margin-left: 445px;
+    width: 77px;
+    height: 49px;
+}
+#layout-footer-small-footer-gototop span {
+    display: block;
+    background: url(../images/layout/go-top-arrow.png) no-repeat;
+    text-indent: -9999px;
+}
+
+#layout-footer-small-footer-right {
+    float: right;
+}

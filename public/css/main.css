@@ -1,0 +1,50 @@
+/* Reset everything */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, pre, a, em, font, img, blockquote, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead {
+	margin: 0;
+    padding: 0;
+	border: 0;
+    outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+
+body {
+    height: 100%;
+
+    font-family: verdana, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: #404040;
+
+    line-height: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-style: italic;
+    color: black;
+    margin: 0 0 20px 0;
+    font-family: 'Lora', georgia, Arial, serif;
+}
+
+a {
+    color: inherit;
+}
+
+/* clears the div associated */
+.autoclear {
+    overflow: auto;
+    zoom: 1;
+}
+
+/* a list that is not a list */
+ul.no-list {
+    list-style: none;
+}
+ul.no-list li {
+    float: left;
+    background: url(../images/layout/no-list-divider.png) no-repeat 0 50%;
+}
+ul.no-list li:first-child {
+    background: none;
+}
