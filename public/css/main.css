@@ -26,9 +26,125 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 0 20px 0;
     font-family: 'Lora', georgia, Arial, serif;
 }
+h1 {
+    font-size: 24px;
+}
+h2 {
+    font-size: 22px;
+}
+h3 {
+    font-size: 20px;
+}
+h4 {
+    font-size: 18px;
+}
+h5 {
+    font-size: 16px;
+}
+h6 {
+    font-size: 14px;
+}
 
 a {
     color: inherit;
+}
+
+pre {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Trebuchet MS", Arial, sans-serif;
+    font-size: 12px;
+    color: #343434;
+    padding-left: 5px;
+    background: url(../images/layout/pre.jpg);
+    white-space: pre;
+    overflow: auto;
+    border: 1px solid #ddd;
+    border-top-width: 0;
+    line-height: 22px;
+    letter-spacing: .1px;
+    word-spacing: 1px;
+    margin: 15px 0 15px 0;
+}
+
+code {
+    background-color: #eee;
+    padding: 0 5px;
+    color: #4d4d4d;
+    margin: 10px 0;
+    border: 1px dotted #979797;
+    text-shadow: 0 1px 0 #fff;
+
+    display: -moz-inline-stack;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+}
+
+hr {
+    border: none 0;
+    outline: 0;
+    height: 1px;
+    clear: both;
+    border-top: 1px dashed #c8c8c8;
+    border-bottom: 1px dotted #f1f1f1;
+}
+
+.divider-full,
+.divider-one-half,
+.divider-one-third,
+.divider-one-fourth,
+.divider-one-fifth,
+.divider-one-sixth,
+.divider-two-third {
+    background: no-repeat center center;
+    height: 10px;
+    clear: both;
+    margin-bottom: 10px;
+}
+.divider-full {
+    background:url(../images/layout/divider-full.png);
+}
+.divider-one-half {
+    background:url(../images/layout/divider-one-half.png);
+}
+.divider-one-third {
+    background:url(../images/layout/divider-one-third.png);
+}
+.divider-one-fourth {
+    background:url(../images/layout/divider-one-fourth.png);
+}
+.divider-one-fifth {
+    background:url(../images/layout/divider-one-fifth.png);
+}
+.divider-one-sixth {
+    background:url(../images/layout/divider-one-sixth.png);
+}
+.divider-two-third {
+    background:url(../images/layout/divider-two-third.png);
+}
+
+sup,
+sub {
+    font-size: 11px;
+    color: #757575;
+    margin: 0;
+    padding: 0;
+}
+sup {
+    vertical-align: top;
+}
+sub {
+    vertical-align: bottom;
+}
+
+.round-3 {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+.round-5 {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 
 /* clears the div associated */
