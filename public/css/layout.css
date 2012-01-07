@@ -145,10 +145,13 @@ body {
     width: 77px;
     height: 49px;
 }
-#layout-footer-small-footer-gototop span {
+#layout-footer-small-footer-gototop a span {
     display: block;
     background: url(../images/layout/go-top-arrow.png) no-repeat;
     text-indent: -9999px;
+}
+#layout-footer-small-footer-gototop a:hover span {
+    background-image: url(../images/layout/go-top-arrow-hover.png);
 }
 
 #layout-footer-small-footer-right {

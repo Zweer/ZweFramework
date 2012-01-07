@@ -18,6 +18,9 @@ $this->import_Js();
     <?= str_replace("\n", "\n    ", $this->headLink()) . "\n" ?>
     <?= str_replace("\n", "\n    ", $this->headStyle()) . "\n" ?>
     <?= str_replace(array("\n", ">script>"), array("\n    ", "></script>"), $this->headScript()) . "\n" ?>
+    <script type="text/javascript">
+        var __BASEURL__ = "<?= $this->request->getBaseUrl() ?>";
+    </script>
 </head>
 
 <body>
