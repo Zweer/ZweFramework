@@ -31,19 +31,23 @@ body {
 /* Middle Header */
 #layout-header-middle {
     background: url(../images/layout/header-middle.jpg) repeat-y 50% 0;
+    /*border: 1px solid yellow;*/
 }
 #layout-header-top {
     background: url(../images/layout/header-top.jpg) no-repeat 50% 0;
+    /*border: 1px solid blue;*/
 }
 #layout-header-bottom {
     background: url(../images/layout/header-bottom.jpg) no-repeat 50% 100%;
     padding-bottom: 10px;
+    /*border: 1px solid red;*/
 }
 #layout-header {
     width: 1000px;
     margin: 0 auto;
     position: relative;
     padding-top: 187px;
+    /*border: 1px solid green;*/
 }
 #layout-header-logo {
     width: 271px;
