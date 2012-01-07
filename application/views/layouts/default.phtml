@@ -67,7 +67,7 @@ foreach($layoutLogin as $id => $login) {
             <div id="layout-header-bottom">
                 <div id="layout-header">
                     <div id="layout-header-logo">
-                        <a href="<?= $this->url() ?>">
+                        <a href="<?= $this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'default'), 'locale_default') ?>">
                             <?= $this->import_Img('layout/title.png', array('alt' => 'noliv')) ?>
                         </a>
                     </div>
