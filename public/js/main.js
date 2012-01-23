@@ -1,5 +1,7 @@
 window.addEvents({
     domready: function() {
+        new ZweBox();
+
         new Fx.SmoothScroll({
             duration: 200
         }, window);
