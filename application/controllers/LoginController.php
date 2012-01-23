@@ -2,6 +2,8 @@
 
 class LoginController extends Zwe_Controller_Action_Login
 {
+    public $ajaxable = array('index' => array('html'));
+
     public function indexAction()
     {
         parent::_indexAction();

@@ -61,7 +61,7 @@ $this->headScript()->prependFile($this->baseUrl() . '/js/mootools/mootools-core-
 if(!Zend_Auth::getInstance()->hasIdentity()) {
 ?>
                 <li id="layout-top-left-login">
-                    <a href="<?= $this->url(array('module' => 'default', 'controller' => 'login', 'action' => 'index'), 'locale_default') ?>.ajax?zwebox[width]=400&zwebox[height]=120" class="zwebox">
+                    <a href="<?= $this->url(array('module' => 'default', 'controller' => 'login', 'action' => 'index'), 'locale_default') ?>?zwebox[width]=400&zwebox[height]=120" class="zwebox">
                         <?= $this->img('/images/icons/unlock_24x24.png', array('alt' => $this->translate('Login'), 'title' => $this->translate('Login'))) ?>
                     </a>
                 </li>
