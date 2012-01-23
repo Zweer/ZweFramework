@@ -26,6 +26,13 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
     public $contexts = null;
 
     /**
+     * All the ajax contexts are specified here.
+     *
+     * @var null
+     */
+    public $ajaxable = null;
+
+    /**
      * The current context used
      *
      * @var string
@@ -65,11 +72,12 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
 
     public function init()
     {
-        $this->initContext();
-        $this->initTitle();
+        $this->_initContext();
+        $this->_initAjaxContext();
+        $this->_initTitle();
     }
 
-    protected function initTitle()
+    protected function _initTitle()
     {
         if($this->_admin)
             $this->view->headTitle()->append('Admin');
@@ -87,11 +95,23 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
     /**
      * Initializes the contexts if they are set.
      */
-    protected function initContext()
+    protected function _initContext()
     {
         if(isset($this->contexts)) {
             $this->_helper->contextSwitch->initContext();
             $this->_context = $this->_helper->contextSwitch->getCurrentContext();
+        }
+    }
+
+    /**
+     * Initializes the ajax contexts if they are set.
+     */
+    protected function _initAjaxContext()
+    {
+        if(isset($this->ajaxable)) {
+            $this->_helper->ajaxContext->initContext();
+            if($this->_helper->ajaxContext->getCurrentContext() != null)
+                $this->_context = $this->_helper->ajaxContext->getCurrentContext();
         }
     }
 
