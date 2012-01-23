@@ -1,12 +1,15 @@
 <?php
 
-$this->import_Css(array('layout', 'main'), false, true);
-$this->import_Css('http://fonts.googleapis.com/css?family=Lora:400italic,700italic', true, true);
-$this->import_Css();
+$this->headLink()->prependStylesheet($this->baseUrl() . '/js/mootools/3rdpart/zwe-box/themes/default/zwebox.ie6.css');
+$this->headLink()->prependStylesheet($this->baseUrl() . '/js/mootools/3rdpart/zwe-box/themes/default/zwebox.css');
+$this->headLink()->prependStylesheet($this->baseUrl() . '/css/layout.css');
+$this->headLink()->prependStylesheet($this->baseUrl() . '/css/main.css');
+$this->headLink()->prependStylesheet('http://fonts.googleapis.com/css?family=Lora:400italic,700italic');
 
-$this->import_Js(array('main', 'mootools/mootools-more-1.4.0.1', 'mootools/mootools-core-1.4.2'), false, true);
-$this->import_Js();
-
+$this->headScript()->appendFile($this->baseUrl() . '/js/mootools/3rdpart/zwe-box/zwe-box');
+$this->headScript()->appendFile($this->baseUrl() . '/js/main');
+$this->headScript()->appendFile($this->baseUrl() . '/js/mootools/mootools-more-1.4.0.1');
+$this->headScript()->appendFile($this->baseUrl() . '/js/mootools/mootools-core-1.4.2');
 
 ?>
 <?= $this->doctype() . "\n" ?>
@@ -30,22 +33,22 @@ $this->import_Js();
             <ul class="no-list">
                 <li>
                     <a href="http://www.facebook.com/zweer" target="_blank">
-                        <?= $this->import_Img('social_network/facebook_16.png', array('alt' => $this->translate('Follow me on') . ' Facebook', 'title' => $this->translate('Follow me on') . ' Facebook')) ?>
+                        <?= $this->img('/images/social_network/facebook_16.png', array('alt' => $this->translate('Follow me on') . ' Facebook', 'title' => $this->translate('Follow me on') . ' Facebook')) ?>
                     </a>
                 </li>
                 <li>
                     <a href="https://plus.google.com/u/0/111514767804391444725" target="_blank">
-                        <?= $this->import_Img('social_network/google_plus_16.png', array('alt' => $this->translate('Follow me on') . ' Google+', 'title' => $this->translate('Follow me on') . ' Google+')) ?>
+                        <?= $this->img('/images/social_network/google_plus_16.png', array('alt' => $this->translate('Follow me on') . ' Google+', 'title' => $this->translate('Follow me on') . ' Google+')) ?>
                     </a>
                 </li>
                 <li>
                     <a href="https://twitter.com/#!/dotzweer" target="_blank">
-                        <?= $this->import_Img('social_network/twitter_16.png', array('alt' => $this->translate('Follow me on') . ' Twitter', 'title' => $this->translate('Follow me on') . ' Twitter')) ?>
+                        <?= $this->img('/images/social_network/twitter_16.png', array('alt' => $this->translate('Follow me on') . ' Twitter', 'title' => $this->translate('Follow me on') . ' Twitter')) ?>
                     </a>
                 </li>
                 <li>
                     <a href="http://www.youtube.com/zweer" target="_blank">
-                        <?= $this->import_Img('social_network/youtube_16.png', array('alt' => $this->translate('Follow me on') . ' Youtube', 'title' => $this->translate('Follow me on') . ' Youtube')) ?>
+                        <?= $this->img('/images/social_network/youtube_16.png', array('alt' => $this->translate('Follow me on') . ' Youtube', 'title' => $this->translate('Follow me on') . ' Youtube')) ?>
                     </a>
                 </li>
             </ul>
@@ -71,7 +74,7 @@ foreach($layoutLogin as $id => $login) {
                 <div id="layout-header">
                     <div id="layout-header-logo">
                         <a href="<?= $this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'default'), 'locale_default') ?>">
-                            <?= $this->import_Img('layout/title.png', array('alt' => 'noliv')) ?>
+                            <?= $this->img('/images/layout/title.png', array('alt' => 'noliv')) ?>
                         </a>
                     </div>
 
@@ -79,7 +82,7 @@ foreach($layoutLogin as $id => $login) {
                         <div id="layout-header-title-search">
                             <input type="text" value="search" name="search">
                             <a href="#">
-                                <?= $this->import_Img('layout/search-icon.png', array('alt' => 'find')) ?>
+                                <?= $this->img('/images/layout/search-icon.png', array('alt' => 'find')) ?>
                             </a>
                         </div>
                         <div id="layout-header-title-path"></div>
