@@ -970,6 +970,7 @@ var ZweBox = new Class({
                     url: href,
                     noCache: true,
                     evalScripts: true,
+                    method: 'get',
 
                     onFailure: function() {
                         this.error(this.options.localization.error_loading_ajax);
