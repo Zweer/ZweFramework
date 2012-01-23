@@ -1,0 +1,80 @@
+.zwebox-border-top-left
+{
+  background: url(images/zwebox-theme.gif) no-repeat 0 0;
+}
+
+.zwebox-border-top-right
+{
+  background: url(images/zwebox-theme.gif) no-repeat right 0;
+}
+
+.zwebox-border-bottom-left
+{
+  background: url(images/zwebox-theme.gif) no-repeat 0 bottom;
+}
+
+.zwebox-border-bottom-right
+{
+  background: url(images/zwebox-theme.gif) no-repeat right bottom;
+}
+
+
+.zwebox-button-close
+{
+  background: url(images/zwebox-theme.gif) no-repeat -190px -115px;
+}
+
+.zwebox-button-close:hover
+{
+  background: url(images/zwebox-theme.gif) no-repeat -220px -115px;
+}
+
+.zwebox-buttons .zwebox-buttons-init
+{
+  background: url(images/zwebox-theme.gif) no-repeat -151px -153px;
+}
+
+.zwebox-buttons .zwebox-buttons-end
+{
+  background: url(images/zwebox-theme.gif) no-repeat -244px -153px;
+}
+
+.zwebox-buttons .zwebox-button-left
+{
+  background: url(images/zwebox-theme.gif) no-repeat -156px -153px;
+}
+
+.zwebox-buttons .zwebox-button-left:hover
+{
+  background: url(images/zwebox-theme.gif) no-repeat -156px -194px;
+}
+
+.zwebox-buttons .zwebox-button-right
+{
+  background: url(images/zwebox-theme.gif) no-repeat -220px -153px;
+}
+
+.zwebox-buttons .zwebox-button-right:hover
+{
+  background: url(images/zwebox-theme.gif) no-repeat -220px -194px;
+}
+
+.zwebox-buttons .zwebox-button-max
+{
+  background: url(images/zwebox-theme.gif) no-repeat -182px -153px;
+}
+
+.zwebox-buttons .zwebox-button-max:hover
+{
+  background: url(images/zwebox-theme.gif) no-repeat -182px -194px;
+}
+
+.zwebox-buttons .zwebox-button-min
+{
+  background: url(images/zwebox-theme.gif) no-repeat -162px -235px;
+}
+
+.zwebox-buttons .zwebox-button-min:hover
+{
+  background: url(images/zwebox-theme.gif) no-repeat -207px -235px;
+}
