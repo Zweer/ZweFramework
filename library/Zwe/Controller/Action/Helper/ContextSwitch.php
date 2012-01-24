@@ -14,7 +14,6 @@ class Zwe_Controller_Action_Helper_ContextSwitch extends Zend_Controller_Action_
                                            'init' => 'initRssContext',
                                            'post' => 'postRssContext'
                                        )));
-        $this->addContext('ajax', array());
     }
 
     public function setAutoRssSerialization($flag)
