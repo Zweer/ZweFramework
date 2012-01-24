@@ -1,6 +1,29 @@
 window.addEvents({
     domready: function() {
-        new ZweBox();
+        if(document.id('login-open')) {
+            document.id('login-open').addEvent('click', function(event) {
+                event.preventDefault();
+                new Request.HTML({
+                    url: document.id('login-open').get('href'),
+                    method: 'get',
+                    update: document.id('layout-top-left-login'),
+
+                    onComplete: function() {
+                        $$('#layout-top-left-login input').each(function(inputElement) {
+                            var label = null;
+                            if(label = inputElement.getPrevious('label')) {
+                                inputElement.set('title', label.get('text'));
+                                label.destroy();
+                            }
+
+                            if(inputElement.get('type') == 'text' || inputElement.get('type') == 'password') {
+                               inputElement.myOverText('title');
+                            }
+                        })
+                    }
+                }).send();
+            })
+        }
 
         new Fx.SmoothScroll({
             duration: 200
@@ -12,18 +35,7 @@ window.addEvents({
         new Asset.image(__BASEURL__ + '/images/layout/go-top-arrow-hover.png');
 
         // search overtext
-        var searchInput = document.id('layout-header-title-search').getElement('input');
-        searchInput.store('value', searchInput.get('value'));
-        searchInput.addEvents({
-            blur: function(event) {
-                if(this.get('value') == '')
-                    this.set('value', searchInput.retrieve('value', 'search'));
-            },
-            focus: function(event) {
-                if(this.get('value') == searchInput.retrieve('value', 'search'))
-                    this.set('value', '');
-            }
-        });
+       document.id('layout-header-title-search').getElement('input').myOverText();
 
         // TODO: do search
     },
@@ -39,3 +51,26 @@ function hideGoToTop() {
     else
         document.id('layout-footer-small-footer-gototop').setStyle('display', 'block');
 }
+
+function myOverText(element, property) {
+    property = property || 'value';
+    element.store('myOverText', element.get(property));
+    element.addEvents({
+        blur: function() {
+            if(this.get('value') == '')
+                this.set('value', element.retrieve('myOverText', 'search'));
+        },
+        focus: function() {
+            if(this.get('value') == element.retrieve('myOverText', 'search'))
+                this.set('value', '');
+        }
+    });
+
+    if(element.get('value') == '')
+        element.fireEvent('blur');
+}
+Element.implement({
+    myOverText: function(property) {
+        myOverText(this, property);
+    }
+});
