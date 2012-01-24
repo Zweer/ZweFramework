@@ -21,6 +21,21 @@
 class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     /**
+     * Automatically adds the missing directories in the "application" tree.
+     *
+     * They could be missing because of "git" that doesn't version the empty ones
+     */
+    protected function _initMissingDirectories()
+    {
+        $directories = array('configs', 'controllers', 'modules', 'views');
+
+        foreach($directories as $directory) {
+            if(!is_dir(APPLICATION_PATH . '/' . $directory))
+                @mkdir(APPLICATION_PATH . '/' . $directory);
+        }
+    }
+
+    /**
      * If magic_quotes are added, it removes them from $_GET, $_POST, $_COOKIE and $_REQUEST
      */
     protected function _initStripSlashes()
