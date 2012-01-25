@@ -9,6 +9,11 @@ class LoginController extends Zwe_Controller_Action_Login
         parent::_indexAction();
     }
 
+    public function logoutAction()
+    {
+        parent::_logoutAction();
+    }
+
     public function registerAction()
     {
         parent::_registerAction();

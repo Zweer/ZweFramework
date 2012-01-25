@@ -1,10 +1,5 @@
 <?php
 
-/**
- * TODO:
- * - Cookie
- */
-
 class Zwe_Controller_Action_Login extends Zwe_Controller_Action
 {
     const LOGIN_NOTHING = 'LoginErrorOK';
@@ -56,6 +51,12 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
     {
         $History = new Zend_Session_Namespace('History');
         $this->_redirect($History->last);
+    }
+
+    protected function _logoutAction()
+    {
+        Zend_Auth::getInstance()->clearIdentity();
+        $this->_redirectAction();
     }
 
     protected function _registerAction()
