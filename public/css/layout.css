@@ -63,6 +63,15 @@ body {
     top: 35px;
 }
 
+#layout-header-menu {
+    position: absolute;
+
+    top: 70px;
+    left: 5px;
+
+    line-height: 49px;
+}
+
 #layout-header-title {
     width: 994px;
     height: 55px;
