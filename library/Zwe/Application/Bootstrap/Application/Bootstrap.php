@@ -140,15 +140,41 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
     {
         Zend_Controller_Front::getInstance()->setBaseUrl(Zend_Registry::get('parameters')->registry->baseUrl);
 
-        $ConfigFile = APPLICATION_PATH . '/configs/routes.ini';
+        $configFile = APPLICATION_PATH . '/configs/routes.ini';
 
-        if(!file_exists($ConfigFile))
+        if(!file_exists($configFile))
             return;
 
-        $Config = new Zend_Config_Ini($ConfigFile, 'production');
-        $Router = Zend_Controller_Front::getInstance()->getRouter();
+        $config = new Zend_Config_Ini($configFile, 'production');
+        $router = Zend_Controller_Front::getInstance()->getRouter();
 
-        $Router->addConfig($Config, 'routes');
+        $router->addConfig($config, 'routes');
+    }
+
+    protected function _initNavigation()
+    {
+        $configFile = APPLICATION_PATH . '/config/navigation.ini';
+        $pages = null;
+
+        if(file_exists($configFile)) {
+            $config = new Zend_Config_Ini($configFile, 'production');
+            $pages = $config->get('navigation');
+        } else {
+            $pages = array(array('label' => 'Home',
+                                 'module' => 'default',
+                                 'controller' => 'index',
+                                 'action' => 'index',
+                                 'order' => -100));
+        }
+
+        $this->bootstrap('layout');
+        $layout = $this->getResource('layout');
+        $view = $layout->getView();
+
+        $navigation = new Zend_Navigation($pages);
+
+        Zend_Registry::set('Zend_Navigation', $navigation);
+        $view->navigation($navigation);
     }
 }
 
