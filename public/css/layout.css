@@ -28,6 +28,11 @@ body {
     padding: 4px;
 }
 
+#login-popup div,
+#login-popup form {
+    display: inline;
+}
+
 /* Middle Header */
 #layout-header-middle {
     background: url(../images/layout/header-middle.jpg) repeat-y 50% 0;
