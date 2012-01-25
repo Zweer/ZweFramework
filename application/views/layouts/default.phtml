@@ -84,6 +84,10 @@ $this->headScript()->prependFile($this->baseUrl() . '/js/mootools/mootools-core-
                         </a>
                     </div>
 
+                    <div id="layout-header-menu">
+                        <?= $this->navigation()->menu()->setUlClass('layout-header-menu-ul') ?>
+                    </div>
+
                     <div id="layout-header-title">
                         <div id="layout-header-title-search">
                             <input type="text" value="search" name="search">
