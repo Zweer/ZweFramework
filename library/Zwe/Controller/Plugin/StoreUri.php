@@ -10,7 +10,7 @@ class Zwe_Controller_Plugin_StoreUri extends Zend_Controller_Plugin_Abstract
             return;
 
         $History = new Zend_Session_Namespace('History');
-        $History->last = $request->getRequestUri();
+        $History->last = substr($request->getRequestUri(), strlen($request->getBaseUrl()));
     }
 
     protected function isNotToRemember(Zend_Controller_Request_Abstract $request)
