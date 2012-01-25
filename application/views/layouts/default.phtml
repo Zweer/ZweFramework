@@ -57,19 +57,19 @@ $this->headScript()->prependFile($this->baseUrl() . '/js/mootools/mootools-core-
 
         <div id="layout-top-left">
             <ul class="no-list">
-<?php
-if(!Zend_Auth::getInstance()->hasIdentity()) {
-?>
+<?php if(!Zend_Auth::getInstance()->hasIdentity()) : ?>
                 <li id="layout-top-left-login">
                     <a href="<?= $this->url(array('module' => 'default', 'controller' => 'login', 'action' => 'index'), 'locale_default') ?>.html" id="login-open">
                         <?= $this->img('/images/icons/unlock_24x24.png', array('alt' => $this->translate('Login'), 'title' => $this->translate('Login'))) ?>
                     </a>
                 </li>
-<?php
-} else {
-
-}
-?>
+<?php else : ?>
+                <li>
+                    <a href="<?= $this->url(array('module' => 'default', 'controller' => 'login', 'action' => 'logout'), 'locale_default') ?>">
+                        <?= $this->img('/images/icons/lock_24x24.png', array('alt' => $this->translate('Logout'), 'title' => $this->translate('Logout'))) ?>
+                    </a>
+                </li>
+<?php endif ?>
             </ul>
         </div>
     </div>
