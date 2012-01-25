@@ -1,5 +1,6 @@
 <?php
 
+$this->form->setAction($this->url(array('module' => 'default', 'controller' => 'login', 'action' => 'index'), 'locale_default'));
 $this->form->setDecorators(array('FormElements', 'Form'));
 $this->form->setElementDecorators(array('ViewHelper', 'Label'));
 $this->form->getElement('submit')->removeDecorator('Label');
