@@ -21,27 +21,27 @@ $this->headLink()->appendStylesheet($this->baseUrl() . '/css/error.css');
     <h4><?= $this->translate(Zwe_Controller_Action_Error::ERROR_MESSAGE . $this->code) ?>.</h4>
     <?php if($this->code == 404) : ?>
     <div>
-        You can visit our other pages: <br /><br />
+        <?= $this->translate('You can visit my other pages') ?>: <br /><br />
         <?= $this->navigation()->menu()->setMaxDepth(0) ?>
     </div>
     <?php endif; ?>
 </div>
 <?php if (isset($this->exception)): ?>
 
-<h3>Exception information:</h3>
+<h3><?= $this->translate('Exception information') ?>:</h3>
 <p>
-    <strong>Message:</strong> <?= $this->exception->getMessage() ?>
+    <strong><?= $this->translate('Message') ?>:</strong> <?= $this->exception->getMessage() ?>
 </p><br />
 
-<h3>Stack trace:</h3>
+<h3><?= $this->translate('Stack trace') ?>:</h3>
 <pre><?= $this->exception->getTraceAsString() ?>
 </pre>
 
-<h3>Request Parameters:</h3>
+<h3><?= $this->translate('Request Parameters') ?>:</h3>
 <pre><?= $this->escape(var_export($this->request->getParams(), true)) ?>
 </pre>
 
-<h3>Language:</h3>
+<h3><?= $this->translate('Language') ?>:</h3>
 <pre><?= Zend_Registry::get('Zend_Locale')->getLanguage() ?>
 </pre>
 
