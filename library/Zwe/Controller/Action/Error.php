@@ -2,6 +2,8 @@
 
 class Zwe_Controller_Action_Error extends Zwe_Controller_Action
 {
+    const ERROR_MESSAGE = 'ErrorMessage';
+
     public function errorAction()
     {
         $errors = $this->_getParam('error_handler');
@@ -16,13 +18,15 @@ class Zwe_Controller_Action_Error extends Zwe_Controller_Action
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
                 // 404 error -- controller or action not found
-                $this->getResponse()->setHttpResponseCode(404);
+                $this->view->code = 404;
+                $this->getResponse()->setHttpResponseCode($this->view->code);
                 $priority = Zend_Log::NOTICE;
                 $this->view->message = 'Page not found';
                 break;
             default:
                 // application error
-                $this->getResponse()->setHttpResponseCode(500);
+                $this->view->code = 500;
+                $this->getResponse()->setHttpResponseCode($this->view->code);
                 $priority = Zend_Log::CRIT;
                 $this->view->message = 'Application error';
                 break;

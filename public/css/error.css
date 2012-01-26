@@ -1,0 +1,21 @@
+#layout-error-container {
+    background: url(../images/layout/404-page.jpg) no-repeat left;
+    padding-left: 480px;
+    min-height: 257px;
+}
+
+#layout-error-container img:first-child {
+    float: left;
+}
+
+#layout-error-container div {
+    font-size: 12px;
+}
+
+#layout-error-container ul {
+    list-style:none;
+}
+#layout-error-container ul li {
+    background: url(../images/layout/bullet1.png) no-repeat left;
+    padding: 0 0 2px 25px;
+}

@@ -10,13 +10,24 @@
  * @version     $Id: error.phtml 40 2011-07-23 11:31:49Z flicofloc@gmail.com $
  */
 
-$this->title = "An error occurred";
+$this->title = $this->message;
 $this->headTitle()->append($this->message);
 
+$this->headLink()->appendStylesheet($this->baseUrl() . '/css/error.css');
+
 ?>
-<h2><?= $this->message ?></h2>
+<div id="layout-error-container" class="autoclear">
+    <h2><?= $this->translate('Oops') ?>...</h2>
+    <h4><?= $this->translate(Zwe_Controller_Action_Error::ERROR_MESSAGE . $this->code) ?>.</h4>
+    <?php if($this->code == 404) : ?>
+    <div>
+        You can visit our other pages: <br /><br />
+        <?= $this->navigation()->menu()->setMaxDepth(0) ?>
+    </div>
+    <?php endif; ?>
+</div>
 <?php if (isset($this->exception)): ?>
-  
+
 <h3>Exception information:</h3>
 <p>
     <strong>Message:</strong> <?= $this->exception->getMessage() ?>
