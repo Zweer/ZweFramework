@@ -19,19 +19,26 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
 
     const CHANGE_OK = 'ChangeOK';
 
-    protected function _indexAction()
+    protected function _indexAction($hashed = false)
     {
         $this->view->form = new Zwe_Form_Login();
 
-        if($this->getRequest()->isPost()) {
+        if(!($hashed && $_COOKIE['email'] != '' && $_COOKIE['hash'] != '')) {
+            $hashed = false;
+        }
+
+        if($this->getRequest()->isPost() || $hashed) {
             $this->view->ko = self::LOGIN_NOTHING;
 
-            if($this->view->form->isValid($this->getRequest()->getPost())) {
-                if($user = Zwe_Model_User::isValidUser($this->view->form->getValue('email'), $this->view->form->getValue('password'))) {
+            if($this->view->form->isValid($this->getRequest()->getPost()) || $hashed) {
+                if($user = Zwe_Model_User::isValidUser($hashed ? $_COOKIE['email'] : $this->view->form->getValue('email'),
+                                                       $hashed ? $_COOKIE['hash'] : $this->view->form->getValue('password'),
+                                                       $hashed)) {
                     if($user->canLogin()) {
                         if($this->view->form->isCookie()) {
-                            setcookie('login', $user->Username, time() + 60 * 60 * 24 * 30);
-                            setcookie('hash', $user->Password, time() + 60 * 60 * 24 * 30);
+                            setcookie('login', $user->Username, time() + 60 * 60 * 24 * 30, $this->getRequest()->getBaseUrl());
+                            setcookie('email', $user->Email, time() + 60 * 60 * 24 * 30, $this->getRequest()->getBaseUrl());
+                            setcookie('hash', $user->Password, time() + 60 * 60 * 24 * 30, $this->getRequest()->getBaseUrl());
                         }
 
                         $this->_redirectAction();
@@ -58,8 +65,9 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
         Zend_Auth::getInstance()->clearIdentity();
 
         if($_COOKIE['login']) {
-            setcookie('login', false);
-            setcookie('hash', false);
+            setcookie('login', false, -1, $this->getRequest()->getBaseUrl());
+            setcookie('email', false, -1, $this->getRequest()->getBaseUrl());
+            setcookie('hash', false, -1, $this->getRequest()->getBaseUrl());
         }
 
         $this->_redirectAction();
