@@ -56,6 +56,12 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
     protected function _logoutAction()
     {
         Zend_Auth::getInstance()->clearIdentity();
+
+        if($_COOKIE['login']) {
+            setcookie('login', false);
+            setcookie('hash', false);
+        }
+
         $this->_redirectAction();
     }
 
