@@ -69,6 +69,9 @@ $this->headScript()->prependFile($this->baseUrl() . '/js/mootools/mootools-core-
                         <?= $this->img('/images/icons/lock_24x24.png', array('alt' => $this->translate('Logout'), 'title' => $this->translate('Logout'))) ?>
                     </a>
                 </li>
+                <li style="padding-left: 5px;">
+                    <?= $this->translate('Hi') ?> <?= Zend_Auth::getInstance()->getIdentity()->Username ?>
+                </li>
 <?php endif ?>
             </ul>
         </div>
