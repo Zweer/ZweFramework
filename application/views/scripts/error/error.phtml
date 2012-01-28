@@ -21,7 +21,7 @@ $this->headLink()->appendStylesheet($this->baseUrl() . '/css/error.css');
     <h4><?= $this->translate(Zwe_Controller_Action_Error::ERROR_MESSAGE . $this->code) ?>.</h4>
     <?php if($this->code == 404) : ?>
     <div>
-        <?= $this->translate('You can visit my other pages') ?>: 
+        <?= $this->translate('You can visit my other pages') ?>:
         <?= $this->navigation()->menu()->setMaxDepth(0) ?>
     </div>
     <?php endif; ?>
