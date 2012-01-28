@@ -6,6 +6,7 @@ class Zwe_Model_User extends Zwe_Model
      * @static
      * @param string $email
      * @param string $password
+     * @param bool $hashed
      * @return null|Zwe_Db_Table_Row_User
      */
     public static function isValidUser($email, $password, $hashed = false)
@@ -35,13 +36,12 @@ class Zwe_Model_User extends Zwe_Model
 
     public static function activate($user, $code)
     {
-        $userManager = new static();
-        return $userManager->update(array('Active' => '1'), "Username = '$user' AND SHA1(CONCAT(Password, Salt)) = '$code'") > 0;
+        return static::getInstance()->update(array('Active' => '1'), "Username = '$user' AND SHA1(CONCAT(Password, Salt)) = '$code'") > 0;
     }
 
     public static function changePassword($user, $password, $code = null)
     {
-        $user = self::findByUsername($user)->current();
+        $user = static::findByUsername($user)->current();
         return $user->changePassword($password, $code);
     }
 }

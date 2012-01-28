@@ -2,6 +2,8 @@
 
 abstract class Zwe_Model extends Zend_Db_Table_Abstract
 {
+    protected static $_instance = null;
+
     protected function _setup()
     {
         parent::_setup();
@@ -46,16 +48,14 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
             $this->_rowsetClass = $rowsetClass;
     }
 
-    public static function findByPrimary($primary)
+    public static function findByPrimary($id)
     {
-        $model = new static();
-        return $model->find($primary);
+        return static::getInstance()->find($id);
     }
 
     public static function create(array $data = array(), $defaultSource = null)
     {
-        $model = new static();
-        return $model->createRow($data, $defaultSource);
+        return static::getInstance()->createRow($data, $defaultSource);
     }
 
     public static function __callStatic($name, array $arguments)
@@ -63,17 +63,24 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
         switch(true) {
             case strpos($name, 'findBy') === 0 && strlen($name) > strlen('findBy'):
                 $field = substr($name, strlen('findBy'));
-                $model = new static();
-                if(!in_array($field, $model->info(Zend_Db_Table_Abstract::COLS)))
+                if(!in_array($field, static::getInstance()->info(Zend_Db_Table_Abstract::COLS)))
                     throw new Exception("Field $field is not part of the data");
 
-                $select = $model->select()->where("$field = ?", $arguments[0]);
-                return $model->fetchAll($select);
+                $select = static::getInstance()->select()->where("$field = ?", $arguments[0]);
+                return static::getInstance()->fetchAll($select);
             break;
 
             default:
                 throw new Exception("Static method '$name' not implemented'");
             break;
         }
+    }
+
+    public static function getInstance()
+    {
+        if(!isset(static::$_instance))
+            static::$_instance = new static();
+
+        return static::$_instance;
     }
 }
