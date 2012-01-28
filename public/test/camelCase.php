@@ -7,6 +7,6 @@ require_once('Zend/Filter/Inflector.php');
 require_once('Zend/Db/Table/Abstract.php');
 
 require_once('Zwe/Model.php');
-require_once('Zwe/Model/News.php');
+require_once('Zwe/Model/Blog.php');
 
-new Zwe_Model_News();
+new Zwe_Model_Blog();

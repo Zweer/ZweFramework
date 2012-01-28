@@ -1,6 +1,6 @@
 <?php
 
-class Zwe_Model_News extends Zwe_Model
+class Zwe_Model_Blog extends Zwe_Model
 {
     protected $_referenceMap = array(
         'Author' => array(
