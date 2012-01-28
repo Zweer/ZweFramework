@@ -107,7 +107,9 @@ $menuLis = $menuXML->xpath('/ul/li');
                                 <?= $this->img('/images/layout/search-icon.png', array('alt' => 'find')) ?>
                             </a>
                         </div>
-                        <div id="layout-header-title-path"></div>
+                        <div id="layout-header-title-breadcrumbs">
+                            <?= $this->navigation()->breadcrumbs() ?>
+                        </div>
                         <h1><?= $this->title ?></h1>
                     </div>
                 </div>
