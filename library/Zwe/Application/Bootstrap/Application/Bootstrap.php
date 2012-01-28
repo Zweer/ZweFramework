@@ -164,11 +164,13 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
             $config = new Zend_Config_Ini($configFile, 'production');
             $pages = $config->get('navigation');
         } else {
-            $pages = array(array('label' => 'Home',
-                                 'module' => 'default',
-                                 'controller' => 'index',
-                                 'action' => 'index',
-                                 'order' => -100));
+            $pages = array(
+                array('label' => 'Home',
+                      'module' => 'default',
+                      'controller' => 'index',
+                      'action' => 'index',
+                      'order' => -100)
+            );
         }
 
         $this->bootstrap('layout');

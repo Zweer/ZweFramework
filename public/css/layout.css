@@ -67,9 +67,14 @@ body {
     position: absolute;
 
     top: 70px;
-    left: 5px;
+    left: 30px;
+
+    width: 943px;
 
     line-height: 49px;
+}
+#layout-header-menu-right {
+    margin-left: 637px;
 }
 
 #layout-header-title {

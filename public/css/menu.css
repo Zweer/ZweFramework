@@ -1,0 +1,25 @@
+#layout-header-menu > div > ul > li {
+    float: left;
+    list-style: none;
+
+    margin-left: 10px;
+    padding-left: 12px;
+}
+
+#layout-header-menu > div > ul > li > a {
+    margin-right: 10px;
+    padding-right: 11px;
+    display: block;
+
+    font-size: 15px;
+    color: #FDFBFB;
+    text-decoration: none;
+    font-family: 'Lora', georgia, Arial, serif !important;
+    font-style: italic;
+}
+#layout-header-menu > div > ul > li:hover, #layout-header-menu > div > ul > li.active {
+    background: url(../images/layout/topmenu-left.png) no-repeat left;
+}
+#layout-header-menu > div > ul > li:hover > a, #layout-header-menu > div > ul > li.active > a {
+    background: url(../images/layout/topmenu-right.png) no-repeat right;
+}
