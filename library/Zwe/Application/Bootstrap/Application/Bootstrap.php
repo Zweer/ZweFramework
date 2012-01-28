@@ -151,6 +151,10 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
         $router->addConfig($config, 'routes');
     }
 
+    /**
+     * Sets the navigation menu, taking it from the ini file.
+     * If the navigation config file doesn't exist, it will create a dummy one.
+     */
     protected function _initNavigation()
     {
         $configFile = APPLICATION_PATH . '/configs/navigation.ini';
