@@ -15,6 +15,10 @@ $this->headScript()->prependFile($this->baseUrl() . '/js/mootools/mootools-core-
 
 $menuXML = new SimpleXMLElement($this->navigation()->menu()->setMaxDepth(-1));
 $menuLis = $menuXML->xpath('/ul/li');
+$menuLeft = $menuLis[0]->asXML() . $menuLis[1]->asXML() . $menuLis[2]->asXML();
+$menuRight = $menuLis[3]->asXML() . $menuLis[4]->asXML() . $menuLis[5]->asXML();
+
+$breadcrumbs = $this->navigation()->breadcrumbs()->setRenderInvisible(true)->setSeparator(' &nbsp;/&nbsp; ');
 
 ?>
 <?= $this->doctype() . "\n" ?>
@@ -93,10 +97,10 @@ $menuLis = $menuXML->xpath('/ul/li');
 
                     <div id="layout-header-menu">
                         <div id="layout-header-menu-left">
-                            <ul><?= $menuLis[0]->asXML() . $menuLis[1]->asXML() . $menuLis[2]->asXML() ?></ul>
+                            <ul><?= $menuLeft ?></ul>
                         </div>
                         <div id="layout-header-menu-right">
-                            <ul><?= $menuLis[3]->asXML() . $menuLis[4]->asXML() . $menuLis[5]->asXML() ?></ul>
+                            <ul><?= $menuRight ?></ul>
                         </div>
                     </div>
 
@@ -108,7 +112,9 @@ $menuLis = $menuXML->xpath('/ul/li');
                             </a>
                         </div>
                         <div id="layout-header-title-breadcrumbs">
-                            <?= $this->navigation()->breadcrumbs() ?>
+                            <?php if(strlen($breadcrumbs)) : ?>
+                            <a title="Home" href="<?= $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index'), 'locale_default') ?>">Home</a> &nbsp;/&nbsp; <?= $breadcrumbs ?>
+                            <?php endif; ?>
                         </div>
                         <h1><?= $this->title ?></h1>
                     </div>

@@ -114,7 +114,27 @@ body {
 }
 
 #layout-header-title-breadcrumbs {
+    float: right;
 
+    margin-top: 15px;
+    margin-right: 30px;
+    line-height: 25px;
+
+    color: #7b7b7b;
+    font-size: 11px;
+}
+#layout-header-title-breadcrumbs a {
+    text-decoration: none;
+}
+#layout-header-title-breadcrumbs a:first-child {
+    padding-left: 15px;
+    background: url(../images/layout/breadcrumb-home.png) no-repeat left 1px;
+}
+#layout-header-title-breadcrumbs a:hover {
+    color: #000;
+}
+#layout-header-title-breadcrumbs a:first-child:hover {
+    background-image: url(../images/layout/breadcrumb-home-hover.png);
 }
 
 #layout-header-title h1 {

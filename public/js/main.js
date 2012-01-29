@@ -31,6 +31,10 @@ window.addEvents({
 
         hideGoToTop();
 
+        // preload of the hover breadcrumbs home
+        if($$('#layout-header-title-breadcrumbs a').length > 0)
+            new Asset.image(__BASEURL__ + '/images/layout/breadcrumb-home-hover.png');
+
         // preload of the hover goto top image
         new Asset.image(__BASEURL__ + '/images/layout/go-top-arrow-hover.png');
 
