@@ -3,47 +3,40 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generato il: 22 gen, 2012 at 07:13 PM
+-- Generato il: 29 gen, 2012 at 03:25 PM
 -- Versione MySQL: 5.5.19
 -- Versione PHP: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
 -- Database: `zwe-framework`
 --
-CREATE DATABASE `zwe-framework` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `zwe-framework`;
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `news`
+-- Struttura della tabella `blog`
 --
 
-CREATE TABLE IF NOT EXISTS `news` (
-  `IDNews` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `blog`;
+CREATE TABLE IF NOT EXISTS `blog` (
+  `IDBlog` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `IDParent` varchar(20) NOT NULL COMMENT 'The page in which the news is written (it is a varchar because the page can not be in the db, but only a controller)',
   `IDUser` bigint(20) unsigned NOT NULL COMMENT 'The author of the news',
   `Title` varchar(50) NOT NULL,
   `Text` text NOT NULL,
   `CreationDate` datetime NOT NULL,
-  PRIMARY KEY (`IDNews`)
+  PRIMARY KEY (`IDBlog`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dump dei dati per la tabella `news`
+-- Dump dei dati per la tabella `blog`
 --
 
-INSERT INTO `news` (`IDNews`, `IDParent`, `IDUser`, `Title`, `Text`, `CreationDate`) VALUES
-(1, 'news', 1, 'News di prova', 'Ciao come va??\r\n\r\nIo tutto benissimo, tu?', '2011-12-22 10:06:48'),
-(2, 'news', 1, 'Seconda news di prova', 'Tutto benone pure io, grazie mille!', '2011-12-22 10:06:48');
+INSERT INTO `blog` (`IDBlog`, `IDParent`, `IDUser`, `Title`, `Text`, `CreationDate`) VALUES
+(1, 'blog', 1, 'News di prova', 'Ciao come va??\r\n\r\nIo tutto benissimo, tu?', '2011-12-22 10:06:48'),
+(2, 'blog', 1, 'Seconda news di prova', 'Tutto benone pure io, grazie mille!', '2011-12-22 10:06:48');
 
 -- --------------------------------------------------------
 
@@ -51,6 +44,7 @@ INSERT INTO `news` (`IDNews`, `IDParent`, `IDUser`, `Title`, `Text`, `CreationDa
 -- Struttura della tabella `page`
 --
 
+DROP TABLE IF EXISTS `page`;
 CREATE TABLE IF NOT EXISTS `page` (
   `IDPage` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `IDParent` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -72,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `page` (
 -- Struttura della tabella `page_type`
 --
 
+DROP TABLE IF EXISTS `page_type`;
 CREATE TABLE IF NOT EXISTS `page_type` (
   `IDPageType` bigint(20) unsigned NOT NULL,
   `Type` varchar(50) NOT NULL,
@@ -89,6 +84,7 @@ CREATE TABLE IF NOT EXISTS `page_type` (
 -- Struttura della tabella `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `IDUser` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `Email` varchar(100) NOT NULL,
