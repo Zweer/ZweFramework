@@ -20,6 +20,8 @@ $menuRight = $menuLis[3]->asXML() . $menuLis[4]->asXML() . $menuLis[5]->asXML();
 
 $breadcrumbs = $this->navigation()->breadcrumbs()->setRenderInvisible(true)->setSeparator(' &nbsp;/&nbsp; ');
 
+$container = APPLICATION_PATH . (Zend_Controller_Front::getInstance()->getRequest()->getModuleName() == 'default' ? '' : '/modules/' . Zend_Controller_Front::getInstance()->getRequest()->getModuleName()) . '/views/layouts/container.phtml';
+
 ?>
 <?= $this->doctype() . "\n" ?>
 <html>
@@ -124,7 +126,9 @@ $breadcrumbs = $this->navigation()->breadcrumbs()->setRenderInvisible(true)->set
     </div>
 
     <div id="layout-container" class="autoclear">
+        <?php if(file_exists($container)) : include($container); else : ?>
         <?= $this->layout()->content ?>
+        <?php endif; ?>
     </div>
 
     <div id="layout-additional-footer-bg">

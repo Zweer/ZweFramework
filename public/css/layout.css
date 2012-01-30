@@ -210,11 +210,47 @@ body {
 .layout-container-2third {
     float: left;
     position: relative;
+    margin: 0 30px 10px 0;
 }
 
 .layout-container-1third {
-    width: 320px;
+    width: 300px;
 }
 .layout-container-2third {
-    width: 640px;
+    width: 630px;
+}
+
+.layout-container-last {
+    margin-right: 0;
+}
+
+
+/* Sidebar */
+
+.sidebar {
+    background: url(../images/layout/sidebar-bg.jpg) repeat-y right top;
+    color: #404040;
+    margin-bottom: 21px;
+}
+.sidebar-bottom {
+    background: url(../images/layout/sidebar-bottom.jpg) no-repeat right bottom;
+    padding-bottom: 20px;
+}
+.sidebar-top {
+    background: url(../images/layout/sidebar-top.jpg) no-repeat right top;
+    padding: 10px 0 0 20px;
+}
+
+.sidebar h2 {
+    background: url(../images/layout/sidebar-title.jpg) no-repeat 0 0;
+    padding: 1px 0 0 15px;
+    margin: 10px 0 0 0;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    width: 260px;
+    color: #fdfbfb;
+    height: 40px;
+    line-height: 32px;
 }
