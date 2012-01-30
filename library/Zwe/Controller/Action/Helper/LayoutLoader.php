@@ -22,21 +22,20 @@ class Zwe_Controller_Action_Helper_LayoutLoader extends Zend_Controller_Action_H
 {
     /**
      * Sets the right layout.
-     * First it controls it is set in the config file, then associates the correct layout.
+     * First it controls if the current module has a layout file, and then applies it
      *
      * @return void
      */
 	public function preDispatch()
 	{
-		$Bootstrap = $this->getActionController()->getInvokeArg('bootstrap');
-		$Config = $Bootstrap->getOptions();
-		$Module = $this->getRequest()->getModuleName();
+		$module = $this->getRequest()->getModuleName();
+        $defaultLayoutScript = '/views/layouts';
+        $layoutScript = APPLICATION_PATH . ($module == 'default' ? '' : '/modules/' . $module) . $defaultLayoutScript;
+        $layout = $this->getActionController()->getHelper('layout');
+        $layout->setLayout('layout');
 
-		if(isset($Config[$Module]['resources']['layout']['layout']))
-		{
-			$LayoutScript = $Config[$Module]['resources']['layout']['layout'];
-			$this->getActionController()->getHelper('layout')->setLayout($LayoutScript);
-		}
+        if(file_exists($layoutScript . 'layout.phtml'))
+			$layout->setLayoutPath($layoutScript);
 	}
 }
 
