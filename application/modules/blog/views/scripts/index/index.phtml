@@ -21,7 +21,7 @@
             <?= $this->img($post->ImagePreview, array('external' => true, 'class' => 'blog-post-text-preview', 'alt' => $this->escape($post->Title))) ?>        
             <?php endif; ?>
             <p><?= $this->escape($post->TextPreview) ?></p>
-            <a href="<?= $this->url(array('IDPost' => $post->IDPost)) ?>"><?= ucfirst($this->translate(Zwe_Controller_Action_Blog_Index::READ_MORE)) ?></a>
+            <a href="<?= $this->url(array('IDPost' => $post->IDBlog)) ?>"><?= ucfirst($this->translate(Zwe_Controller_Action_Blog_Index::READ_MORE)) ?></a>
         </div>
     </div>
     <?php endforeach; ?>
