@@ -2,13 +2,22 @@
 
 class Zwe_Model_Blog extends Zwe_Model
 {
+    const TEXT_PREVIEW_DIMENSION = 50;
+
     protected $_referenceMap = array(
         'Author' => array(
             'columns' => 'IDUser',
             'refTableClass' => 'Zwe_Model_User',
             'refColumns' => 'IDUser'
+        ),
+        'Parent' => array(
+            'columns' => 'IDParent',
+            'refTableClass' => 'Zwe_Model_Blog',
+            'refColumns' => 'IDBlog'
         )
     );
+
+    protected $_dependentTables = array('Zwe_Model_Blog');
 
     /**
      * @param int|string  $page
@@ -18,7 +27,7 @@ class Zwe_Model_Blog extends Zwe_Model
      */
     public function findByPage($page, $count = null, $offset = null)
     {
-        $where = $this->getAdapter()->quoteInto('IDParent = ?', $page);
+        $where = $this->getAdapter()->quoteInto('IDPage = ?', $page);
         return $this->fetchAll($where, 'CreationDate DESC', $count, $offset);
     }
 }
