@@ -1,0 +1,32 @@
+<div class="layout-container-2third">
+    <?php foreach($this->posts as $post) : ?>
+    <?php $date = new Zend_Date($post->CreationDate); ?>
+    <div class="blog-post">
+        <div class="blog-post-date">
+            <div class="blog-post-date-month"><?= $date->get(Zend_Date::MONTH_NAME_SHORT) ?></div>
+            <div class="blog-post-date-day"><?= $date->get(Zend_Date::DAY_SHORT) ?></div>
+        </div>
+        
+        <div class="blog-post-title">
+            <h3><?= $this->escape($post->Title) ?></h3>
+            <div class="blog-post-title-author">
+                <?= ucfirst($this->translate(Zwe_Controller_Action_Blog_Index::POSTED_BY)) ?> <?= $post->Author ?>
+                |
+                <?= count($post->Comments) ?> <?= $this->translate(array(Zwe_Controller_Action_Blog_Index::COMMENT, Zwe_Controller_Action_Blog_Index::COMMENTS, count($post->Comments))) ?>
+            </div>
+        </div>
+        
+        <div class="blog-post-text">
+            <?php if($post->ImagePreview) : ?>
+            <?= $this->img($post->ImagePreview, array('external' => true, 'class' => 'blog-post-text-preview', 'alt' => $this->escape($post->Title))) ?>        
+            <?php endif; ?>
+            <p><?= $this->escape($post->TextPreview) ?></p>
+            <a href="<?= $this->url(array('IDPost' => $post->IDPost)) ?>"><?= ucfirst($this->translate(Zwe_Controller_Action_Blog_Index::READ_MORE)) ?></a>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
+
+<div class="layout-container-1third">
+
+</div>

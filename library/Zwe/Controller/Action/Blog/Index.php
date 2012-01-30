@@ -4,6 +4,11 @@ class Zwe_Controller_Action_Blog_Index extends Zwe_Controller_Action
 {
     const POST_PER_PAGE = 5;
 
+    const POSTED_BY = 'ZweBlogPostedBy';
+    const COMMENT = 'ZweBlogComment';
+    const COMMENTS = 'ZweBlogComments';
+    const READ_MORE = 'ZweBlogReadMore';
+
     protected $_title = 'Blog';
 
     protected function _indexAction($page = 'blog')
