@@ -37,12 +37,20 @@ $this->headLink()->appendStylesheet($this->baseUrl() . '/css/error.css');
 <pre><?= $this->exception->getTraceAsString() ?>
 </pre>
 
+<h3><?= $this->translate('Route used') ?>:</h3>
+<pre><?php try{ echo $this->escape(Zend_Controller_Front::getInstance()->getRouter()->getCurrentRouteName()); }catch(Exception $e){ echo $e->getMessage(); } ?>
+</pre>
+
+<h3><?= $this->translate('Base URL') ?>:</h3>
+<pre><?= $this->escape($this->request->getBaseUrl()) ?>
+</pre>
+
 <h3><?= $this->translate('Request Parameters') ?>:</h3>
 <pre><?= $this->escape(var_export($this->request->getParams(), true)) ?>
 </pre>
 
 <h3><?= $this->translate('Language') ?>:</h3>
-<pre><?= Zend_Registry::get('Zend_Locale')->getLanguage() ?>
+<pre><?= $this->escape(Zend_Registry::get('Zend_Locale')->getLanguage()) ?>
 </pre>
 
 <?php endif ?>
