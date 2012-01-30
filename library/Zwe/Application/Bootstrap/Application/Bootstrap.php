@@ -140,7 +140,19 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
     {
         Zend_Controller_Front::getInstance()->setBaseUrl(Zend_Registry::get('parameters')->registry->baseUrl);
 
-        $configFile = APPLICATION_PATH . '/configs/routes.ini';
+        # default routes
+        $this->_routingFromConfig();
+
+        $dir = opendir(APPLICATION_PATH . '/modules');
+        while($module = readdir($dir)) {
+            if($module != '.' && $module != '..')
+                $this->_routingFromConfig('/modules/' . $module);
+        }
+    }
+
+    protected function _routingFromConfig($directory = '')
+    {
+        $configFile = APPLICATION_PATH . $directory . '/configs/routes.ini';
 
         if(!file_exists($configFile))
             return;
