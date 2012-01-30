@@ -98,7 +98,7 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
                                                      $user->Username,
                                                      $this->view->form->getValue('password'),
                                                      $user->Email,
-                                                     $_SERVER['HTTP_HOST'] . $this->view->url(array('controller' => 'login', 'action' => 'activate', 'module' => 'default', 'activate' => sha1($user->Password . $user->Salt), 'user' => $user->Username), 'locale_default')),
+                                                     $_SERVER['HTTP_HOST'] . $this->view->url(array('controller' => 'login', 'action' => 'activate', 'module' => 'default', 'activate' => sha1($user->Password . $user->Salt), 'user' => $user->Username), 'default')),
                                                $this->view->translate(self::REGISTRATION_EMAIL_TEXT)));
                 $mail->send();
 
@@ -131,7 +131,7 @@ class Zwe_Controller_Action_Login extends Zwe_Controller_Action
                 $mail->setFrom(Zend_Registry::get('parameters')->registry->email, Zend_Registry::get('parameters')->registry->emailName);
                 $mail->addTo($user->Email);
                 $mail->setSubject($this->view->translate(self::RECOVER_EMAIL_SUBJECT));
-                $mail->setBodyText(str_replace(array('%link%'), array($_SERVER['HTTP_HOST'] . $this->view->url(array('controller' => 'login', 'action' => 'doRecover', 'module' => 'default', 'recover' => sha1($user->Salt . $user->Password), 'user' => $user->Username), 'locale_default')), $this->view->translate(self::RECOVER_EMAIL_TEXT)));
+                $mail->setBodyText(str_replace(array('%link%'), array($_SERVER['HTTP_HOST'] . $this->view->url(array('controller' => 'login', 'action' => 'doRecover', 'module' => 'default', 'recover' => sha1($user->Salt . $user->Password), 'user' => $user->Username), 'default')), $this->view->translate(self::RECOVER_EMAIL_TEXT)));
                 $mail->send();
 
                 $this->view->ok = true;

@@ -67,13 +67,13 @@ $breadcrumbs = $this->navigation()->breadcrumbs()->setRenderInvisible(true)->set
             <ul class="no-list">
 <?php if(!Zend_Auth::getInstance()->hasIdentity()) : ?>
                 <li id="layout-top-left-login">
-                    <a href="<?= $this->url(array('module' => 'default', 'controller' => 'login', 'action' => 'index'), 'locale_default') ?>.html" id="login-open">
+                    <a href="<?= $this->url(array('module' => 'default', 'controller' => 'login', 'action' => 'index'), 'default') ?>.html" id="login-open">
                         <?= $this->img('/images/icons/unlock_24x24.png', array('alt' => $this->translate('Login'), 'title' => $this->translate('Login'))) ?>
                     </a>
                 </li>
 <?php else : ?>
                 <li>
-                    <a href="<?= $this->url(array('module' => 'default', 'controller' => 'login', 'action' => 'logout'), 'locale_default') ?>">
+                    <a href="<?= $this->url(array('module' => 'default', 'controller' => 'login', 'action' => 'logout'), 'default') ?>">
                         <?= $this->img('/images/icons/lock_24x24.png', array('alt' => $this->translate('Logout'), 'title' => $this->translate('Logout'))) ?>
                     </a>
                 </li>
@@ -90,7 +90,7 @@ $breadcrumbs = $this->navigation()->breadcrumbs()->setRenderInvisible(true)->set
             <div id="layout-header-bottom">
                 <div id="layout-header">
                     <div id="layout-header-logo">
-                        <a href="<?= $this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'default'), 'locale_default') ?>">
+                        <a href="<?= $this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'default'), 'default') ?>">
                             <?= $this->img('/images/layout/title.png', array('alt' => 'noliv')) ?>
                         </a>
                     </div>
@@ -113,7 +113,7 @@ $breadcrumbs = $this->navigation()->breadcrumbs()->setRenderInvisible(true)->set
                         </div>
                         <div id="layout-header-title-breadcrumbs">
                             <?php if(strlen($breadcrumbs)) : ?>
-                            <a title="Home" href="<?= $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index'), 'locale_default') ?>">Home</a> &nbsp;/&nbsp; <?= $breadcrumbs ?>
+                            <a title="Home" href="<?= $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index'), 'default') ?>">Home</a> &nbsp;/&nbsp; <?= $breadcrumbs ?>
                             <?php endif; ?>
                         </div>
                         <h1><?= $this->title ?></h1>
