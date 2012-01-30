@@ -1,3 +1,8 @@
+<?php
+
+$this->headLink()->appendStylesheet($this->baseUrl() . '/css/blog.css');
+
+?>
 <div class="layout-container-2third">
     <?php foreach($this->posts as $post) : ?>
     <?php $date = new Zend_Date($post->CreationDate); ?>
@@ -21,7 +26,9 @@
             <?= $this->img($post->ImagePreview, array('external' => true, 'class' => 'blog-post-text-preview', 'alt' => $this->escape($post->Title))) ?>        
             <?php endif; ?>
             <p><?= $this->escape($post->TextPreview) ?></p>
-            <a href="<?= $this->url(array('IDPost' => $post->IDBlog)) ?>"><?= ucfirst($this->translate(Zwe_Controller_Action_Blog_Index::READ_MORE)) ?></a>
+            <span class="blog-post-text-readmore">
+                <a href="<?= $this->url(array('IDPost' => $post->IDBlog)) ?>"><?= ucfirst($this->translate(Zwe_Controller_Action_Blog_Index::READ_MORE)) ?></a>
+            </span>
         </div>
     </div>
     <?php endforeach; ?>

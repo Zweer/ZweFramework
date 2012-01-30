@@ -201,3 +201,20 @@ body {
 #layout-footer-small-footer-right {
     float: right;
 }
+
+
+
+/* Columns */
+
+.layout-container-1third,
+.layout-container-2third {
+    float: left;
+    position: relative;
+}
+
+.layout-container-1third {
+    width: 320px;
+}
+.layout-container-2third {
+    width: 640px;
+}

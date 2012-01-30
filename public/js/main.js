@@ -35,6 +35,12 @@ window.addEvents({
         if($$('#layout-header-title-breadcrumbs a').length > 0)
             new Asset.image(__BASEURL__ + '/images/layout/breadcrumb-home-hover.png');
 
+        // preload of the "read-more" in blog
+        if($$('.blog-post-text-readmore').length > 0) {
+            new Asset.image(__BASEURL__ + '/images/layout/button-white-left-hover.png');
+            new Asset.image(__BASEURL__ + '/images/layout/button-white-right-hover.png');
+        }
+
         // preload of the hover goto top image
         new Asset.image(__BASEURL__ + '/images/layout/go-top-arrow-hover.png');
 

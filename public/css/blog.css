@@ -1,0 +1,80 @@
+.blog-post {
+    background: url(../images/layout/hr.png) repeat-x 0 bottom;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+}
+
+.blog-post-date {
+    float: left;
+
+    width: 58px;
+    height: 83px;
+
+    color: black;
+
+    background: url(../images/layout/post-date.png) no-repeat left top;
+
+    text-align: center;
+    font-family: 'Lora', georgia, Arial, serif;
+    font-size: 21px;
+    font-style: italic;
+
+    margin-right: 17px;
+    padding-right: 5px;
+}
+.blog-post-date div {
+    margin: 6px 0;
+}
+
+.blog-post-title {
+    background: url(../images/layout/hr.png) repeat-x 0 bottom;
+    margin-left: 80px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+}
+.blog-post-title h3 {
+    font-size: 24px;
+    margin: 0;
+    padding: 8px 0 5px 0;
+}
+.blog-post-title-author {
+    color: #707070;
+    font-size: 11px;
+}
+.blog-post-title-author a {
+    color: #404040;
+    text-decoration: none;
+}
+
+.blog-post-text {
+    margin-left: 80px;
+}
+
+.blog-post-text-readmore {
+    display: block;
+    background: url(../images/layout/button-white-left.png) no-repeat left;
+    height: 32px;
+
+    margin-top: 20px;
+}
+.blog-post-text-readmore:hover {
+    background-image: url(../images/layout/button-white-left-hover.png);
+}
+.blog-post-text-readmore a {
+    float: left;
+    display: block;
+
+    margin-left: 10px;
+    padding-right: 19px;
+    padding-bottom: 5px;
+
+    background: url(../images/layout/button-white-right.png) no-repeat right;
+    line-height: 27px;
+
+    text-decoration: none;
+    font-size: 10px;
+}
+.blog-post-text-readmore a:hover {
+    background-image: url(../images/layout/button-white-right-hover.png);
+    color: black;
+}
