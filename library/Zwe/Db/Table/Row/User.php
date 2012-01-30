@@ -41,4 +41,9 @@ class Zwe_Db_Table_Row_User extends Zend_Db_Table_Row_Abstract
 
         return $this->save();
     }
+
+    public function __toString()
+    {
+        return $this->Username;
+    }
 }
