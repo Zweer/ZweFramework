@@ -2,6 +2,8 @@
 
 class Zwe_Model_User extends Zwe_Model
 {
+    protected $_dependentTables = array('Zwe_Model_Blog');
+
     /**
      * @static
      * @param string $email
