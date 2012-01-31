@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.2.1
+-- version 3.3.9.2
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generato il: 29 gen, 2012 at 03:25 PM
--- Versione MySQL: 5.5.19
+-- Generato il: 31 gen, 2012 at 09:58 AM
+-- Versione MySQL: 5.5.20
 -- Versione PHP: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
@@ -16,16 +16,29 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
+-- Cancella le tabelle non più utili
+--
+
+DROP TABLE `page`;
+DROP TABLE `page_type`;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `blog`
 --
 
 DROP TABLE IF EXISTS `blog`;
 CREATE TABLE IF NOT EXISTS `blog` (
   `IDBlog` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `IDParent` varchar(20) NOT NULL COMMENT 'The page in which the news is written (it is a varchar because the page can not be in the db, but only a controller)',
+  `IDPage` varchar(20) NOT NULL COMMENT 'The page in which the news is written (it is a varchar because the page can not be in the db, but only a controller)',
+  `IDParent` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'If this is a comment, IDParent > 0 (= IDBlog of the post it wants to comment)',
   `IDUser` bigint(20) unsigned NOT NULL COMMENT 'The author of the news',
   `Title` varchar(50) NOT NULL,
   `Text` text NOT NULL,
+  `TextPreview` text COMMENT 'The preview of the text. If missing, the text will be cut automatically',
+  `Image` text NOT NULL COMMENT 'Absolute link of the image you want to use in the post top',
+  `ImagePreview` text COMMENT 'The coords of the selection to preview',
   `CreationDate` datetime NOT NULL,
   PRIMARY KEY (`IDBlog`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
@@ -34,47 +47,82 @@ CREATE TABLE IF NOT EXISTS `blog` (
 -- Dump dei dati per la tabella `blog`
 --
 
-INSERT INTO `blog` (`IDBlog`, `IDParent`, `IDUser`, `Title`, `Text`, `CreationDate`) VALUES
-(1, 'blog', 1, 'News di prova', 'Ciao come va??\r\n\r\nIo tutto benissimo, tu?', '2011-12-22 10:06:48'),
-(2, 'blog', 1, 'Seconda news di prova', 'Tutto benone pure io, grazie mille!', '2011-12-22 10:06:48');
+INSERT INTO `blog` (`IDBlog`, `IDPage`, `IDParent`, `IDUser`, `Title`, `Text`, `TextPreview`, `Image`, `ImagePreview`, `CreationDate`) VALUES
+(1, 'blog', 0, 9, 'News di prova', 'Ciao come va??\r\n\r\nIo tutto benissimo, tu?', NULL, '', '', '2011-12-22 10:06:48'),
+(2, 'blog', 0, 9, 'Seconda news di prova', 'Tutto benone pure io, grazie mille!', NULL, '', '', '2011-12-22 10:06:48');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `page`
+-- Struttura della tabella `group`
 --
 
-DROP TABLE IF EXISTS `page`;
-CREATE TABLE IF NOT EXISTS `page` (
-  `IDPage` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `IDParent` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `IDPageType` bigint(20) unsigned NOT NULL,
-  `Url` varchar(50) NOT NULL,
-  `Title` varchar(50) NOT NULL,
-  `Position` bigint(20) NOT NULL,
-  PRIMARY KEY (`IDPage`)
+DROP TABLE IF EXISTS `group`;
+CREATE TABLE IF NOT EXISTS `group` (
+  `IDGroup` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(20) NOT NULL,
+  PRIMARY KEY (`IDGroup`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
--- Dump dei dati per la tabella `page`
+-- Dump dei dati per la tabella `group`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `page_type`
+-- Struttura della tabella `permission`
 --
 
-DROP TABLE IF EXISTS `page_type`;
-CREATE TABLE IF NOT EXISTS `page_type` (
-  `IDPageType` bigint(20) unsigned NOT NULL,
-  `Type` varchar(50) NOT NULL,
-  PRIMARY KEY (`IDPageType`)
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE IF NOT EXISTS `permission` (
+  `IDPermission` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `IDParent` bigint(20) unsigned NOT NULL COMMENT 'if = 0: resource; else: permission',
+  `Name` varchar(20) NOT NULL,
+  PRIMARY KEY (`IDPermission`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dump dei dati per la tabella `permission`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `permission_group`
+--
+
+DROP TABLE IF EXISTS `permission_group`;
+CREATE TABLE IF NOT EXISTS `permission_group` (
+  `IDPermission` bigint(20) unsigned NOT NULL,
+  `IDGroup` bigint(20) unsigned NOT NULL,
+  `Deny` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`IDPermission`,`IDGroup`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dump dei dati per la tabella `page_type`
+-- Dump dei dati per la tabella `permission_group`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `permission_user`
+--
+
+DROP TABLE IF EXISTS `permission_user`;
+CREATE TABLE IF NOT EXISTS `permission_user` (
+  `IDPermission` bigint(20) unsigned NOT NULL,
+  `IDUser` bigint(20) unsigned NOT NULL,
+  `Deny` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`IDPermission`,`IDUser`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `permission_user`
 --
 
 

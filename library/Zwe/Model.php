@@ -24,9 +24,19 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
                 ':table' => array('Word_CamelCaseToUnderscore', 'StringToLower')
             ));
             $this->_name = $inflector->filter(array('table' => $name));
+        }
 
-            if(!isset($this->_primary))
-                $this->_primary = 'ID' . $name;
+        if(!isset($this->_primary)) {
+            if(strpos($this->_name, '_') !== false) {
+                $this->_primary = array();
+                $name = explode('_', $this->_name);
+
+                foreach ($name as $primary) {
+                    $this->_primary[] = 'ID' . ucfirst($primary);
+                }
+            } else {
+                $this->_primary = 'ID' . ucfirst($this->_name);
+            }
         }
 
         parent::_setupTableName();
