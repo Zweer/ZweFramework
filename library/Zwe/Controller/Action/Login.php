@@ -1,6 +1,6 @@
 <?php
 
-class Zwe_Controller_Action_Login extends Zwe_Controller_Action
+abstract class Zwe_Controller_Action_Login extends Zwe_Controller_Action
 {
     const LOGIN_NOTHING = 'LoginErrorOK';
     const LOGIN_CREDENTIALS = 'LoginErrorCredentials';

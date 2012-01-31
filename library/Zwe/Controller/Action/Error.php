@@ -1,6 +1,6 @@
 <?php
 
-class Zwe_Controller_Action_Error extends Zwe_Controller_Action
+abstract class Zwe_Controller_Action_Error extends Zwe_Controller_Action
 {
     const ERROR_MESSAGE = 'ErrorMessage';
 

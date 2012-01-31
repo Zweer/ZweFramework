@@ -1,6 +1,6 @@
 <?php
 
-class Zwe_Controller_Action_Blog_Index extends Zwe_Controller_Action
+abstract class Zwe_Controller_Action_Blog_Index extends Zwe_Controller_Action
 {
     const POST_PER_PAGE = 5;
 
