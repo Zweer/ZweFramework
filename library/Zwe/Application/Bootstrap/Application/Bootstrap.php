@@ -21,7 +21,7 @@
 class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     /**
-     * Automatically adds the missing directories in the "application" tree.
+     * Automatically adds the missing directories in/out the "application" tree.
      *
      * They could be missing because of "git" that doesn't version the empty ones
      */
@@ -32,6 +32,13 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
         foreach($directories as $directory) {
             if(!is_dir(APPLICATION_PATH . '/' . $directory))
                 @mkdir(APPLICATION_PATH . '/' . $directory);
+        }
+
+        $directories = array('cache');
+
+        foreach($directories as $directory) {
+            if(!is_dir(realpath(APPLICATION_PATH . '/../' . $directory)))
+                @mkdir(realpath(APPLICATION_PATH . '/../' . $directory));
         }
     }
 
