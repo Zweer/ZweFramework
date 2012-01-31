@@ -70,6 +70,15 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
 	}
 
     /**
+     * Initializes the Cache and stores it in the Registry.
+     */
+    protected function _initCache()
+    {
+        $cacheManager = $this->bootstrap('cachemanager')->getResource('cachemanager');
+        Zend_Registry::set('Zend_Cache', $cacheManager->getCache('coreCache'));
+    }
+
+    /**
      * Takes the site parameters from the config file.
      * If in the siteUrl param there is "localhost", it substitutes it with the ip address of the machine.
      *
