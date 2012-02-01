@@ -28,6 +28,21 @@ $this->headLink()->appendStylesheet($this->baseUrl() . '/css/error.css');
 </div>
 <?php if (isset($this->exception)): ?>
 
+<script type="text/javascript">
+    window.addEvent('domready', function() {
+        $$('pre.compressable').each(function(pre) {
+            var h3 = pre.getPrevious();
+
+            pre.slide('hide');
+
+            h3.setStyle('cursor', 'pointer');
+            h3.addEvent('click', function() {
+                pre.slide();
+            })
+        })
+    });
+</script>
+
 <h3><?= $this->translate('Exception information') ?>:</h3>
 <p>
     <strong><?= $this->translate('Message') ?>:</strong> <?= $this->exception->getMessage() ?>
@@ -39,20 +54,19 @@ $this->headLink()->appendStylesheet($this->baseUrl() . '/css/error.css');
 <pre><?= $this->exception->getTraceAsString() ?></pre>
 
 <h3><?= $this->translate('Route used') ?>:</h3>
-<pre><?php try{ echo $this->escape(Zend_Controller_Front::getInstance()->getRouter()->getCurrentRouteName()); }catch(Exception $e){ echo $e->getMessage(); } ?></pre>
+<pre class="compressable"><?php try{ echo $this->escape(Zend_Controller_Front::getInstance()->getRouter()->getCurrentRouteName()); }catch(Exception $e){ echo $e->getMessage(); } ?></pre>
 
 <h3><?= $this->translate('Base URL') ?>:</h3>
-<pre><?= $this->escape($this->request->getBaseUrl()) ?></pre>
+<pre class="compressable"><?= $this->escape($this->request->getBaseUrl()) ?></pre>
 
 <h3><?= $this->translate('Request Parameters') ?>:</h3>
-<pre><?= $this->escape(var_export($this->request->getParams(), true)) ?></pre>
+<pre class="compressable"><?= $this->escape(var_export($this->request->getParams(), true)) ?></pre>
 
 <h3><?= $this->translate('Language') ?>:</h3>
-<pre><?= $this->escape(Zend_Registry::get('Zend_Locale')->getLanguage()) ?></pre>
-
+<pre class="compressable"><?= $this->escape(Zend_Registry::get('Zend_Locale')->getLanguage()) ?></pre>
 <?php if(Zend_Auth::getInstance()->hasIdentity()) : ?>
 <h3><?= $this->translate('Acl') ?>:</h3>
-<pre><?= $this->escape(print_r(Zend_Auth::getInstance()->getIdentity()->Acl, 1)) ?></pre>
+<pre class="compressable"><?= $this->escape(print_r(Zend_Auth::getInstance()->getIdentity()->Acl, 1)) ?></pre>
 <?php endif; ?>
 
 <?php endif ?>
