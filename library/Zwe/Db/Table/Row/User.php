@@ -99,7 +99,7 @@ class Zwe_Db_Table_Row_User extends Zend_Db_Table_Row_Abstract
 
         $acl->addRole(new Zend_Acl_Role(Zwe_Acl::USER_ROLE), $parents);
 
-        $userPrivileges = $this->findDependentRowset('Zwe_Model_Resource_User');
+        $userPrivileges = $this->findDependentRowset('Zwe_Model_Privilege_User');
         if($userPrivileges) {
             foreach ($userPrivileges as $userPrivilege) {
                 $privilege = $userPrivilege->findParentRow('Zwe_Model_Resource');
@@ -114,5 +114,10 @@ class Zwe_Db_Table_Row_User extends Zend_Db_Table_Row_Abstract
     public function isAllowed($resource = null, $privilege = null)
     {
         return $this->Acl->isAllowed(Zwe_Acl::USER_ROLE, $resource, $privilege);
+    }
+
+    public function isAdmin()
+    {
+
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Zwe_Model_Resource_User extends Zwe_Model
+class Zwe_Model_Privilege_User extends Zwe_Model
 {
     protected $_referenceMap = array(
         'User' => array(
@@ -8,10 +8,10 @@ class Zwe_Model_Resource_User extends Zwe_Model
             'refTableClass' => 'Zwe_Model_User',
             'refColumns' => 'IDUser'
         ),
-        'Resource' => array(
-            'columns' => 'IDResource',
-            'refTableClass' => 'Zwe_Model_Resource',
-            'refColumns' => 'IDResource'
+        'Privilege' => array(
+            'columns' => 'IDPrivilege',
+            'refTableClass' => 'Zwe_Model_Privilege',
+            'refColumns' => 'IDPrivilege'
         )
     );
 }
