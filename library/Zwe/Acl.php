@@ -16,7 +16,7 @@ class Zwe_Acl extends Zend_Acl
 
             static::_addRoles();
             static::_addResources();
-            static::_addPermissions();
+            static::_addPrivileges();
 
             Zend_Registry::get('Zend_Cache')->save(static::$_instance, 'acl');
         }
@@ -56,14 +56,14 @@ class Zwe_Acl extends Zend_Acl
         }
     }
 
-    protected static function _addPermissions()
+    protected static function _addPrivileges()
     {
-        $permissions = Zwe_Model_Resource_Group::getInstance()->fetchAll();
+        $privileges = Zwe_Model_Resource_Group::getInstance()->fetchAll();
 
-        if($permissions) {
-            foreach ($permissions as $permission) {
-                $whatToDo = $permission->Deny == 1 ? 'deny' : 'allow';
-                static::$_instance->$whatToDo($permission->findParentRow('Zwe_Model_Group')->Name, $permission->findParentRow('Zwe_Model_Resource')->FullName);
+        if($privileges) {
+            foreach ($privileges as $privilege) {
+                $whatToDo = $privilege->Deny == 1 ? 'deny' : 'allow';
+                static::$_instance->$whatToDo($privilege->findParentRow('Zwe_Model_Group')->Name, $privilege->findParentRow('Zwe_Model_Resource')->FullName);
             }
         }
     }

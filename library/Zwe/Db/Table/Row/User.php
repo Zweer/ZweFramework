@@ -2,6 +2,9 @@
 
 class Zwe_Db_Table_Row_User extends Zend_Db_Table_Row_Abstract
 {
+    /**
+     * @var Zwe_Acl
+     */
     protected $_acl = null;
 
     public function canLogin()
@@ -96,15 +99,20 @@ class Zwe_Db_Table_Row_User extends Zend_Db_Table_Row_Abstract
 
         $acl->addRole(new Zend_Acl_Role(Zwe_Acl::USER_ROLE), $parents);
 
-        $userPermissions = $this->findDependentRowset('Zwe_Model_Resource_User');
-        if($userPermissions) {
-            foreach ($userPermissions as $userPermission) {
-                $permission = $userPermission->findParentRow('Zwe_Model_Resource');
-                $whatToDo = $permission->Deny == 1 ? 'deny' : 'allow';
-                $acl->$whatToDo(Zwe_Acl::USER_ROLE, $permission->FullName);
+        $userPrivileges = $this->findDependentRowset('Zwe_Model_Resource_User');
+        if($userPrivileges) {
+            foreach ($userPrivileges as $userPrivilege) {
+                $privilege = $userPrivilege->findParentRow('Zwe_Model_Resource');
+                $whatToDo = $privilege->Deny == 1 ? 'deny' : 'allow';
+                $acl->$whatToDo(Zwe_Acl::USER_ROLE, $privilege->FullName);
             }
         }
 
         return $acl;
+    }
+
+    public function isAllowed($resource = null, $privilege = null)
+    {
+        return $this->Acl->isAllowed(Zwe_Acl::USER_ROLE, $resource, $privilege);
     }
 }
