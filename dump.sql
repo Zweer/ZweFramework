@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generato il: 01 feb, 2012 at 12:54 PM
+-- Generato il: 01 feb, 2012 at 04:57 PM
 -- Versione MySQL: 5.5.20
 -- Versione PHP: 5.3.8
 
@@ -66,6 +66,67 @@ INSERT INTO `group` (`IDGroup`, `IDParent`, `Name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `privilege`
+--
+
+DROP TABLE IF EXISTS `privilege`;
+CREATE TABLE IF NOT EXISTS `privilege` (
+  `IDPrivilege` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `IDResource` bigint(20) unsigned NOT NULL,
+  `Name` varchar(20) NOT NULL,
+  PRIMARY KEY (`IDPrivilege`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dump dei dati per la tabella `privilege`
+--
+
+INSERT INTO `privilege` (`IDPrivilege`, `IDResource`, `Name`) VALUES
+(1, 1, 'modify');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `privilege_group`
+--
+
+DROP TABLE IF EXISTS `privilege_group`;
+CREATE TABLE IF NOT EXISTS `privilege_group` (
+  `IDPrivilege` bigint(20) unsigned NOT NULL,
+  `IDGroup` bigint(20) unsigned NOT NULL,
+  `Deny` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`IDPrivilege`,`IDGroup`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `privilege_group`
+--
+
+INSERT INTO `privilege_group` (`IDPrivilege`, `IDGroup`, `Deny`) VALUES
+(1, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `privilege_user`
+--
+
+DROP TABLE IF EXISTS `privilege_user`;
+CREATE TABLE IF NOT EXISTS `privilege_user` (
+  `IDPrivilege` bigint(20) unsigned NOT NULL,
+  `IDUser` bigint(20) unsigned NOT NULL,
+  `Deny` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`IDPrivilege`,`IDUser`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `privilege_user`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `resource`
 --
 
@@ -82,48 +143,7 @@ CREATE TABLE IF NOT EXISTS `resource` (
 --
 
 INSERT INTO `resource` (`IDResource`, `IDParent`, `Name`) VALUES
-(1, 0, 'permission'),
-(2, 1, 'modify');
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `resource_group`
---
-
-DROP TABLE IF EXISTS `resource_group`;
-CREATE TABLE IF NOT EXISTS `resource_group` (
-  `IDResource` bigint(20) unsigned NOT NULL,
-  `IDGroup` bigint(20) unsigned NOT NULL,
-  `Deny` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`IDResource`,`IDGroup`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dump dei dati per la tabella `resource_group`
---
-
-INSERT INTO `resource_group` (`IDResource`, `IDGroup`, `Deny`) VALUES
-(2, 1, 0);
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `resource_user`
---
-
-DROP TABLE IF EXISTS `resource_user`;
-CREATE TABLE IF NOT EXISTS `resource_user` (
-  `IDResource` bigint(20) unsigned NOT NULL,
-  `IDUser` bigint(20) unsigned NOT NULL,
-  `Deny` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`IDResource`,`IDUser`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dump dei dati per la tabella `resource_user`
---
-
+(1, 0, 'privilege');
 
 -- --------------------------------------------------------
 
