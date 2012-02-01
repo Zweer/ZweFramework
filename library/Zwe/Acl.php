@@ -25,7 +25,7 @@ class Zwe_Acl extends Zend_Acl
     public static function getClone()
     {
         if(!isset(static::$_instance)) {
-            static::create(true);
+            static::create();
         }
 
         return clone static::$_instance;
