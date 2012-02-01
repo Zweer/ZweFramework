@@ -6,15 +6,15 @@ class Zwe_Db_Table_Row_User extends Zend_Db_Table_Row_Abstract
 
     public function canLogin()
     {
-        return $this->_isActive();
+        return $this->_isRegistrationActive();
     }
 
-    protected function _isActive()
+    protected function _isRegistrationActive()
     {
         return $this->Active == '1';
     }
 
-    protected function _isAllowed()
+    protected function _isRegistrationAllowed()
     {
         return $this->Allowed == '1';
     }
