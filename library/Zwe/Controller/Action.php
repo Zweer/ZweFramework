@@ -120,7 +120,7 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
         if(!isset($this->_private) && $this->_admin)
             $this->_private = true;
 
-        if($this->_private && !Zend_Auth::getInstance()->hasIdentity())
+        if($this->_private && !Zwe_Auth::getInstance()->hasIdentity())
             $this->_helper->_redirector('auth', 'error', 'default');
     }
 

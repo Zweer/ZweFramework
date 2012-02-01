@@ -2,6 +2,8 @@
 
 class Zwe_Db_Table_Row_User extends Zend_Db_Table_Row_Abstract
 {
+    protected $_acl = null;
+
     public function canLogin()
     {
         return $this->_isActive();
@@ -42,8 +44,67 @@ class Zwe_Db_Table_Row_User extends Zend_Db_Table_Row_Abstract
         return $this->save();
     }
 
+    public function equals(Zwe_Db_Table_Row_User $toCompare)
+    {
+        return $this->Username === $toCompare->Username;
+    }
+
     public function __toString()
     {
         return $this->Username;
+    }
+
+    public function __get($columnName)
+    {
+        switch($columnName) {
+            case 'Acl':
+                if(!isset($this->_acl)) {
+                    if(Zwe_Auth::getInstance()->hasIdentity() && Zwe_Auth::getInstance()->getIdentity()->equals($this)) {
+                        if(Zend_Session::namespaceIsset('Zend_Acl') && false) {
+                            $aclSession = new Zend_Session_Namespace('Zend_Acl');
+                            $this->_acl = $aclSession->user;
+                        } else {
+                            $this->_acl = $this->_createAcl();
+                            $aclSession = new Zend_Session_Namespace('Zend_Acl');
+                            $aclSession->user = $this->_acl;
+                        }
+                    } else {
+                        $this->_acl = $this->_createAcl();
+                    }
+                }
+
+                return $this->_acl;
+            break;
+
+            default:
+                return parent::__get($columnName);
+            break;
+        }
+    }
+
+    protected function _createAcl()
+    {
+        $acl = Zwe_Acl::getClone();
+        $parents = array();
+
+        $userGroups = $this->findDependentRowset('Zwe_Model_User_Group');
+        if($userGroups) {
+            foreach ($userGroups as $userGroup) {
+                $parents[] = $userGroup->findParentRow('Zwe_Model_Group')->Name;
+            }
+        }
+
+        $acl->addRole(new Zend_Acl_Role(Zwe_Acl::USER_ROLE), $parents);
+
+        $userPermissions = $this->findDependentRowset('Zwe_Model_Resource_User');
+        if($userPermissions) {
+            foreach ($userPermissions as $userPermission) {
+                $permission = $userPermission->findParentRow('Zwe_Model_Resource');
+                $whatToDo = $permission->Deny == 1 ? 'deny' : 'allow';
+                $acl->$whatToDo(Zwe_Acl::USER_ROLE, $permission->FullName);
+            }
+        }
+
+        return $acl;
     }
 }

@@ -2,7 +2,9 @@
 
 class Zwe_Model_User extends Zwe_Model
 {
-    protected $_dependentTables = array('Zwe_Model_Blog');
+    protected $_dependentTables = array('Zwe_Model_Blog',
+                                        'Zwe_Model_User_Group',
+                                        'Zwe_Model_Resource_User');
 
     /**
      * @static
@@ -13,7 +15,7 @@ class Zwe_Model_User extends Zwe_Model
      */
     public static function isValidUser($email, $password, $hashed = false)
     {
-        $auth = Zend_Auth::getInstance();
+        $auth = Zwe_Auth::getInstance();
 
         $adapter = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());
         $adapter->setTableName('user')

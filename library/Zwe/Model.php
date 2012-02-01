@@ -15,9 +15,7 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
     {
         if(!isset($this->_name)) {
             $name = get_class($this);
-            $name = str_replace('Zwe_Model_', '', $name);
-            if(strpos($name, '_') !== false)
-                $name = substr($name, 0, strpos($name, '_'));
+            $name = str_replace(array('Zwe_Model_', '_'), '', $name);
 
             $inflector = new Zend_Filter_Inflector(':table');
             $inflector->setRules(array(
@@ -86,11 +84,12 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
         }
     }
 
+    /**
+     * @static
+     * @return Zwe_Model
+     */
     public static function getInstance()
     {
-        if(!isset(static::$_instance))
-            static::$_instance = new static();
-
-        return static::$_instance;
+        return new static();
     }
 }

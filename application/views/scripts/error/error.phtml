@@ -31,26 +31,28 @@ $this->headLink()->appendStylesheet($this->baseUrl() . '/css/error.css');
 <h3><?= $this->translate('Exception information') ?>:</h3>
 <p>
     <strong><?= $this->translate('Message') ?>:</strong> <?= $this->exception->getMessage() ?>
-</p><br />
+</p>
+
+<br />
 
 <h3><?= $this->translate('Stack trace') ?>:</h3>
-<pre><?= $this->exception->getTraceAsString() ?>
-</pre>
+<pre><?= $this->exception->getTraceAsString() ?></pre>
 
 <h3><?= $this->translate('Route used') ?>:</h3>
-<pre><?php try{ echo $this->escape(Zend_Controller_Front::getInstance()->getRouter()->getCurrentRouteName()); }catch(Exception $e){ echo $e->getMessage(); } ?>
-</pre>
+<pre><?php try{ echo $this->escape(Zend_Controller_Front::getInstance()->getRouter()->getCurrentRouteName()); }catch(Exception $e){ echo $e->getMessage(); } ?></pre>
 
 <h3><?= $this->translate('Base URL') ?>:</h3>
-<pre><?= $this->escape($this->request->getBaseUrl()) ?>
-</pre>
+<pre><?= $this->escape($this->request->getBaseUrl()) ?></pre>
 
 <h3><?= $this->translate('Request Parameters') ?>:</h3>
-<pre><?= $this->escape(var_export($this->request->getParams(), true)) ?>
-</pre>
+<pre><?= $this->escape(var_export($this->request->getParams(), true)) ?></pre>
 
 <h3><?= $this->translate('Language') ?>:</h3>
-<pre><?= $this->escape(Zend_Registry::get('Zend_Locale')->getLanguage()) ?>
-</pre>
+<pre><?= $this->escape(Zend_Registry::get('Zend_Locale')->getLanguage()) ?></pre>
+
+<?php if(Zend_Auth::getInstance()->hasIdentity()) : ?>
+<h3><?= $this->translate('Acl') ?>:</h3>
+<pre><?= $this->escape(print_r(Zend_Auth::getInstance()->getIdentity()->Acl, 1)) ?></pre>
+<?php endif; ?>
 
 <?php endif ?>
