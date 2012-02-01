@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generato il: 31 gen, 2012 at 09:58 AM
+-- Generato il: 01 feb, 2012 at 12:54 PM
 -- Versione MySQL: 5.5.20
 -- Versione PHP: 5.3.8
 
@@ -12,15 +12,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `zwe-framework`
 --
-
--- --------------------------------------------------------
-
---
--- Cancella le tabelle non più utili
---
-
-DROP TABLE `page`;
-DROP TABLE `page_type`;
 
 -- --------------------------------------------------------
 
@@ -60,69 +51,77 @@ INSERT INTO `blog` (`IDBlog`, `IDPage`, `IDParent`, `IDUser`, `Title`, `Text`, `
 DROP TABLE IF EXISTS `group`;
 CREATE TABLE IF NOT EXISTS `group` (
   `IDGroup` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `IDParent` bigint(20) unsigned NOT NULL DEFAULT '0',
   `Name` varchar(20) NOT NULL,
   PRIMARY KEY (`IDGroup`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dump dei dati per la tabella `group`
 --
 
+INSERT INTO `group` (`IDGroup`, `IDParent`, `Name`) VALUES
+(1, 0, 'admin');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `permission`
+-- Struttura della tabella `resource`
 --
 
-DROP TABLE IF EXISTS `permission`;
-CREATE TABLE IF NOT EXISTS `permission` (
-  `IDPermission` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `IDParent` bigint(20) unsigned NOT NULL COMMENT 'if = 0: resource; else: permission',
+DROP TABLE IF EXISTS `resource`;
+CREATE TABLE IF NOT EXISTS `resource` (
+  `IDResource` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `IDParent` bigint(20) unsigned NOT NULL DEFAULT '0',
   `Name` varchar(20) NOT NULL,
-  PRIMARY KEY (`IDPermission`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`IDResource`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dump dei dati per la tabella `permission`
+-- Dump dei dati per la tabella `resource`
 --
 
+INSERT INTO `resource` (`IDResource`, `IDParent`, `Name`) VALUES
+(1, 0, 'permission'),
+(2, 1, 'modify');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `permission_group`
+-- Struttura della tabella `resource_group`
 --
 
-DROP TABLE IF EXISTS `permission_group`;
-CREATE TABLE IF NOT EXISTS `permission_group` (
-  `IDPermission` bigint(20) unsigned NOT NULL,
+DROP TABLE IF EXISTS `resource_group`;
+CREATE TABLE IF NOT EXISTS `resource_group` (
+  `IDResource` bigint(20) unsigned NOT NULL,
   `IDGroup` bigint(20) unsigned NOT NULL,
   `Deny` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`IDPermission`,`IDGroup`)
+  PRIMARY KEY (`IDResource`,`IDGroup`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dump dei dati per la tabella `permission_group`
+-- Dump dei dati per la tabella `resource_group`
 --
 
+INSERT INTO `resource_group` (`IDResource`, `IDGroup`, `Deny`) VALUES
+(2, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `permission_user`
+-- Struttura della tabella `resource_user`
 --
 
-DROP TABLE IF EXISTS `permission_user`;
-CREATE TABLE IF NOT EXISTS `permission_user` (
-  `IDPermission` bigint(20) unsigned NOT NULL,
+DROP TABLE IF EXISTS `resource_user`;
+CREATE TABLE IF NOT EXISTS `resource_user` (
+  `IDResource` bigint(20) unsigned NOT NULL,
   `IDUser` bigint(20) unsigned NOT NULL,
   `Deny` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`IDPermission`,`IDUser`)
+  PRIMARY KEY (`IDResource`,`IDUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dump dei dati per la tabella `permission_user`
+-- Dump dei dati per la tabella `resource_user`
 --
 
 
@@ -151,3 +150,23 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`IDUser`, `Email`, `Username`, `Password`, `Salt`, `CreationDate`, `Active`, `Allowed`) VALUES
 (9, 'flicofloc@gmail.com', 'zweer', '3685f18be7def1d643636c52047447680846f81f', 'b106da8be98b056183ee29bceb6dda234ee0efad', '2011-12-31 14:44:55', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `user_group`
+--
+
+DROP TABLE IF EXISTS `user_group`;
+CREATE TABLE IF NOT EXISTS `user_group` (
+  `IDUser` bigint(20) unsigned NOT NULL,
+  `IDGroup` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`IDUser`,`IDGroup`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `user_group`
+--
+
+INSERT INTO `user_group` (`IDUser`, `IDGroup`) VALUES
+(9, 1);
