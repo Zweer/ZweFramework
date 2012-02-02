@@ -1,6 +1,6 @@
 <?php
 
-class Zwe_Db_Table_Row_Resource extends Zend_Db_Table_Row_Abstract
+class Zwe_Db_Table_Row_Resource extends Zwe_Db_Table_Row_Tree
 {
     public function __get($columnName)
     {
