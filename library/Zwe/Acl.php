@@ -9,6 +9,55 @@ class Zwe_Acl extends Zend_Acl
      */
     protected static $_instance = null;
 
+    /**
+     * The "OR-equivalent" of isAllowed()
+     *
+     * @param string|Zend_Acl_Role_Interface|null $role
+     * @param string|Zend_Acl_Resource_Interface|null $resource
+     * @return bool
+     */
+    public function isAllowedAny($role = null, $resource = null)
+    {
+        if(!isset($role)) {
+            $roles = $this->_getRoleRegistry()->getRoles();
+            foreach ($roles as $role) {
+                if($this->isAllowedAny($role, $resource))
+                    return true;
+            }
+        } elseif(!isset($resource)) {
+            $resources = array_keys($this->_resources);
+            foreach ($resources as $resource) {
+                if($this->isAllowedAny($role, $resource))
+                    return true;
+            }
+        } else {
+            $role = $this->_getRoleRegistry()->get($role);
+            $resource = $this->get($resource);
+            $rules = $this->_getRules($resource, $role);
+
+            if($rules) {
+                foreach ($rules['byPrivilegeId'] as $privilege => $rule) {
+                    if($this->isAllowed($role, $resource, $privilege))
+                        return true;
+                }
+            }
+
+            $roleParents = $this->_getRoleRegistry()->getParents($role);
+            foreach ($roleParents as $roleParent) {
+                if($this->isAllowedAny($roleParent, $resource))
+                    return true;
+            }
+
+            $resourceChildren = $this->_resources[$resource->getResourceId()]['children'];
+            foreach ($resourceChildren as $resourceChild) {
+                if($this->isAllowedAny($role, $resourceChild))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
     public static function create($force = false)
     {
         if((static::$_instance = Zend_Registry::get('Zend_Cache')->load('acl')) === false || $force) {

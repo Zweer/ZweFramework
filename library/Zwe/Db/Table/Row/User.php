@@ -116,6 +116,11 @@ class Zwe_Db_Table_Row_User extends Zend_Db_Table_Row_Abstract
         return $this->Acl->isAllowed(Zwe_Acl::USER_ROLE, $resource, $privilege);
     }
 
+    public function isAllowedAny($resource = null)
+    {
+        return $this->Acl->isAllowedAny(Zwe_Acl::USER_ROLE, $resource);
+    }
+
     public function isAdmin()
     {
 
