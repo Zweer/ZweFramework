@@ -1,6 +1,6 @@
 <?php
 
-class Zwe_Model_Privilege extends Zwe_Model
+class Zwe_Model_Privilege extends Zwe_Model_Tree
 {
     protected $_dependentTables = array('Zwe_Model_Privilege_Group',
                                         'Zwe_Model_Privilege_User');

@@ -1,6 +1,6 @@
 <?php
 
-class Zwe_Model_Resource extends Zwe_Model
+class Zwe_Model_Resource extends Zwe_Model_Tree
 {
     protected $_dependentTable = array('Zwe_Model_Resource');
 
