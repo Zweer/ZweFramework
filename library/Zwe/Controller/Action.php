@@ -81,12 +81,12 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
     {
         #$this->view->thePage = Zwe_Model_Page::getThisPage();
         if(isset($this->view->thePage))
-            $this->view->title = $this->view->translate($this->view->thePage->Title);
+            $this->view->title = $this->view->thePage->Title;
         else
-            $this->view->title = $this->view->translate($this->_title);
+            $this->view->title = $this->_title;
 
         if($this->view->title)
-            $this->view->headTitle()->append($this->view->title);
+            $this->view->headTitle()->append($this->view->translate($this->view->title));
     }
 
     /**
