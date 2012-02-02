@@ -148,6 +148,8 @@ body {
 #layout-container {
     width: 960px;
     margin: 25px auto 30px auto;
+    
+    text-shadow: 0 1px 0 #fff;
 }
 
 /* Additional Footer */

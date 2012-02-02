@@ -15,7 +15,6 @@ body {
     font-family: verdana, Helvetica, Arial, sans-serif;
     font-size: 12px;
     color: #404040;
-    text-shadow: 0 1px 0 white;
 
     line-height: 20px;
 }
@@ -26,7 +25,6 @@ h1, h2, h3, h4, h5, h6 {
     color: black;
     margin: 0 0 20px 0;
     font-family: 'Lora', georgia, Arial, serif;
-    text-shadow: 0 0 0 white;
 }
 h1 {
     font-size: 24px;
@@ -73,7 +71,6 @@ code {
     color: #4d4d4d;
     margin: 10px 0;
     border: 1px dotted #979797;
-    text-shadow: 0 1px 0 #fff;
 
     display: -moz-inline-stack;
     display: inline-block;

@@ -16,7 +16,6 @@
     text-decoration: none;
     font-family: 'Lora', georgia, Arial, serif;
     font-style: italic;
-    text-shadow: 0 0 0 white;
 }
 #layout-header-menu > div > ul > li:hover, #layout-header-menu > div > ul > li.active {
     background: url(../images/layout/topmenu-left.png) no-repeat left;
