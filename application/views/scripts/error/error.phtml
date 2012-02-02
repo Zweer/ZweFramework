@@ -64,9 +64,9 @@ $this->headLink()->appendStylesheet($this->baseUrl() . '/css/error.css');
 
 <h3><?= $this->translate('Language') ?>:</h3>
 <pre class="compressable"><?= $this->escape(Zend_Registry::get('Zend_Locale')->getLanguage()) ?></pre>
-<?php if(Zend_Auth::getInstance()->hasIdentity()) : ?>
+<?php if(Zwe_Auth::getInstance()->hasIdentity()) : ?>
 <h3><?= $this->translate('Acl') ?>:</h3>
-<pre class="compressable"><?= $this->escape(print_r(Zend_Auth::getInstance()->getIdentity()->Acl, 1)) ?></pre>
+<pre class="compressable"><?= $this->escape(print_r(Zwe_Auth::getInstance()->getIdentity()->Acl, 1)) ?></pre>
 <?php endif; ?>
 
 <?php endif ?>
