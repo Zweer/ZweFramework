@@ -49,9 +49,9 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
      */
     protected $_private = null;
     /**
-     * @var array
+     * @var string
      */
-    protected $_admin = array();
+    protected $_admin = null;
 
     /**
      * Class constructor
@@ -79,9 +79,6 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
 
     protected function _initTitle()
     {
-        if($this->_admin)
-            $this->view->headTitle()->append('Admin');
-
         #$this->view->thePage = Zwe_Model_Page::getThisPage();
         if(isset($this->view->thePage))
             $this->view->title = $this->view->thePage->Title;
@@ -121,6 +118,9 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
             $this->_private = true;
 
         if($this->_private && !Zwe_Auth::getInstance()->hasIdentity())
+            $this->_helper->_redirector('auth', 'error', 'default');
+
+        if(isset($this->_admin) && !Zwe_Auth::getInstance()->getIdentity()->isAllowedAny($this->_admin))
             $this->_helper->_redirector('auth', 'error', 'default');
     }
 
