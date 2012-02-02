@@ -78,6 +78,11 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
                 return static::getInstance()->fetchAll($select);
             break;
 
+            case strpos($name, 'get') === 0 && strlen($name) > strlen('get'):
+                $what = '_' . lcfirst(substr($name, strlen('get')));
+                return static::getInstance()->$what;
+            break;
+
             default:
                 throw new Exception("Static method '$name' not implemented'");
             break;
