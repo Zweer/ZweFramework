@@ -7,13 +7,10 @@ class Zwe_Controller_Plugin_Multilanguage extends Zend_Controller_Plugin_Abstrac
         $locale = Zend_Registry::get('Zend_Locale');
         $router = Zend_Controller_Front::getInstance()->getRouter()->addDefaultRoutes();
         $routeLang = new Zend_Controller_Router_Route(':language', array('language' => $locale->getLanguage()), array('language' => '[a-z]{2}'));
-        $default = $router->getRoute('default');
 
         foreach($router->getRoutes() as $name => $route) {
             $router->addRoute($name, $routeLang->chain($route));
         }
-
-        $router->addRoute('nolang_default', $default);
     }
 
     public function routeShutdown(Zend_Controller_Request_Abstract $request)
