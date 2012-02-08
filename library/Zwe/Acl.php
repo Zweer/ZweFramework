@@ -60,7 +60,7 @@ class Zwe_Acl extends Zend_Acl
 
     public static function create($force = false)
     {
-        if((static::$_instance = Zend_Registry::get('Zend_Cache')->load('acl')) === false || $force) {
+        if((static::$_instance = Zend_Registry::get('Zend_Cache')->load('acl')) === false || $force || APPLICATION_ENV == 'development') {
             static::$_instance = new static();
 
             static::_addRoles();
