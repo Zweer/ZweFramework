@@ -159,6 +159,7 @@ ul.no-list {
 ul.no-list li {
     float: left;
     background: url(../images/layout/no-list-divider.png) no-repeat 0 50%;
+    padding: 0 5px;
 }
 ul.no-list li:first-child {
     background: none;
