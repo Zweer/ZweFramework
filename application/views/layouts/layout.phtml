@@ -39,7 +39,7 @@ $container = APPLICATION_PATH . (Zend_Controller_Front::getInstance()->getReques
 
 <body>
     <a id="top"></a>
-    <div id="layout-top" class="autoclear">
+    <div id="layout-top">
         <div id="layout-top-right">
             <ul class="no-list">
                 <li>
@@ -67,7 +67,7 @@ $container = APPLICATION_PATH . (Zend_Controller_Front::getInstance()->getReques
 
         <div id="layout-top-left">
             <ul class="no-list">
-<?php if(!Zend_Auth::getInstance()->hasIdentity()) : ?>
+<?php if(!Zwe_Auth::getInstance()->hasIdentity()) : ?>
                 <li id="layout-top-left-login">
                     <a href="<?= $this->url(array('module' => 'default', 'controller' => 'login', 'action' => 'index'), 'default') ?>.html" id="login-open">
                         <?= $this->img('/images/icons/unlock_24x24.png', array('alt' => $this->translate('Login'), 'title' => $this->translate('Login'))) ?>
@@ -79,10 +79,23 @@ $container = APPLICATION_PATH . (Zend_Controller_Front::getInstance()->getReques
                         <?= $this->img('/images/icons/lock_24x24.png', array('alt' => $this->translate('Logout'), 'title' => $this->translate('Logout'))) ?>
                     </a>
                 </li>
-                <li style="padding-left: 5px;">
+                <?php if(Zwe_Auth::getInstance()->getIdentity()->isAllowedAny('admin')) : ?>
+                <li class="menulike-toexpand">
+                    <?= $this->img('/images/icons/gear_wheel_24x24.png', array('alt' => $this->translate('Admin'))) ?>
+                    <ul>
+                        <?php foreach(Zwe_Auth::getInstance()->getIdentity()->getAllowed('admin') as $subAdmin) : ?>
+                        <?php $subAdmin = substr($subAdmin, strlen('admin_')); ?>
+                        <li>
+                            <a href="<?= $this->url(array('module' => 'admin', 'controller' => $subAdmin, 'action' => 'index'), 'default') ?>"><?= ucfirst($this->translate($subAdmin)) ?></a>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </li>
+                <?php endif; ?>
+                <li>
                     <?= $this->translate('Hi') ?> <?= Zend_Auth::getInstance()->getIdentity()->Username ?>
                 </li>
-<?php endif ?>
+<?php endif; ?>
             </ul>
         </div>
     </div>

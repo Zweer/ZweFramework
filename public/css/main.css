@@ -156,11 +156,11 @@ sub {
 ul.no-list {
     list-style: none;
 }
-ul.no-list li {
+ul.no-list > li {
     float: left;
     background: url(../images/layout/no-list-divider.png) no-repeat 0 50%;
     padding: 0 5px;
 }
-ul.no-list li:first-child {
+ul.no-list > li:first-child {
     background: none;
 }
