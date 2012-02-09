@@ -12,7 +12,7 @@ abstract class Zwe_Db_Table_Row_Tree extends Zend_Db_Table_Row_Abstract
     {
         if(Zwe_Model_Tree::CHILDREN_KEY == $columnName) {
             if(!$this->_childrenSet) {
-                if($value instanceof Zend_Db_Table_Rowset_Abstract) {
+                if($value instanceof Zend_Db_Table_Rowset_Abstract || $value === null) {
                     $this->_children = $value;
                     $this->_childrenSet = true;
                 }
