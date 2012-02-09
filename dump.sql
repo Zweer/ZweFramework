@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generato il: 01 feb, 2012 at 04:57 PM
+-- Generato il: 09 feb, 2012 at 04:52 PM
 -- Versione MySQL: 5.5.20
 -- Versione PHP: 5.3.8
 
@@ -143,7 +143,8 @@ CREATE TABLE IF NOT EXISTS `resource` (
 --
 
 INSERT INTO `resource` (`IDResource`, `IDParent`, `Name`) VALUES
-(1, 0, 'privilege');
+(1, 2, 'privilege'),
+(2, 0, 'admin');
 
 -- --------------------------------------------------------
 
