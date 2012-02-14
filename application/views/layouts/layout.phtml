@@ -35,6 +35,7 @@ $container = APPLICATION_PATH . (Zend_Controller_Front::getInstance()->getReques
     <?= str_replace(array("\n", ">script>"), array("\n    ", "></script>"), $this->headScript()) . "\n" ?>
     <script type="text/javascript">
         var __BASEURL__ = "<?= $this->baseUrl() ?>";
+        var __BASEURL__LANG__ = __BASEURL__ + "<?= $this->escape(Zend_Registry::get('Zend_Locale')->getLanguage()) ?>";
     </script>
 </head>
 
