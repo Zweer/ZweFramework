@@ -21,22 +21,40 @@ defined('SITE_URL') || define('SITE_URL', $_SERVER['HTTP_HOST']);
 defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
 /**
- * It defines the application path.
- * It is "/application"
+ * It defines the cache path.
+ * It is "/cache"
+ */
+defined('CACHE_PATH') || define('CACHE_PATH', realpath(dirname(__FILE__) . '/../cache'));
+
+/**
+ * It defines the language path.
+ * It is "/language"
+ */
+defined('LANGUAGE_PATH') || define('LANGUAGE_PATH', realpath(dirname(__FILE__) . '/../language'));
+
+/**
+ * It defines the library path.
+ * It is "/library"
  */
 defined('LIBRARY_PATH') || define('LIBRARY_PATH', realpath(dirname(__FILE__) . '/../library'));
 
 /**
- * It defines the temporary directory path.
- * It is "/temp"
+ * It defines the log path.
+ * It is "/log"
  */
-defined('TEMP_PATH') || define('TEMP_PATH', realpath(dirname(__FILE__) . '/../temp'));
+defined('LOG_PATH') || define('LOG_PATH', realpath(dirname(__FILE__) . '/../log'));
 
 /**
  * It defines the public path.
  * It is "/public"
  */
 defined('PUBLIC_PATH') || define('PUBLIC_PATH', dirname(__FILE__));
+
+/**
+ * It defines the temporary directory path.
+ * It is "/temp"
+ */
+defined('TEMP_PATH') || define('TEMP_PATH', realpath(dirname(__FILE__) . '/../temp'));
 
 /**
  * It defines the environment of the application.
