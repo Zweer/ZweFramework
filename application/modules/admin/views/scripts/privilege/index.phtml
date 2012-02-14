@@ -1,6 +1,7 @@
 <?php
 
 $this->headScript()->appendFile($this->baseUrl() . '/js/tree.js');
+$this->headLink()->appendStylesheet($this->baseUrl() . '/css/tree.css');
 
 ?>
 <?= $this->tree2ul($this->resources) ?>
