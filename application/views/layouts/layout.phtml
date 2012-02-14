@@ -10,8 +10,9 @@ $this->headLink()->prependStylesheet('http://fonts.googleapis.com/css?family=Lor
 $this->headScript()->prependFile($this->baseUrl() . '/js/mootools/3rdpart/zwebox/zwe-box.js');
 $this->headScript()->prependFile($this->baseUrl() . '/js/mootools/3rdpart/overlay/Overlay.js');
 $this->headScript()->prependFile($this->baseUrl() . '/js/main.js');
+$this->headScript()->prependFile($this->baseUrl() . '/js/mootools/powertools-1.1.1.js');
 $this->headScript()->prependFile($this->baseUrl() . '/js/mootools/mootools-more-1.4.0.1.js');
-$this->headScript()->prependFile($this->baseUrl() . '/js/mootools/mootools-core-1.4.2.js');
+$this->headScript()->prependFile($this->baseUrl() . '/js/mootools/mootools-core-1.4.4.js');
 
 $menuXML = new SimpleXMLElement($this->navigation()->menu()->setMaxDepth(-1));
 $menuLis = $menuXML->xpath('/ul/li');
