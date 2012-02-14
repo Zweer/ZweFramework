@@ -34,11 +34,11 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
                 @mkdir(APPLICATION_PATH . '/' . $directory);
         }
 
-        $directories = array('cache');
+        $directories = array('cache', 'log');
 
         foreach($directories as $directory) {
-            if(!is_dir(realpath(APPLICATION_PATH . '/../' . $directory)))
-                @mkdir(realpath(APPLICATION_PATH . '/../' . $directory));
+            if(!is_dir(dirname(APPLICATION_PATH) . '/' . $directory))
+                @mkdir(dirname(APPLICATION_PATH) . '/' . $directory);
         }
     }
 
@@ -85,6 +85,22 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
         Zend_Registry::set('Zend_Cache', $cacheManager->getCache('coreCache'));
     }
 
+    protected function _initLogger()
+    {
+        $log = new Zend_Log();
+
+        $this->bootstrap('db');
+        $writerTranslate = new Zend_Log_Writer_Db(Zend_Db_Table_Abstract::getDefaultAdapter(), 'log', array('Priority' => 'priority', 'Message' => 'message', 'Date' => 'timestamp'));
+        $log->addWriter($writerTranslate);
+
+        $writerDebug = new Zwe_Log_Writer_Syslog(LOG_PATH . '/debug.log');
+        $log->addWriter($writerDebug);
+
+        $log->setTimestampFormat("Y-m-d H:i:s");
+
+        Zend_Registry::set('Zend_Log', $log);
+    }
+
     /**
      * Takes the site parameters from the config file.
      * If in the siteUrl param there is "localhost", it substitutes it with the ip address of the machine.
@@ -108,7 +124,7 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
     {
         Zend_Registry::set('Zend_Translate',
                            new Zend_Translate('array',
-                                              realpath(APPLICATION_PATH . '/../language'),
+                                              LANGUAGE_PATH,
                                               Zend_Registry::get('parameters')->registry->defaultLanguage,
                                               array('scan' => Zend_Translate::LOCALE_DIRECTORY)));
 
