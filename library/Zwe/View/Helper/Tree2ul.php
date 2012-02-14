@@ -3,6 +3,7 @@
 class Zwe_View_Helper_Tree2ul extends Zend_View_Helper_Abstract
 {
     const NODE_NAME = 'Name';
+    const ROOT_ID = 'tree_root';
     
     public function tree2ul(Zend_Db_Table_Rowset $tree)
     {
@@ -16,6 +17,7 @@ class Zwe_View_Helper_Tree2ul extends Zend_View_Helper_Abstract
             $ret .= '</li>';
         }
 
-        return '<ul>' . $ret . '</ul>';
+        list(, $caller) = debug_backtrace(false);
+        return '<ul' . ($caller['function'] != __FUNCTION__ ? ' id="' . static::ROOT_ID . '"' : '') . '>' . $ret . '</ul>';
     }
 }
