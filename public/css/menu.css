@@ -26,8 +26,9 @@
     background: url(../images/layout/topmenu-right.png) no-repeat right;
 }
 
-/* Dropdown: 1st tier */
-#layout-header-menu > div > ul > li ul {
+/* Dropdown */
+#layout-header-menu > div > ul > li ul,
+.menulike-toexpand                  ul {
     background: #1f2324;
     padding: 5px 0;
     box-shadow: 1px 1px 5px #000;
@@ -38,23 +39,28 @@
     
     display: none;
 }
-#layout-header-menu > div > ul > li > ul > li ul {
+#layout-header-menu > div > ul > li > ul > li ul,
+.menulike-toexpand                  > ul > li ul{
     margin: -5px 6px 0 100%;
     border-radius: 5px;
 
     top: 0;
     left: 0;
 }
-#layout-header-menu > div > ul li:hover > ul {
+#layout-header-menu > div > ul li:hover > ul,
+.menulike-toexpand:hover                > ul,
+.menulike-toexpand                  ul > li:hover > ul {
     display: block;
 }
 
-#layout-header-menu > div > ul > li ul > li {
+#layout-header-menu > div > ul > li ul > li,
+.menulike-toexpand                  ul > li {
     position: relative;
     padding: 0 20px;
 }
 
-#layout-header-menu > div > ul > li ul a {
+#layout-header-menu > div > ul > li ul a,
+.menulike-toexpand                  ul a {
     color: #ababab;
 
     border-top: 1px solid #454a4b;
@@ -73,40 +79,48 @@
     display: block;
     margin: 0;
 }
-#layout-header-menu > div > ul > li ul a:hover {
+#layout-header-menu > div > ul li:hover > a,
+.menulike-toexpand             li:hover > a {
     color: #fdfbfb;
 }
-#layout-header-menu > div > ul > li ul > li:first-child > a {
+#layout-header-menu > div > ul > li ul > li:first-child > a,
+.menulike-toexpand                  ul > li:first-child > a {
     border-top: 0;
 }
-#layout-header-menu > div > ul > li ul > li:last-child > a {
+#layout-header-menu > div > ul > li ul > li:last-child > a,
+.menulike-toexpand                  ul > li:last-child > a {
     border-bottom: 0;
+}
+
+span.layout-header-menu-parent {
+    position: absolute;
+    display: block;
+    top: 13px;
+    right: 20px;
+    width: 10px;
+    height: 12px;
+    background: url(../images/layout/arrows-ffffff.png) no-repeat 1px top;
+}
+li:hover > span.layout-header-menu-parent {
+    background-position: top right;
 }
 
 /* Menu Like */
 .menulike-toexpand {
     position: relative;
-    z-index: 2;
 }
 .menulike-toexpand:hover {
     background: #000;
 }
 
-.menulike-toexpand > ul {
-    position: absolute;
-    display: none;
-    background-color: #000;
-
-    box-shadow: 1px 1px 5px #000;
-    border-radius: 0 0 5px 5px;
-
-    padding: 5px 20px;
-
-    top: 2.5em;
-    left: 0;
-
-    list-style: none;
+.menulike-toexpand * {
+    opacity: 1 !important;
 }
-.menulike-toexpand:hover ul {
-    display: block;
+
+.menulike-toexpand > ul {
+    margin-top: -6px;
+}
+.menulike-toexpand ul {
+    background-color: #000;
+    z-index: 2;
 }
