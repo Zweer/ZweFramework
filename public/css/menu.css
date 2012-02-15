@@ -4,6 +4,8 @@
 
     margin-left: 10px;
     padding-left: 12px;
+
+    position: relative;
 }
 
 #layout-header-menu > div > ul > li > a {
@@ -24,6 +26,63 @@
     background: url(../images/layout/topmenu-right.png) no-repeat right;
 }
 
+/* Dropdown: 1st tier */
+#layout-header-menu > div > ul > li ul {
+    background: #1f2324;
+    padding: 5px 0;
+    box-shadow: 1px 1px 5px #000;
+    border-radius: 0 0 5px 5px;
+    list-style: none;
+    position: absolute;
+    left: 0;
+    
+    display: none;
+}
+#layout-header-menu > div > ul > li > ul > li ul {
+    margin: -5px 6px 0 100%;
+    border-radius: 5px;
+
+    top: 0;
+    left: 0;
+}
+#layout-header-menu > div > ul li:hover > ul {
+    display: block;
+}
+
+#layout-header-menu > div > ul > li ul > li {
+    position: relative;
+    padding: 0 20px;
+}
+
+#layout-header-menu > div > ul > li ul a {
+    color: #ababab;
+
+    border-top: 1px solid #454a4b;
+    border-bottom: 1px solid #0c0e0f;
+
+    text-shadow: 0 1px 0 black;
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: normal;
+    font-family: arial, georgia;
+
+    padding-right: 20px;
+    line-height: 33px;
+    width: auto;
+    display: block;
+    margin: 0;
+}
+#layout-header-menu > div > ul > li ul a:hover {
+    color: #fdfbfb;
+}
+#layout-header-menu > div > ul > li ul > li:first-child > a {
+    border-top: 0;
+}
+#layout-header-menu > div > ul > li ul > li:last-child > a {
+    border-bottom: 0;
+}
+
 /* Menu Like */
 .menulike-toexpand {
     position: relative;
@@ -33,14 +92,15 @@
     background: #000;
 }
 
-.menulike-toexpand ul {
+.menulike-toexpand > ul {
     position: absolute;
     display: none;
     background-color: #000;
 
-    box-shadow: 2px 2px 3px #aaa;
+    box-shadow: 1px 1px 5px #000;
+    border-radius: 0 0 5px 5px;
 
-    padding: 8px;
+    padding: 5px 20px;
 
     top: 2.5em;
     left: 0;
