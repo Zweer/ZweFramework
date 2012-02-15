@@ -63,6 +63,10 @@ body {
     position: absolute;
     left: 366px;
     top: 35px;
+    z-index: 2;
+}
+#layout-header-logo a {
+    display: block;
 }
 
 #layout-header-menu {
