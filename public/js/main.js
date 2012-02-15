@@ -44,6 +44,11 @@ window.addEvents({
         // preload of the hover goto top image
         new Asset.image(__BASEURL__ + '/images/layout/go-top-arrow-hover.png');
 
+        // Menu
+        $$('#layout-header-menu > div > ul > li > ul > li ul, .menulike-toexpand > ul > li ul').each(function(el) {
+            el.getParent().adopt(new Element('span', { 'class': 'layout-header-menu-parent' }));
+        });
+
         // search overtext
        document.id('layout-header-title-search').getElement('input').myOverText();
 
