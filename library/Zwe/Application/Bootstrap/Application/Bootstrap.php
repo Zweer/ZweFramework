@@ -92,9 +92,15 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
 
         $this->bootstrap('db');
         $writerTranslate = new Zend_Log_Writer_Db(Zend_Db_Table_Abstract::getDefaultAdapter(), 'log', array('Priority' => 'priority', 'Message' => 'message', 'Date' => 'timestamp'));
+        $filterTranslateDb = new Zwe_Log_Filter_Db_NoRecordExists(Zend_Db_Table_Abstract::getDefaultAdapter(), 'log', array('Message' => 'message'));
+        $filterTranslatePriority = new Zend_Log_Filter_Priority(8, '==');
+        $writerTranslate->addFilter($filterTranslateDb);
+        $writerTranslate->addFilter($filterTranslatePriority);
         $log->addWriter($writerTranslate);
 
         $writerDebug = new Zwe_Log_Writer_Syslog(LOG_PATH . '/debug.log');
+        $filterDebug = new Zend_Log_Filter_Priority(Zend_Log::DEBUG);
+        $writerDebug->addFilter($filterDebug);
         $log->addWriter($writerDebug);
 
         $log->setTimestampFormat("Y-m-d H:i:s");
