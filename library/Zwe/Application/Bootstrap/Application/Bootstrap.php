@@ -88,6 +88,7 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
     protected function _initLogger()
     {
         $log = new Zend_Log();
+        $log->addPriority('TRANSLATE', 8);
 
         $this->bootstrap('db');
         $writerTranslate = new Zend_Log_Writer_Db(Zend_Db_Table_Abstract::getDefaultAdapter(), 'log', array('Priority' => 'priority', 'Message' => 'message', 'Date' => 'timestamp'));
