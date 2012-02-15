@@ -22,6 +22,7 @@ class Zwe_Controller_Action_Admin_Privilege extends Zwe_Controller_Action
         if($this->getRequest()->isPost()) {
             if($order = Zend_Json::decode($this->getRequest()->getPost('order'))) {
                 try {
+                    $this->view->getHelper('tree2ul');
                     Zwe_Model_Resource::orderTree($order, Admin_View_Helper_Tree2ul::ROOT_ID);
                     $this->view->message = $this->view->translate(self::PRIVILEGE_ORDER_OK);
                 } catch(Exception $e) {
