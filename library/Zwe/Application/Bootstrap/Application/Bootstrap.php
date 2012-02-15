@@ -129,12 +129,12 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
      */
     protected function _initTranslate()
     {
-        Zend_Registry::set('Zend_Translate',
-                           new Zend_Translate('array',
-                                              LANGUAGE_PATH,
-                                              Zend_Registry::get('parameters')->registry->defaultLanguage,
-                                              array('scan' => Zend_Translate::LOCALE_DIRECTORY)));
-
+        $translate = new Zend_Translate('array',
+                                        LANGUAGE_PATH,
+                                        Zend_Registry::get('parameters')->registry->defaultLanguage,
+                                        array('scan' => Zend_Translate::LOCALE_DIRECTORY));
+        
+        Zend_Registry::set('Zend_Translate', $translate);
         Zend_Registry::set('Zend_Locale', new Zend_Locale(Zend_Registry::get('parameters')->registry->defaultLanguage));
     }
 
