@@ -133,7 +133,13 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
                                         LANGUAGE_PATH,
                                         Zend_Registry::get('parameters')->registry->defaultLanguage,
                                         array('scan' => Zend_Translate::LOCALE_DIRECTORY));
-        
+        $translate->setOptions(array(
+            'log'               => Zend_Registry::get('Zend_Log'),
+            'logUntranslated'   => true,
+            'logMessage'        => '(%locale%) %message%',
+            'logPriority'       => 8
+        ));
+
         Zend_Registry::set('Zend_Translate', $translate);
         Zend_Registry::set('Zend_Locale', new Zend_Locale(Zend_Registry::get('parameters')->registry->defaultLanguage));
     }
