@@ -5,7 +5,7 @@ window.addEvent('domready', function() {
                 var order = JSON.encode(this.serialize());
 
                 new Request.JSON({
-                    url: __BASEURL__LANG__ + '/admin/privilege/order.json',
+                    url: __BASEURL__LANG__ + '/admin/resource/order.json',
                     data: "order=" + order,
 
                     onSuccess: function(json) {
