@@ -20,6 +20,9 @@ ul.tree li span, li.drag span {
     color: #111;
     display: block;
 }
+ul.tree li span img, li.drag span img {
+    margin-left: 5px;
+}
 
 ul.tree li {
     list-style-type: none;
