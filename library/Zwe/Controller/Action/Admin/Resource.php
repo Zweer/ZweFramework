@@ -2,8 +2,8 @@
 
 class Zwe_Controller_Action_Admin_Resource extends Zwe_Controller_Action
 {
-    protected $_title = 'Users\' Privileges';
-    protected $_admin = 'admin_privilege';
+    protected $_title = 'Resources';
+    protected $_admin = 'admin_resource';
 
     const RESOURCE_ORDER_OK = 'ResourceOrderOk';
     const RESOURCE_ORDER_KO = 'ResourceOrderKo';
