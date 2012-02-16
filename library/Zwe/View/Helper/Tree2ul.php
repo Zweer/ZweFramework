@@ -13,7 +13,11 @@ abstract class Zwe_View_Helper_Tree2ul extends Zend_View_Helper_Abstract
         $ret = '';
         foreach ($tree as $node) {
             $ret .= '<li id="' . static::ROOT_ID . '-' . $node->{static::NODE_ID} . '">';
-            $ret .= '<span>' . $node->{static::NODE_NAME} . '</span>';
+            $ret .= '<span>';
+            $ret .= $node->{static::NODE_NAME};
+            $ret .= $this->_getModify($node->{static::NODE_ID});
+            $ret .= $this->_getDelete($node->{static::NODE_ID});
+            $ret .= '</span>';
             if($node->{Zwe_Model_Tree::CHILDREN_KEY}) {
                 $ret .= $this->tree2ul($node->{Zwe_Model_Tree::CHILDREN_KEY});
             }
@@ -22,5 +26,15 @@ abstract class Zwe_View_Helper_Tree2ul extends Zend_View_Helper_Abstract
 
         list(, $caller) = debug_backtrace(false);
         return '<ul' . ($caller['function'] != __FUNCTION__ ? ' id="' . static::ROOT_ID . '" class="' . static::ROOT_CLASS . '"' : '') . '>' . $ret . '</ul>';
+    }
+
+    protected function _getModify($id)
+    {
+        return '';
+    }
+
+    protected function _getDelete($id)
+    {
+        return '';
     }
 }
