@@ -4,4 +4,8 @@ $this->headScript()->appendFile($this->baseUrl() . '/js/tree.js');
 $this->headLink()->appendStylesheet($this->baseUrl() . '/css/tree.css');
 
 ?>
+<h2><?= $this->translate('New Resource') ?></h2>
+<?= $this->form ?>
+<br />
+<h2><?= $this->translate('Resources Tree') ?></h2>
 <?= $this->tree2ul($this->resources) ?>

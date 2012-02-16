@@ -12,6 +12,15 @@ class Zwe_Controller_Action_Admin_Privilege extends Zwe_Controller_Action
 
     protected function _indexAction()
     {
+        $this->view->form = new Zwe_Form_Admin_Resource();
+
+        if($this->getRequest()->isPost()) {
+            if($this->view->form->isValid($this->getRequest()->getPost())) {
+                Zwe_Model_Resource::create(array('Name' => $this->view->form->getValue('name')))->save();
+                $this->view->form->reset();
+            }
+        }
+
         $this->view->resources = Zwe_Model_Resource::getTree();
     }
 
