@@ -18,6 +18,22 @@ abstract class Zwe_Model_Tree extends Zwe_Model
         return $elements;
     }
 
+    public static function getStair($nameKey = 'Name', $prefix = '-', $IDParent = 0, $level = 0)
+    {
+        $ret = array();
+        $elements = static::findByIDParent($IDParent);
+
+        if($elements->count() == 0)
+            return array();
+
+        foreach ($elements as $element) {
+            $ret[$element->{static::getPrimary()}] = str_repeat($prefix, $level) . ($level > 0 ? ' ' : '') . $element->$nameKey;
+            $ret += static::getStair($nameKey, $prefix, $element->{static::getPrimary()}, $level + 1);
+        }
+
+        return $ret;
+    }
+
     public static function orderTree($tree, $prefix = '', $IDParent = 0)
     {
         foreach ($tree as $IDNode => $children) {
