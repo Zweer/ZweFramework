@@ -78,6 +78,18 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
                 return static::getInstance()->fetchAll($select);
             break;
 
+            case strpos($name, 'deleteBy') === 0 && strlen($name) > strlen('deleteBy'):
+                $method = 'find' . substr($name, strlen('delete'));
+                $rowset = static::$method($arguments[0]);
+                $deleted = 0;
+
+                foreach ($rowset as $row) {
+                    $deleted += $row->delete();
+                }
+
+                return $deleted;
+            break;
+
             case strpos($name, 'get') === 0 && strlen($name) > strlen('get'):
                 $what = '_' . lcfirst(substr($name, strlen('get')));
                 return static::getInstance()->$what;
