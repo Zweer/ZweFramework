@@ -49,6 +49,11 @@ window.addEvent('domready', function() {
     });
 
     resources.addEvent('change', function() {
+        privilegesBoxList.getBits().each(function(bit) {
+            bit.value = [null, bit.value[1], null];
+            bit.remove();
+        });
+
         new Request.JSON({
             url: resources.getParent('form').action + '/get.json',
             data: 'resource=' + resources.get('value'),
@@ -61,4 +66,5 @@ window.addEvent('domready', function() {
             }
         }).send();
     });
+    resources.fireEvent('change');
 });
