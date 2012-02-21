@@ -172,6 +172,14 @@ var TextboxList = new Class({
 		return (typeOf(obj) == 'element') ? obj.retrieve('textboxlist:bit') : obj;
 	},
 
+    getBits: function() {
+        return this.list.getChildren().map(function(el) {
+            var bit = this.getBit(el);
+            if(bit.is('editable')) return null;
+            return bit;
+        }, this).clean();
+    },
+
 	getValues: function() {
 		return this.list.getChildren().map(function(el) {
 			var bit = this.getBit(el);
