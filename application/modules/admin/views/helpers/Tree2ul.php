@@ -6,7 +6,7 @@ class Admin_View_Helper_Tree2ul extends Zwe_View_Helper_Tree2ul
     
     protected function _getModify($id)
     {
-        return '<a href="' . $this->view->url(array('module' => 'admin', 'controller' => 'resource', 'action' => 'modify'), 'default') . '">' . $this->view->img('/images/icons/edit_yellow_16x16.png', array('alt' => 'modify', 'title' => 'Modify')) . '</a>';
+        return '<a href="' . $this->view->url(array('module' => 'admin', 'controller' => 'resource', 'action' => 'edit'), 'default') . '">' . $this->view->img('/images/icons/edit_yellow_16x16.png', array('alt' => 'modify', 'title' => 'Modify')) . '</a>';
     }
 
     protected function _getDelete($id)
