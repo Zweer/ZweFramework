@@ -48,6 +48,10 @@ class Zwe_Controller_Action_Admin_Resource extends Zwe_Controller_Action
 
     protected function _deleteAction()
     {
+        $IDResource = $this->_getParam('id', 0);
 
+        Zwe_Model_Resource::deleteByPrimary($IDResource);
+
+        $this->_helper->redirector('index');
     }
 }
