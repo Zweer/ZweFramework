@@ -70,9 +70,7 @@ class Zwe_Controller_Action_Admin_Privilege extends Zwe_Controller_Action
 
         if($this->getRequest()->isPost()) {
             if($form->isValid($this->getRequest()->getPost())) {
-                if(Zwe_Model_Privilege::findByPrimary($form->getValue('privileges'))->current()->delete()) {
-                    Zwe_Model_Privilege_Group::deleteByIDPrivilege($form->getValue('privileges'));
-                    Zwe_Model_Privilege_User::deleteByIDPrivilege($form->getValue('privileges'));
+                if(Zwe_Model_Privilege::deleteByPrimary($form->getValue('privileges'))) {
                     $this->view->ok = true;
                     $this->view->message = $this->view->translate(self::DELETE_OK);
                 } else {
