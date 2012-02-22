@@ -40,4 +40,14 @@ class Zwe_Controller_Action_Admin_Resource extends Zwe_Controller_Action
             }
         }
     }
+
+    protected function _editAction()
+    {
+
+    }
+
+    protected function _deleteAction()
+    {
+
+    }
 }
