@@ -61,6 +61,11 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
         return static::getInstance()->find($id);
     }
 
+    public static function deleteByPrimary($id)
+    {
+        return static::findByPrimary($id)->current()->delete();
+    }
+
     public static function create(array $data = array(), $defaultSource = null)
     {
         return static::getInstance()->createRow($data, $defaultSource);
