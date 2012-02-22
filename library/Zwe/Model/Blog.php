@@ -8,12 +8,15 @@ class Zwe_Model_Blog extends Zwe_Model
         'Author' => array(
             'columns' => 'IDUser',
             'refTableClass' => 'Zwe_Model_User',
-            'refColumns' => 'IDUser'
+            'refColumns' => 'IDUser',
+            Zend_Db_Table_Abstract::ON_UPDATE => Zend_Db_Table_Abstract::CASCADE
         ),
         'Parent' => array(
             'columns' => 'IDParent',
             'refTableClass' => 'Zwe_Model_Blog',
-            'refColumns' => 'IDBlog'
+            'refColumns' => 'IDBlog',
+            Zend_Db_Table_Abstract::ON_DELETE => Zend_Db_Table_Abstract::CASCADE,
+            Zend_Db_Table_Abstract::ON_UPDATE => Zend_Db_Table_Abstract::CASCADE
         )
     );
 
