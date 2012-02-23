@@ -5,7 +5,7 @@ window.addEvent('domready', function() {
                 var order = JSON.encode(this.serialize());
 
                 new Request.JSON({
-                    url: __BASEURL__LANG__ + '/admin/resource/order.json',
+                    url: document.id('tree_root').getPrevious('form').get('action') + '/order.json',
                     data: "order=" + order,
 
                     onSuccess: function(json) {
