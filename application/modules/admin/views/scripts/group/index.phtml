@@ -1,0 +1,13 @@
+<?php
+
+$this->form->setAction($this->url());
+
+$this->headScript()->appendFile($this->baseUrl() . '/js/tree.js');
+$this->headLink()->appendStylesheet($this->baseUrl() . '/css/tree.css');
+
+?>
+<h2><?= $this->translate('New Group') ?></h2>
+<?= $this->form ?>
+<br />
+<h2><?= $this->translate('Group Tree') ?></h2>
+<?= $this->tree2ul($this->groups) ?>
