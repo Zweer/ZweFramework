@@ -2,7 +2,7 @@
 
 class Zwe_Controller_Action_Admin_Privilege extends Zwe_Controller_Action
 {
-    protected $_title = 'Users\' Privileges';
+    protected $_title = 'Privileges Management';
     protected $_admin = 'admin_privilege';
 
     public $contexts = array('add' => array('json'),
