@@ -12,7 +12,7 @@ class Zwe_Controller_Action_Admin_Resource extends Zwe_Controller_Action
 
     protected function _indexAction()
     {
-        $this->view->form = new Zwe_Form_Admin_Resource();
+        $this->view->form = new Zwe_Form_Admin_Name();
 
         if($this->getRequest()->isPost()) {
             if($this->view->form->isValid($this->getRequest()->getPost())) {
@@ -44,7 +44,7 @@ class Zwe_Controller_Action_Admin_Resource extends Zwe_Controller_Action
     protected function _editAction()
     {
         $IDResource = $this->_getParam('id', 0);
-        $this->view->form = new Zwe_Form_Admin_Resource();
+        $this->view->form = new Zwe_Form_Admin_Name();
         $this->view->resource = Zwe_Model_Resource::findByPrimary($IDResource)->current();
 
         if($this->getRequest()->isPost()) {
