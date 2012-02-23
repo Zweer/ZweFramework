@@ -1,5 +1,7 @@
 <?php
 
+$this->form->setAction($this->url());
+
 $this->headScript()->appendFile($this->baseUrl() . '/js/tree.js');
 $this->headLink()->appendStylesheet($this->baseUrl() . '/css/tree.css');
 
