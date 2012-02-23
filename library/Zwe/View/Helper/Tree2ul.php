@@ -2,7 +2,6 @@
 
 abstract class Zwe_View_Helper_Tree2ul extends Zend_View_Helper_Abstract
 {
-    const NODE_ID = 'IDTree';
     const NODE_NAME = 'Name';
 
     const ROOT_ID = 'tree_root';
@@ -12,11 +11,12 @@ abstract class Zwe_View_Helper_Tree2ul extends Zend_View_Helper_Abstract
     {
         $ret = '';
         foreach ($tree as $node) {
-            $ret .= '<li id="' . static::ROOT_ID . '-' . $node->{static::NODE_ID} . '">';
+            $tableClass = get_class($node->getTable());
+            $ret .= '<li id="' . static::ROOT_ID . '-' . $node->{$tableClass::getPrimary()} . '">';
             $ret .= '<span>';
             $ret .= $node->{static::NODE_NAME};
-            $ret .= $this->_getModify($node->{static::NODE_ID});
-            $ret .= $this->_getDelete($node->{static::NODE_ID});
+            $ret .= $this->_getModify($node->{$tableClass::getPrimary()});
+            $ret .= $this->_getDelete($node->{$tableClass::getPrimary()});
             $ret .= '</span>';
             if($node->{Zwe_Model_Tree::CHILDREN_KEY}) {
                 $ret .= $this->tree2ul($node->{Zwe_Model_Tree::CHILDREN_KEY});
