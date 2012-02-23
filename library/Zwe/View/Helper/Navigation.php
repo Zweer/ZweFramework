@@ -2,12 +2,6 @@
 
 class Zwe_View_Helper_Navigation extends Zend_View_Helper_Navigation
 {
-    public function setAcl(Zwe_Acl $acl = null)
-    {
-        $this->_acl = $acl;
-        return $this;
-    }
-
     protected function _acceptAcl(Zend_Navigation_Page $page)
     {
         if (!$acl = $this->getAcl()) {
@@ -20,7 +14,10 @@ class Zwe_View_Helper_Navigation extends Zend_View_Helper_Navigation
         $privilege = $page->getPrivilege();
 
         if ($resource || $privilege) {
-            return $acl->isAllowedAny($role, $resource, $privilege);
+            if($acl instanceof Zwe_Acl)
+                return $acl->isAllowedAny($role, $resource, $privilege);
+            else
+                return $acl->isAllowed($role, $resource, $privilege);
         }
 
         return true;
