@@ -18,7 +18,6 @@ $menuXML = new SimpleXMLElement($this->navigation()->menu()->setMaxDepth(-1));
 $menuLis = $menuXML->xpath('/ul/li');
 $menuLeft = $menuLis[0]->asXML() . $menuLis[1]->asXML() . $menuLis[2]->asXML();
 $menuRight = $menuLis[3]->asXML() . $menuLis[4]->asXML() . $menuLis[5]->asXML();
-$menuAdmin = $menuLis[6]->asXML();
 
 $breadcrumbs = $this->navigation()->breadcrumbs()->setRenderInvisible(true)->setSeparator(' &nbsp;/&nbsp; ');
 
@@ -82,19 +81,15 @@ $container = APPLICATION_PATH . (Zend_Controller_Front::getInstance()->getReques
                         <?= $this->img('/images/icons/lock_24x24.png', array('alt' => $this->translate('Logout'), 'title' => $this->translate('Logout'))) ?>
                     </a>
                 </li>
-                <?php if(Zwe_Auth::getInstance()->getIdentity()->isAllowedAny('admin')) : ?>
-                <li class="menulike-toexpand">
-                    <?= $this->img('/images/icons/gear_wheel_24x24.png', array('alt' => $this->translate('Admin'))) ?>
-                    <ul>
-                        <?php foreach(Zwe_Auth::getInstance()->getIdentity()->getAllowed('admin') as $subAdmin) : ?>
-                        <?php $subAdmin = substr($subAdmin, strlen('admin_')); ?>
-                        <li>
-                            <a href="<?= $this->url(array('module' => 'admin', 'controller' => $subAdmin, 'action' => 'index'), 'default') ?>"><?= ucfirst($this->translate($subAdmin)) ?></a>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </li>
-                <?php endif; ?>
+                <?php
+
+                if(count($menuLis) > 6) {
+                    $menuAdminXML = $menuLis[6];
+                    $menuAdminXML['class'] = 'menulike-toexpand';
+                    echo preg_replace('@<a href="#">Admin</a>@', $this->img('/images/icons/gear_wheel_24x24.png', array('alt' => $this->translate('Admin'))), $menuAdminXML->asXML());
+                }
+
+                ?>
                 <li>
                     <?= $this->translate('Hi') ?> <?= Zend_Auth::getInstance()->getIdentity()->Username ?>
                 </li>
