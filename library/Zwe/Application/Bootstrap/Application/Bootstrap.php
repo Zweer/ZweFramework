@@ -214,7 +214,7 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
      */
     protected function _initNavigation()
     {
-        $configFile = APPLICATION_PATH . '/configs/navigation.ini';
+        $configFile = APPLICATION_PATH . '/configs/navigation/application.ini';
         $pages = null;
 
         if(file_exists($configFile)) {
