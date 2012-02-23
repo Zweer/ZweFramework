@@ -219,7 +219,7 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
 
         if(file_exists($configFile)) {
             $config = new Zend_Config_Ini($configFile, 'production');
-            $pages = $config->get('navigation');
+            $pages = $config->get('navigation')->toArray();
         } else {
             $pages = array(
                 array('label' => 'Home',
@@ -233,7 +233,7 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
         $adminConfigFile = APPLICATION_PATH . '/configs/navigation/admin.ini';
         if(file_exists($adminConfigFile)) {
             $config = new Zend_Config_Ini($adminConfigFile, 'production');
-            $pages = array_merge($pages, $config->get('navigation'));
+            $pages = array_merge($pages, $config->get('navigation')->toArray());
         }
 
         $this->bootstrap('layout');
