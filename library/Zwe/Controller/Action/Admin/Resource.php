@@ -5,8 +5,8 @@ class Zwe_Controller_Action_Admin_Resource extends Zwe_Controller_Action
     protected $_title = 'Resources';
     protected $_admin = 'admin_resource';
 
-    const RESOURCE_ORDER_OK = 'ResourceOrderOk';
-    const RESOURCE_ORDER_KO = 'ResourceOrderKo';
+    const RESOURCE_ORDER_OK = 'ZweControllerActionAdminResourceOrderOk';
+    const RESOURCE_ORDER_KO = 'ZweControllerActionAdminResourceOrderKo';
 
     public  $contexts = array('order' => array('json'));
 
