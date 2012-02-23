@@ -18,6 +18,7 @@ $menuXML = new SimpleXMLElement($this->navigation()->menu()->setMaxDepth(-1));
 $menuLis = $menuXML->xpath('/ul/li');
 $menuLeft = $menuLis[0]->asXML() . $menuLis[1]->asXML() . $menuLis[2]->asXML();
 $menuRight = $menuLis[3]->asXML() . $menuLis[4]->asXML() . $menuLis[5]->asXML();
+$menuAdmin = $menuLis[6]->asXML();
 
 $breadcrumbs = $this->navigation()->breadcrumbs()->setRenderInvisible(true)->setSeparator(' &nbsp;/&nbsp; ');
 
