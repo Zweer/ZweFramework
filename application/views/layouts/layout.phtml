@@ -14,7 +14,7 @@ $this->headScript()->prependFile($this->baseUrl() . '/js/mootools/powertools-1.1
 $this->headScript()->prependFile($this->baseUrl() . '/js/mootools/mootools-more-1.4.0.1.js');
 $this->headScript()->prependFile($this->baseUrl() . '/js/mootools/mootools-core-1.4.4.js');
 
-$menuXML = new SimpleXMLElement($this->navigation()->menu()->setMaxDepth(-1));
+$menuXML = new SimpleXMLElement($this->navigation()->setUseAcl(true)->menu()->setMaxDepth(-1));
 $menuLis = $menuXML->xpath('/ul/li');
 $menuLeft = $menuLis[0]->asXML() . $menuLis[1]->asXML() . $menuLis[2]->asXML();
 $menuRight = $menuLis[3]->asXML() . $menuLis[4]->asXML() . $menuLis[5]->asXML();
