@@ -230,6 +230,12 @@ class Zwe_Application_Bootstrap_Application_Bootstrap extends Zend_Application_B
             );
         }
 
+        $adminConfigFile = APPLICATION_PATH . '/configs/navigation/admin.ini';
+        if(file_exists($adminConfigFile)) {
+            $config = new Zend_Config_Ini($adminConfigFile, 'production');
+            $pages = array_merge($pages, $config->get('navigation'));
+        }
+
         $this->bootstrap('layout');
         $layout = $this->getResource('layout');
         $view = $layout->getView();
