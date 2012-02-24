@@ -17,10 +17,14 @@ class Zwe_View_Helper_Navigation_Menu extends Zend_View_Helper_Navigation_Menu
         }
 
         if ($resource || $privilege) {
-            if($acl instanceof Zwe_Acl)
-                return $acl->isAllowedAny($role, $resource, $privilege);
-            else
-                return $acl->isAllowed($role, $resource, $privilege);
+            try {
+                if($acl instanceof Zwe_Acl)
+                    return $acl->isAllowedAny($role, $resource, $privilege);
+                else
+                    return $acl->isAllowed($role, $resource, $privilege);
+            } catch (Exception $e) {
+                return false;
+            }
         }
 
         return true;
