@@ -5,10 +5,26 @@ class Zwe_Controller_Action_Admin_Group extends Zwe_Controller_Action
     protected $_title = 'Groups';
     protected $_admin = 'admin_group';
 
+    /**
+     * @var Zwe_Form_Admin_List
+     */
+    protected $_form;
+
     const GROUP_ORDER_OK = 'ZweControllerActionAdminGroupOrderOk';
     const GROUP_ORDER_KO = 'ZweControllerActionAdminGroupOrderKo';
 
-    public  $contexts = array('order' => array('json'));
+    public  $contexts = array('order' => array('json'),
+                              'permissionget' => array('json'),
+                              'permissionadd' => array('json'),
+                              'permissiondelete' => array('json'));
+
+    public function init()
+    {
+        if(in_array($this->_getParam('action'), array('permissionAdd', 'permissionGet', 'permissionDelete', 'permission'))) {
+            $this->_form = new Zwe_Form_Admin_List();
+            $this->_form->setNames(Zwe_Model_Group::getStair());
+        }
+    }
 
     protected function _indexAction()
     {
@@ -74,6 +90,21 @@ class Zwe_Controller_Action_Admin_Group extends Zwe_Controller_Action
 
     protected function _permissionAction()
     {
-        
+        $this->view->form = $this->_form;
+    }
+
+    protected function _permissionGetAction()
+    {
+
+    }
+
+    protected function _permissionAddAction()
+    {
+
+    }
+
+    protected function _permissionDeleteAction()
+    {
+
     }
 }

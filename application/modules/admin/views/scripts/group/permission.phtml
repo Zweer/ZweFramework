@@ -1,0 +1,12 @@
+<?php
+
+$this->form->setAction($this->url())
+    ->getElement('list')->setLabel('Permission')->setAttrib('id', 'privileges_list');
+$this->form->getElement('name')->setLabel('Group')->setAttrib('id', 'privileges_resources');
+
+$this->headScript()->appendFile($this->baseUrl() . '/js/mootools/3rdpart/textboxList/TextboxList.js');
+$this->headScript()->appendFile($this->baseUrl() . '/js/privilege.js');
+$this->headLink()->appendStylesheet($this->baseUrl() . '/js/mootools/3rdpart/textboxList/TextboxList.css');
+
+?>
+<?= $this->form ?>
