@@ -1,8 +1,8 @@
 <?php
 
 $this->form->setAction($this->url())
-           ->getElement('privileges')->setAttrib('id', 'privileges_list');
-$this->form->getElement('resource')->setAttrib('id', 'privileges_resources');
+           ->getElement('list')->setLabel('Privileges')->setAttrib('id', 'privileges_list');
+$this->form->getElement('name')->setLabel('Resource')->setAttrib('id', 'privileges_resources');
 
 $this->headScript()->appendFile($this->baseUrl() . '/js/mootools/3rdpart/textboxList/TextboxList.js');
 $this->headScript()->appendFile($this->baseUrl() . '/js/privilege.js');

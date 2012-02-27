@@ -13,7 +13,7 @@ window.addEvent('domready', function() {
 
             new Request.JSON({
                 url: resources.getParent('form').action + '/add.json',
-                data: 'resource=' + resources.get('value') + '&privileges=' + newPrivilege,
+                data: 'name=' + resources.get('value') + '&list=' + newPrivilege,
 
                 onComplete: function(json) {
                     if(json.id) {
@@ -35,7 +35,7 @@ window.addEvent('domready', function() {
 
             new Request.JSON({
                 url: resources.getParent('form').action + '/delete.json',
-                data: 'resource=' + resources.get('value') + '&privileges=' + idPrivilege,
+                data: 'name=' + resources.get('value') + '&list=' + idPrivilege,
 
                 onComplete: function(json) {
                     if(!json.ok) {
@@ -56,7 +56,7 @@ window.addEvent('domready', function() {
 
         new Request.JSON({
             url: resources.getParent('form').action + '/get.json',
-            data: 'resource=' + resources.get('value'),
+            data: 'name=' + resources.get('value'),
             method: 'post',
 
             onComplete: function(json) {
