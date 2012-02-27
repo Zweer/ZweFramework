@@ -16,6 +16,16 @@ class Zwe_View_Helper_Navigation_Menu extends Zend_View_Helper_Navigation_Menu
             }
         }
 
+        if($children = $page->getPages()) {
+            foreach ($children as $child) {
+                if($this->_acceptAcl($child)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         if ($resource || $privilege) {
             try {
                 if($acl instanceof Zwe_Acl)
