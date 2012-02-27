@@ -71,4 +71,9 @@ class Zwe_Controller_Action_Admin_Group extends Zwe_Controller_Action
 
         $this->_helper->redirector('index');
     }
+
+    protected function _permissionAction()
+    {
+        
+    }
 }
