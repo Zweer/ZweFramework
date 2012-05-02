@@ -29,7 +29,7 @@ class Zwe_Model_User extends Zwe_Model
                 ->setCredential($password);
 
 
-        if($auth->authenticate($adapter)) {
+        if($auth->authenticate($adapter) && $adapter->getResultRowObject()) {
             $user = Zwe_Model_User::findByPrimary($adapter->getResultRowObject()->IDUser)->current();
             $auth->getStorage()->write($user);
             return $user;
