@@ -4,7 +4,7 @@ abstract class Zwe_Model_Tree extends Zwe_Model
 {
     const CHILDREN_KEY = 'Children';
 
-    public static function getTree($IDParent = 0)
+    public static function getTree($IDParent = 0, $adds = null)
     {
         $elements = static::findByIDParent($IDParent);
 
@@ -12,7 +12,17 @@ abstract class Zwe_Model_Tree extends Zwe_Model
             return null;
 
         foreach ($elements as $element) {
-            $element->{static::CHILDREN_KEY} = static::getTree($element->{static::getPrimary()});
+            $element->{static::CHILDREN_KEY} = static::getTree($element->{static::getPrimary()}, $adds);
+            if(isset($adds)) {
+                if(!is_array($adds)) {
+                    $adds = array($adds);
+                }
+
+                foreach($adds as $add) {
+                    $method = '_getTree' . $add;
+                    static::$method($element);
+                }
+            }
         }
 
         return $elements;
@@ -44,6 +54,20 @@ abstract class Zwe_Model_Tree extends Zwe_Model
 
             if(is_array($children) && count($children) > 0)
                 static::orderTree($children, $prefix, $node->{static::getPrimary()});
+        }
+    }
+
+    public static function __callStatic($name, array $arguments)
+    {
+        switch(true) {
+            case strpos($name, 'getTree') === 0 && strlen($name) > strlen('getTree'):
+                $adds = explode('_', substr($name, strlen('getTree')));
+                return static::getTree(0, $adds);
+            break;
+
+            default:
+                return parent::__callStatic($name, $arguments);
+            break;
         }
     }
 }
