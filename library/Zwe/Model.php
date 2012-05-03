@@ -56,16 +56,6 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
             $this->_rowsetClass = $rowsetClass;
     }
 
-    public static function findByPrimary($id)
-    {
-        return static::getInstance()->find($id);
-    }
-
-    public static function deleteByPrimary($id)
-    {
-        return static::findByPrimary($id)->current()->delete();
-    }
-
     public static function create(array $data = array(), $defaultSource = null)
     {
         return static::getInstance()->createRow($data, $defaultSource);
@@ -74,7 +64,36 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
     public static function __callStatic($name, array $arguments)
     {
         switch(true) {
-            case strpos($name, 'findBy') === 0 && strlen($name) > strlen('findBy'):
+            case strpos($name, 'ByPrimary') !== false:
+                $pos = strpos($name, 'ByPrimary');
+                if($pos == 0)
+                    throw new Exception("You must specify an action");
+
+                $what = substr($name, 0, $pos);
+                $find = eval('return static::getInstance()->find(' . implode(', ', $arguments) . ');');
+                switch($what) {
+                    case 'find':
+                        return $find;
+                    break;
+
+                    case 'toggle':
+                        if($find->count() == 0) {
+                            $data = array_combine(static::getPrimary(), $arguments);
+                            static::create($data)->save();
+                            return true;
+                        } else {
+                            eval('static::deleteByPrimary(' . implode(', ', $arguments) . ');');
+                            return false;
+                        }
+                    break;
+
+                    case 'delete':
+                        return eval('return static::findByPrimary(' . implode(', ', $arguments) . ')->current()->delete();');
+                    break;
+                }
+            break;
+
+            case strpos($name, 'findBy') === 0 && $name != 'findByPrimary' && strlen($name) > strlen('findBy'):
                 $field = substr($name, strlen('findBy'));
                 if(!in_array($field, static::getInstance()->info(Zend_Db_Table_Abstract::COLS)))
                     throw new Exception("Field $field is not part of the data");
@@ -83,7 +102,7 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
                 return static::getInstance()->fetchAll($select);
             break;
 
-            case strpos($name, 'deleteBy') === 0 && strlen($name) > strlen('deleteBy'):
+            case strpos($name, 'deleteBy') === 0 && $name != 'deleteByPrimary' && strlen($name) > strlen('deleteBy'):
                 $method = 'find' . substr($name, strlen('delete'));
                 $rowset = static::$method($arguments[0]);
                 $deleted = 0;
