@@ -13,14 +13,15 @@ class Zwe_Controller_Action_Admin_Group extends Zwe_Controller_Action
     const GROUP_ORDER_OK = 'ZweControllerActionAdminGroupOrderOk';
     const GROUP_ORDER_KO = 'ZweControllerActionAdminGroupOrderKo';
 
-    public  $contexts = array('order' => array('json'),
-                              'permissionget' => array('json'),
-                              'permissionadd' => array('json'),
-                              'permissiondelete' => array('json'));
+    public $contexts = array('order' => array('json'),
+                             'permissionget' => array('json'),
+                             'permissiontoggle' => array('json'));
 
     public function init()
     {
-        if(in_array($this->_getParam('action'), array('permissionAdd', 'permissionGet', 'permissionDelete', 'permission'))) {
+        parent::init();
+
+        if(in_array($this->_getParam('action'), array('permissiontoggle', 'permissionget', 'permission'))) {
             $this->_form = new Zwe_Form_Admin_List();
             $this->_form->setNames(Zwe_Model_Group::getStair());
         }
@@ -91,20 +92,27 @@ class Zwe_Controller_Action_Admin_Group extends Zwe_Controller_Action
     protected function _permissionAction()
     {
         $this->view->form = $this->_form;
+        $this->view->resources = Zwe_Model_Resource::getTreePrivilege();
     }
 
     protected function _permissionGetAction()
     {
-
+        if($this->getRequest()->isPost()) {
+            if($this->_form->isValid($this->getRequest()->getPost())) {
+                $res = Zwe_Model_Privilege_Group::findByPrimary($this->_form->getValue('list'), $this->_form->getValue('name'));
+                $this->view->value = (bool) $res->count();
+                unset($this->view->title);
+            }
+        }
     }
 
-    protected function _permissionAddAction()
+    protected function _permissionToggleAction()
     {
-
-    }
-
-    protected function _permissionDeleteAction()
-    {
-
+        if($this->getRequest()->isPost()) {
+            if($this->_form->isValid($this->getRequest()->getPost())) {
+                $this->view->value = (bool) Zwe_Model_Privilege_Group::toggleByPrimary($this->_form->getValue('list'), $this->_form->getValue('name'));
+                unset($this->view->title);
+            }
+        }
     }
 }

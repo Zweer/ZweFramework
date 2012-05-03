@@ -32,13 +32,8 @@ class Admin_GroupController extends Zwe_Controller_Action_Admin_Group
         parent::_permissionGetAction();
     }
 
-    public function permissionaddAction()
+    public function permissiontoggleAction()
     {
-        parent::_permissionAddAction();
-    }
-
-    public function permissiondeleteAction()
-    {
-        parent::_permissionDeleteAction();
+        parent::_permissionToggleAction();
     }
 }

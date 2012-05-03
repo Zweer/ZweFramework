@@ -18,6 +18,7 @@ abstract class Zwe_View_Helper_Tree2ul extends Zend_View_Helper_Abstract
             $ret .= $this->_getModify($node->{$tableClass::getPrimary()});
             $ret .= $this->_getDelete($node->{$tableClass::getPrimary()});
             $ret .= '</span>';
+            $ret .= $this->_getAdditions($node);
             if($node->{Zwe_Model_Tree::CHILDREN_KEY}) {
                 $ret .= $this->tree2ul($node->{Zwe_Model_Tree::CHILDREN_KEY});
             }
@@ -34,6 +35,11 @@ abstract class Zwe_View_Helper_Tree2ul extends Zend_View_Helper_Abstract
     }
 
     protected function _getDelete($id)
+    {
+        return '';
+    }
+
+    protected function _getAdditions($node)
     {
         return '';
     }
