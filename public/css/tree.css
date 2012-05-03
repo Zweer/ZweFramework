@@ -5,6 +5,10 @@ ul.tree, ul.tree li, ul.tree ul {
     zoom: 1;
 }
 
+ul.tree.noPointer, ul.tree.noPointer li, ul.tree.noPointer ul {
+    cursor: auto;
+}
+
 ul.tree li, li.drag, li.drag ul li  {
     margin: 0;
     line-height: 20px;
@@ -71,4 +75,12 @@ li.drag span.dispose {
 span.dispose {
     float: right;
     color: #800;
+}
+
+
+ul.tree-resource-privilege li {
+    padding-left: 0;
+    margin: 0;
+    background: none;
+
 }
