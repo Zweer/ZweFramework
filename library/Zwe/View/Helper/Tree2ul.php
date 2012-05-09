@@ -7,8 +7,11 @@ abstract class Zwe_View_Helper_Tree2ul extends Zend_View_Helper_Abstract
     const ROOT_ID = 'tree_root';
     const ROOT_CLASS = 'tree';
 
-    public function tree2ul(Zend_Db_Table_Rowset $tree)
+    public function tree2ul(Zend_Db_Table_Rowset $tree = null)
     {
+        if(!isset($tree))
+            return '';
+
         $ret = '';
         foreach ($tree as $node) {
             $tableClass = get_class($node->getTable());
