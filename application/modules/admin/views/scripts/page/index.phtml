@@ -1,0 +1,13 @@
+<?php
+
+$this->form->setAction($this->url(array('module' => 'admin', 'controller' => 'page', 'action' => 'edit'), 'default'));
+
+$this->headScript()->appendFile($this->baseUrl() . '/js/tree.js');
+$this->headLink()->appendStylesheet($this->baseUrl() . '/css/tree.css');
+
+?>
+<h2><?= $this->translate('New Page') ?></h2>
+<?= $this->form ?>
+<br />
+<h2><?= $this->translate('Page Tree') ?></h2>
+<?= $this->tree2ul($this->pages) ?>
