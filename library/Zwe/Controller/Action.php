@@ -132,6 +132,20 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
         if(isset($this->_context))
             $this->_helper->layout->disableLayout();
     }
+
+    public static function getActions()
+    {
+        $methods = get_class_methods(get_called_class());
+        $actions = array();
+
+        foreach ($methods as $method) {
+            if(strpos($method, 'Action') !== false && strpos($method, '_') != 0) {
+                $actions[] = $method;
+            }
+        }
+
+        return $actions;
+    }
 }
 
 ?>
