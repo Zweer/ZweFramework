@@ -3,10 +3,11 @@
 abstract class Zwe_Model_Tree extends Zwe_Model
 {
     const CHILDREN_KEY = 'Children';
+    const ORDER_KEY = 'Order';
 
     public static function getTree($IDParent = 0, $adds = null)
     {
-        $elements = static::findByIDParent($IDParent);
+        $elements = static::findByIDParent($IDParent, static::hasField('Order') ? 'Order' : null);
 
         if($elements->count() == 0)
             return null;
@@ -31,7 +32,7 @@ abstract class Zwe_Model_Tree extends Zwe_Model
     public static function getStair($nameKey = 'Name', $prefix = '-', $IDParent = 0, $level = 0)
     {
         $ret = array();
-        $elements = static::findByIDParent($IDParent);
+        $elements = static::findByIDParent($IDParent, static::hasField('Order') ? 'Order' : null);
 
         if($elements->count() == 0)
             return array();
@@ -44,16 +45,28 @@ abstract class Zwe_Model_Tree extends Zwe_Model
         return $ret;
     }
 
-    public static function orderTree($tree, $prefix = '', $IDParent = 0)
+    public static function orderTree($tree, $prefix = '', $IDParent = 0, $order = null)
     {
+        $count = 0;
+        if(!isset($order)) {
+            $cols = static::getInstance()->info(Zend_Db_Table_Abstract::COLS);
+            if(in_array(static::ORDER_KEY, $cols))
+                $order = true;
+            else
+                $order = false;
+        }
+
         foreach ($tree as $IDNode => $children) {
             $ID = substr($IDNode, strlen($prefix) + 1);
             $node = static::findByPrimary($ID)->current();
             $node->IDParent = $IDParent;
+            if($order)
+                $node->{static::ORDER_KEY} = $count++;
+
             $node->save();
 
             if(is_array($children) && count($children) > 0)
-                static::orderTree($children, $prefix, $node->{static::getPrimary()});
+                static::orderTree($children, $prefix, $node->{static::getPrimary()}, $order);
         }
     }
 
