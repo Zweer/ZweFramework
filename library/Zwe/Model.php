@@ -99,6 +99,9 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
                     throw new Exception("Field $field is not part of the data");
 
                 $select = static::getInstance()->select()->where("$field = ?", $arguments[0]);
+                if(isset($arguments[1]))
+                    $select->order($arguments[1]);
+
                 return static::getInstance()->fetchAll($select);
             break;
 
@@ -132,5 +135,10 @@ abstract class Zwe_Model extends Zend_Db_Table_Abstract
     public static function getInstance()
     {
         return new static();
+    }
+
+    public static function hasField($field)
+    {
+        return in_array($field, static::getInstance()->info(Zend_Db_Table_Abstract::COLS));
     }
 }
