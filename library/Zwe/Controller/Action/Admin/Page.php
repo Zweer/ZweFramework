@@ -8,7 +8,14 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
     const PAGE_ORDER_OK = 'ZweControllerActionAdminPageOrderOk';
     const PAGE_ORDER_KO = 'ZweControllerActionAdminPageOrderKo';
 
-    public $contexts = array('order' => array('json'));
+    const PAGE_SELECT_MODULE = 'ZweControllerActionAdminPageSelectModule';
+    const PAGE_SELECT_CONTROLLER = 'ZweControllerActionAdminPageSelectController';
+    const PAGE_SELECT_ACTION = 'ZweControllerActionAdminPageSelectAction';
+
+    public $contexts = array('order' => array('json'),
+                             'getModules' => array('json'),
+                             'getControllers' => array('json'),
+                             'getActions' => array('json'));
 
     protected function _indexAction()
     {
@@ -45,6 +52,7 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
         $littleForm = new Zwe_Form_Admin_Name();
         $this->view->form = new Zwe_Form_Admin_Page();
         $this->view->form->setParents(Zwe_Model_Page::getStair('Title'));
+        $this->view->form->setModules($this->_getParamsAction('modules', false));
 
         if($this->getRequest()->isPost()) {
             if($littleForm->isValid($this->getRequest()->getPost())) {
@@ -85,5 +93,71 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
         Zwe_Model_Page::deleteByPrimary($IDPage);
 
         $this->_helper->redirector('index');
+    }
+
+    protected function _getParamsAction($what, $isAction = true)
+    {
+        $method = '_get' . ucfirst($what);
+        $ret = $this->$method();
+
+        if($isAction) {
+            unset($this->view->title);
+            $this->view->{$what} = $ret;
+        } else {
+            return $ret;
+        }
+    }
+
+    protected function _getModules()
+    {
+        $path = realpath(__DIR__ . '/../');
+        $dir = opendir($path);
+        $modules = array('default');
+
+        while($file = readdir($dir)) {
+            if(is_dir($path . '/' . $file) && $file != '.' && $file != '..' && strtolower($file) != 'admin' && strtolower($file) != 'helper') {
+                $modules[] = strtolower($file);
+            }
+        }
+
+        return $modules;
+    }
+
+    protected function _getControllers()
+    {
+        $module = $this->getRequest()->getPost('module');
+        if($module == $this->view->translate(static::PAGE_SELECT_MODULE))
+            return array();
+
+        $path = realpath(__DIR__ . '/../' . ($module == 'default' ? '' : ucfirst($module)));
+        $dir = opendir($path);
+        $controllers = array($this->view->translate(static::PAGE_SELECT_CONTROLLER));
+
+        while($file = readdir($dir)) {
+            if($module == '') {
+                break;
+            } elseif(is_dir($path . '/' . $file) || $file == '.' || $file == '..') {
+                continue;
+            } elseif($module == 'default' && ($file == 'Error.php' || $file == 'Login.php')) {
+                continue;
+            }
+
+            $controllers[] = strtolower(str_replace('.php', '', $file));
+        }
+
+        return $controllers;
+    }
+
+    protected function _getActions()
+    {
+        $module = $this->getRequest()->getPost('module');
+        $controller = $this->getRequest()->getPost('controller');
+        if($module == $this->view->translate(static::PAGE_SELECT_MODULE) || $controller == $this->view->translate(static::PAGE_SELECT_CONTROLLER))
+            return array();
+
+        $class = 'Zwe_Controller_Action_' . ucfirst($module) . '_' . ucfirst($controller);
+        $actions = array($this->view->translate(static::PAGE_SELECT_ACTION));
+
+        return array_merge($actions, $class::getActions());
     }
 }

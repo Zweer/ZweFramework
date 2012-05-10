@@ -23,20 +23,20 @@ class Zwe_Form_Admin_Page extends Zwe_Form
         $this->addElement('select', 'parent');
         $this->getElement('parent')->setLabel('Parent Page');
 
-        $this->addElement('text', 'module');
+        $this->addElement('select', 'module');
         $this->getElement('module')->setLabel('Module')
                                    ->setRequired(true)
-                                   ->setValue('default');
+                                   ->setAttrib('id', 'page-module');
 
-        $this->addElement('text', 'controller');
+        $this->addElement('select', 'controller');
         $this->getElement('controller')->setLabel('Controller')
                                        ->setRequired(true)
-                                       ->setValue('static');
+                                       ->setAttrib('id', 'page-controller');
 
-        $this->addElement('text', 'action');
+        $this->addElement('select', 'action');
         $this->getElement('action')->setLabel('Action')
                                    ->setRequired(true)
-                                   ->setValue('index');
+                                   ->setAttrib('id', 'page-action');
 
         $this->addElement('submit', 'submit');
         $this->getElement('submit')->setLabel('Create');
@@ -46,6 +46,14 @@ class Zwe_Form_Admin_Page extends Zwe_Form
     {
         $this->getElement('parent')->addMultiOption(0, '');
         $this->getElement('parent')->addMultiOptions($parents);
+
+        return $this;
+    }
+
+    public function setModules(array $modules)
+    {
+        $this->getElement('module')->addMultiOption('', $this->getView()->translate(Zwe_Controller_Action_Admin_Page::PAGE_SELECT_MODULE));
+        $this->getElement('module')->addMultiOptions(array_combine($modules, $modules));
 
         return $this;
     }
