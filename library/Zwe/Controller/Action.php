@@ -140,7 +140,7 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
 
         foreach ($methods as $method) {
             if(strpos($method, 'Action') !== false && strpos($method, '_') != 0) {
-                $actions[] = $method;
+                $actions[] = str_replace('Action', '', $method);
             }
         }
 
