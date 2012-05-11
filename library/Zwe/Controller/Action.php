@@ -56,7 +56,7 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
     /**
      * @var array
      */
-    public static $params = null;
+    public static $contents = null;
 
     /**
      * Class constructor
@@ -152,12 +152,12 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
         return $actions;
     }
 
-    public static function getParams($action = null)
+    public static function getContents($action = null)
     {
         if(isset($action)) {
-            return static::$params[$action];
+            return static::$contents[$action];
         } else {
-            return static::$params;
+            return static::$contents;
         }
     }
 }
