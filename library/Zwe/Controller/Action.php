@@ -54,6 +54,11 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
     protected $_admin = null;
 
     /**
+     * @var array
+     */
+    public static $params = null;
+
+    /**
      * Class constructor
      *
      * It calls the parent constructor, then adds the personalized path for the helpers and initializes the contexts
@@ -145,6 +150,15 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
         }
 
         return $actions;
+    }
+
+    public static function getParams($action = null)
+    {
+        if(isset($action)) {
+            return static::$params[$action];
+        } else {
+            return static::$params;
+        }
     }
 }
 
