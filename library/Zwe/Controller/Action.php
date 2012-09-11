@@ -54,6 +54,9 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
     protected $_admin = null;
 
     /**
+     * The contents in the page
+     * Each content can be translated into the current language
+     *
      * @var array
      */
     public static $contents = null;
@@ -80,18 +83,7 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
         $this->_initContext();
         $this->_initAjaxContext();
         $this->_initTitle();
-    }
-
-    protected function _initTitle()
-    {
-        #$this->view->thePage = Zwe_Model_Page::getThisPage();
-        if(isset($this->view->thePage))
-            $this->view->title = $this->view->thePage->Title;
-        else
-            $this->view->title = $this->_title;
-
-        if($this->view->title)
-            $this->view->headTitle()->append($this->view->translate($this->view->title));
+        $this->_initContents();
     }
 
     /**
@@ -114,6 +106,38 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
             $this->_helper->ajaxContext->initContext();
             if($this->_helper->ajaxContext->getCurrentContext() != null)
                 $this->_context = $this->_helper->ajaxContext->getCurrentContext();
+        }
+    }
+
+    protected function _initTitle()
+    {
+        #$this->view->thePage = Zwe_Model_Page::getThisPage();
+        if(isset($this->view->thePage))
+            $this->view->title = $this->view->thePage->Title;
+        else
+            $this->view->title = $this->_title;
+
+        if($this->view->title)
+            $this->view->headTitle()->append($this->view->translate($this->view->title));
+    }
+
+    protected function _initContents()
+    {
+        if($contents = static::$contents[$this->_getParam('action')]) {
+            $this->view->contents = array();
+            foreach ($contents as $content) {
+                $select = Zwe_Model_Content::getInstance()->select()->where('IDPage = ?', $this->view->thePage->IDPage)
+                                                                    ->where('Name = ?', $content)
+                                                                    ->where('Language = ?', Zend_Registry::get('Zend_Locale')->getLanguage());
+                $translatedContent = Zwe_Model_Content::getInstance()->fetchRow($select);
+                if(!isset($translatedContent)) {
+                    $select = Zwe_Model_Content::getInstance()->select()->where('IDPage = ?', $this->view->thePage->IDPage)
+                                                                        ->where('Name = ?', $content)
+                                                                        ->where('Language = ?', Zend_Registry::get('parameters')->registry->defaultLanguage);
+                    $translatedContent = Zwe_Model_Content::getInstance()->fetchRow($select);
+                }
+                $this->view->contents[$content] = $translatedContent;
+            }
         }
     }
 
@@ -144,8 +168,8 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
         $actions = array();
 
         foreach ($methods as $method) {
-            if(strpos($method, 'Action') !== false && substr($method, 0, 1) == '_') {
-                $actions[] = str_replace(array('Action', '_'), '', $method);
+            if($method != 'getActions' && strpos($method, 'Action') !== false && substr($method, 0, 1) != '_') {
+                $actions[] = str_replace('Action', '', $method);
             }
         }
 

@@ -110,7 +110,7 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
 
     protected function _getModules()
     {
-        $path = realpath(__DIR__ . '/../');
+        $path = APPLICATION_PATH . '/modules';
         $dir = opendir($path);
         $modules = array('default');
 
@@ -131,7 +131,7 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
         if($module == $this->view->translate(static::PAGE_SELECT_MODULE))
             return array();
 
-        $path = realpath(__DIR__ . '/../' . ($module == 'default' ? '' : ucfirst($module)));
+        $path = APPLICATION_PATH . ($module == 'default' ? '' : '/modules/' . $module) . '/controllers';
         $dir = opendir($path);
         $controllers = array($this->view->translate(static::PAGE_SELECT_CONTROLLER));
 
@@ -140,11 +140,11 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
                 break;
             } elseif(is_dir($path . '/' . $file) || $file == '.' || $file == '..') {
                 continue;
-            } elseif($module == 'default' && ($file == 'Error.php' || $file == 'Login.php')) {
+            } elseif($module == 'default' && ($file == 'ErrorController.php' || $file == 'LoginController.php')) {
                 continue;
             }
 
-            $controllers[] = strtolower(str_replace('.php', '', $file));
+            $controllers[] = strtolower(str_replace('Controller.php', '', $file));
         }
 
         return $controllers;
@@ -161,7 +161,8 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
         if($module == $this->view->translate(static::PAGE_SELECT_MODULE) || $controller == $this->view->translate(static::PAGE_SELECT_CONTROLLER))
             return array();
 
-        $class = 'Zwe_Controller_Action_' . ucfirst($module) . '_' . ucfirst($controller);
+        $class = ($module == 'default' ? '' : ucfirst($module) . '_') . '' . ucfirst($controller) . 'Controller';
+        require_once(APPLICATION_PATH . ($module == 'default' ? '' : '/modules/' . $module) . '/controllers/' . ucfirst($controller) . 'Controller.php');
         $actions = array($this->view->translate(static::PAGE_SELECT_ACTION));
 
         return array_merge($actions, $class::getActions());
