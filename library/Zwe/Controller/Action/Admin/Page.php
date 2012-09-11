@@ -80,6 +80,8 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
             $page = Zwe_Model_Page::findByPrimary($idPage)->current();
 
             $this->view->form->setEditable()
+                             ->setControllers($this->_getParamsAction('controllers', false, $page->Module))
+                             ->setActions($this->_getParamsAction('actions', false, $page->Module, $page->Controller))
                              ->populateFromDB($page->toArray());
         }
     }
@@ -101,9 +103,9 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
         if($isAction) {
             unset($this->view->title);
             $this->view->{$what} = $ret;
-        } else {
-            return $ret;
         }
+
+        return $ret;
     }
 
     protected function _getModules()
@@ -123,7 +125,9 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
 
     protected function _getControllers($module = null)
     {
-        $module = $this->getRequest()->getPost('module');
+        if(!isset($module)) {
+            $module = $this->getRequest()->getPost('module');
+        }
         if($module == $this->view->translate(static::PAGE_SELECT_MODULE))
             return array();
 
@@ -148,8 +152,12 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
 
     protected function _getActions($module = null, $controller = null)
     {
-        $module = $this->getRequest()->getPost('module');
-        $controller = $this->getRequest()->getPost('controller');
+        if(!isset($module)) {
+            $module = $this->getRequest()->getPost('module');
+        }
+        if(!isset($controller)) {
+            $controller = $this->getRequest()->getPost('controller');
+        }
         if($module == $this->view->translate(static::PAGE_SELECT_MODULE) || $controller == $this->view->translate(static::PAGE_SELECT_CONTROLLER))
             return array();
 

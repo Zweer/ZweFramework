@@ -60,6 +60,20 @@ class Zwe_Form_Admin_Page extends Zwe_Form
         return $this;
     }
 
+    public function setControllers(array $controllers)
+    {
+        $this->getElement('controller')->addMultiOptions(array_combine($controllers, $controllers));
+
+        return $this;
+    }
+
+    public function setActions(array $actions)
+    {
+        $this->getElement('action')->addMultiOptions(array_combine($actions, $actions));
+
+        return $this;
+    }
+
     public function setEditable($id = null)
     {
         $this->addElement('hidden', 'id');
