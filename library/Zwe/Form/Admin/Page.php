@@ -31,12 +31,14 @@ class Zwe_Form_Admin_Page extends Zwe_Form
         $this->addElement('select', 'controller');
         $this->getElement('controller')->setLabel('Controller')
                                        ->setRequired(true)
-                                       ->setAttrib('id', 'page-controller');
+                                       ->setAttrib('id', 'page-controller')
+                                       ->setRegisterInArrayValidator(false);
 
         $this->addElement('select', 'action');
         $this->getElement('action')->setLabel('Action')
                                    ->setRequired(true)
-                                   ->setAttrib('id', 'page-action');
+                                   ->setAttrib('id', 'page-action')
+                                   ->setRegisterInArrayValidator(false);
 
         $this->addElement('submit', 'submit');
         $this->getElement('submit')->setLabel('Create');

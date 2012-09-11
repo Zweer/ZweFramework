@@ -22,9 +22,7 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
         $this->view->form = new Zwe_Form_Admin_Name();
 
         if($this->getRequest()->isPost()) {
-            if($this->view->form->isValid($this->getRequest()->getPost())) {
-                $this->_forward('edit');
-            }
+            $this->_forward('edit');
         }
 
         $this->view->pages = Zwe_Model_Page::getTree();
@@ -95,10 +93,10 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
         $this->_helper->redirector('index');
     }
 
-    protected function _getParamsAction($what, $isAction = true)
+    protected function _getParamsAction($what, $isAction = true, $module = null, $controller = null)
     {
         $method = '_get' . ucfirst($what);
-        $ret = $this->$method();
+        $ret = $this->$method($module, $controller);
 
         if($isAction) {
             unset($this->view->title);
@@ -123,7 +121,7 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
         return $modules;
     }
 
-    protected function _getControllers()
+    protected function _getControllers($module = null)
     {
         $module = $this->getRequest()->getPost('module');
         if($module == $this->view->translate(static::PAGE_SELECT_MODULE))
@@ -148,7 +146,7 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
         return $controllers;
     }
 
-    protected function _getActions()
+    protected function _getActions($module = null, $controller = null)
     {
         $module = $this->getRequest()->getPost('module');
         $controller = $this->getRequest()->getPost('controller');
