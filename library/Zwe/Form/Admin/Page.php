@@ -9,7 +9,8 @@ class Zwe_Form_Admin_Page extends Zwe_Form
         'parent' => 'IDParent',
         'module' => 'Module',
         'parameters' => 'Parameters',
-        'title' => 'Title'
+        'title' => 'Title',
+        'url' => 'Url'
     );
 
     public function init()
@@ -19,6 +20,17 @@ class Zwe_Form_Admin_Page extends Zwe_Form
         $this->addElement('text', 'title');
         $this->getElement('title')->setLabel('Title')
                                   ->setRequired(true);
+
+        $this->addElement('text', 'url');
+        $this->getElement('url')->setLabel('Url')
+                                ->setDescription('Parent page\'s url is added automatically')
+                                ->setRequired(true)
+                                ->addValidator(new Zend_Validate_Regex(array('pattern' => '/[a-z0-9\-_\+]/i')))
+                                ->addValidator(new Zend_Validate_Db_NoRecordExists(array('table' => 'page',
+                                                                                         'field' => 'Url',
+                                                                                         'exclude' => Zend_Db_Table::getDefaultAdapter()->quoteInto('IDParent = ?', intval($_POST['parent']))
+                                                                                                      . ' AND ' .
+                                                                                                      Zend_Db_Table::getDefaultAdapter()->quoteInto('IDPage != ?', intval($_POST['id'])))));
 
         $this->addElement('select', 'parent');
         $this->getElement('parent')->setLabel('Parent Page');

@@ -82,6 +82,8 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
     {
         $this->_initContext();
         $this->_initAjaxContext();
+
+        $this->view->thePage = Zwe_Model_Page::getThisPage();
         $this->_initTitle();
         $this->_initContents();
     }
@@ -111,7 +113,6 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
 
     protected function _initTitle()
     {
-        #$this->view->thePage = Zwe_Model_Page::getThisPage();
         if(isset($this->view->thePage))
             $this->view->title = $this->view->thePage->Title;
         else
