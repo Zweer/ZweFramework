@@ -30,3 +30,4 @@ return array(
     Zwe_Weather_Day::CARDINAL_NW => 'NO',
     Zwe_Weather_Day::CARDINAL_SW => 'SO'
 );
+*/
