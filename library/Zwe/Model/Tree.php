@@ -7,7 +7,7 @@ abstract class Zwe_Model_Tree extends Zwe_Model
 
     public static function getTree($IDParent = 0, $adds = null)
     {
-        $elements = static::findByIDParent($IDParent, static::hasField('Order') ? 'Order' : null);
+        $elements = static::findByIDParent($IDParent, static::hasField(static::ORDER_KEY) ? static::ORDER_KEY : null);
 
         if($elements->count() == 0)
             return null;
@@ -32,7 +32,7 @@ abstract class Zwe_Model_Tree extends Zwe_Model
     public static function getStair($nameKey = 'Name', $prefix = '-', $IDParent = 0, $level = 0)
     {
         $ret = array();
-        $elements = static::findByIDParent($IDParent, static::hasField('Order') ? 'Order' : null);
+        $elements = static::findByIDParent($IDParent, static::hasField(static::ORDER_KEY) ? static::ORDER_KEY : null);
 
         if($elements->count() == 0)
             return array();
