@@ -37,6 +37,7 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
                 try {
                     $this->view->getHelper('tree2ul');
                     Zwe_Model_Page::orderTree($order, Admin_View_Helper_Tree2ul::ROOT_ID);
+                    Zwe_Model_Page::rebuildNavigation();
                     $this->view->message = $this->view->translate(self::PAGE_ORDER_OK);
                 } catch(Exception $e) {
                     $this->view->message = $this->view->translate(self::PAGE_ORDER_KO);
@@ -61,8 +62,12 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
                     $this->view->form->setEditable($this->getRequest()->getPost('id'));
 
                 if($this->view->form->getValue('id') === null) {
+                    # Create new page
                     $page = Zwe_Model_Page::create($this->view->form->getValuesForDB());
+                    $maxOrderSiblin = Zwe_Model_Page::findByIDParent($page->IDParent, Zwe_Model_Tree::ORDER_KEY . ' DESC')->current();
+                    $page->Order = $maxOrderSiblin->{Zwe_Model_Tree::ORDER_KEY} + 1;
                 } else {
+                    # Edit existing page
                     $page = Zwe_Model_Page::findByPrimary($this->view->form->getValue('id'))->current();
                     $page->setFromArray($this->view->form->getValuesForDB());
 
@@ -71,6 +76,9 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
                 }
 
                 $page->save();
+
+                # Rebuild the navigation config file
+                Zwe_Model_Page::rebuildNavigation();
 
                 $this->_helper->redirector('index');
             }
@@ -91,6 +99,7 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
         $IDPage = $this->_getParam('id', 0);
 
         Zwe_Model_Page::deleteByPrimary($IDPage);
+        Zwe_Model_Page::rebuildNavigation();
 
         $this->_helper->redirector('index');
     }
