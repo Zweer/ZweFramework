@@ -54,7 +54,7 @@ $this->headLink()->appendStylesheet($this->baseUrl() . '/css/error.css');
 <pre><?= $this->exception->getTraceAsString() ?></pre>
 
 <h3><?= $this->translate('Route used') ?>:</h3>
-<pre class="compressable"><?php try{ echo $this->escape(Zend_Controller_Front::getInstance()->getRouter()->getCurrentRouteName()); }catch(Exception $e){ echo $e->getMessage(); } ?></pre>
+<pre class="compressable"><?php try{ echo $this->escape(Zend_Controller_Front::getInstance()->getRouter()->getCurrentRouteName()); }catch(Exception $e){ echo $e->getMessage() . "\n"; print_r(array_keys(Zend_Controller_Front::getInstance()->getRouter()->getRoutes())); } ?></pre>
 
 <h3><?= $this->translate('Base URL') ?>:</h3>
 <pre class="compressable"><?= $this->escape($this->request->getBaseUrl()) ?></pre>
