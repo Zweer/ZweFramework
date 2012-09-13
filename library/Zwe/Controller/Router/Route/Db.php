@@ -58,6 +58,24 @@ class Zwe_Controller_Router_Route_Db extends Zend_Controller_Router_Route
 
     public function assemble($data = array(), $reset = false, $encode = false)
     {
+        $idPage = null;
+        $page = null;
+        $return = array();
 
+        if(is_string($data) || is_int($data)) {
+            $idPage = (int) $data;
+        } elseif(is_array($data) && isset($data['idPage'])) {
+            $idPage = (int) $data['idPage'];
+        } else {
+            $page = Zwe_Model_Page::getThisPage();
+        }
+
+        if(!isset($page)) {
+            $page = Zwe_Model_Page::findByPrimary($idPage)->current();
+        }
+
+        $return = $page->getCompleteUrl($this->_urlDelimiter);
+
+        return trim($return, $this->_urlDelimiter);
     }
 }
