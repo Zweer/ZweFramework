@@ -53,10 +53,11 @@ class Zwe_Model_Page extends Zwe_Model_Tree
             if(0 == $IDParent) {
                 file_put_contents($navigationIni, "\n", FILE_APPEND);
             }
+            $route = 'db' . ('default' == $page->Module ? '' : ucfirst($page->Module)) . ('index' == $page->Controller ? '' : ucfirst($page->Controller)) . ('index' == $page->Action ? '' : ucfirst($page->Action));
             file_put_contents($navigationIni, $commentString . $page->Title . "\n", FILE_APPEND);
             file_put_contents($navigationIni, $pageNavigationString . ".label = " . $page->Title . "\n", FILE_APPEND);
             file_put_contents($navigationIni, $pageNavigationString . ".params.idPage = " . $page->IDPage . "\n", FILE_APPEND);
-            file_put_contents($navigationIni, $pageNavigationString . ".route = db\n", FILE_APPEND);
+            file_put_contents($navigationIni, $pageNavigationString . ".route = " . $route . "\n", FILE_APPEND);
             file_put_contents($navigationIni, $pageNavigationString . ".order = " . $page->{Zwe_Model_Tree::ORDER_KEY} . "\n", FILE_APPEND);
 
             static::rebuildNavigation($page->IDPage, $pageNavigationString . '.pages', $commentString . $page->Title . ' > ');

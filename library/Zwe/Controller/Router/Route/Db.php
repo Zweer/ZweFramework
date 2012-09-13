@@ -4,7 +4,6 @@ class Zwe_Controller_Router_Route_Db extends Zend_Controller_Router_Route
 {
     public static function getInstance(Zend_Config $config)
     {
-        # Useless at the moment
         $reqs = ($config->reqs instanceof Zend_Config) ? $config->reqs->toArray() : array();
         # Useless at the moment
         $defs = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : array();
@@ -42,6 +41,12 @@ class Zwe_Controller_Router_Route_Db extends Zend_Controller_Router_Route
             }
 
             if(isset($page)) {
+                foreach($this->_requirements as $key => $value) {
+                    if($page->{ucfirst($key)} != $value) {
+                        return false;
+                    }
+                }
+
                 Zwe_Model_Page::setThisPage($page);
                 $this->setMatchedPath(rtrim($matched, $this->_urlDelimiter));
                 if(isset($page->Parameters)) {
