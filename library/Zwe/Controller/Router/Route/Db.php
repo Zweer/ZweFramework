@@ -34,6 +34,7 @@ class Zwe_Controller_Router_Route_Db extends Zend_Controller_Router_Route
                     $parentPage = $page;
                     $matched .= $pathPart . $this->_urlDelimiter;
                 } elseif(isset($parentPage) && $parentPage->AllowParams) {
+                    $page = $parentPage;
                     break;
                 } else {
                     return false;
