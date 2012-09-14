@@ -34,14 +34,7 @@ class Zwe_Model_Page extends Zwe_Model_Tree
         $navigationIni = APPLICATION_PATH . '/configs/navigation/application.ini';
 
         if(0 == $IDParent) {
-            file_put_contents($navigationIni, "[production]\n\n");
-            file_put_contents($navigationIni, "; Home\n", FILE_APPEND);
-            file_put_contents($navigationIni, "navigation.home.label = Home\n", FILE_APPEND);
-            file_put_contents($navigationIni, "navigation.home.module = default\n", FILE_APPEND);
-            file_put_contents($navigationIni, "navigation.home.controller = index\n", FILE_APPEND);
-            file_put_contents($navigationIni, "navigation.home.action = index\n", FILE_APPEND);
-            file_put_contents($navigationIni, "navigation.home.route = default\n", FILE_APPEND);
-            file_put_contents($navigationIni, "navigation.home.order = -100\n", FILE_APPEND);
+            file_put_contents($navigationIni, "[production]\n");
             $navigationString = 'navigation';
             $commentString = '; ';
         }
