@@ -9,6 +9,9 @@ class Zwe_Controller_Plugin_Multilanguage extends Zend_Controller_Plugin_Abstrac
         $routeLang = new Zend_Controller_Router_Route(':language', array('language' => $locale->getLanguage()), array('language' => '[a-z]{2}'));
 
         foreach($router->getRoutes() as $name => $route) {
+            if($route->isAbstract()) {
+                continue;
+            }
             $router->addRoute($name, $routeLang->chain($route));
         }
     }
