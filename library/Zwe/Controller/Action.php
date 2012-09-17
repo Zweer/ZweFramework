@@ -145,7 +145,7 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
     public function preDispatch()
     {
         $allowed = true;
-        if(!isset($this->_private) && $this->_admin) {
+        if(!isset($this->_private) && (isset($this->_admin) || isset($this->_admin[$this->_getParam('action')]))) {
             $this->_private = true;
         }
 
