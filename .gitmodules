@@ -1,3 +1,0 @@
-[submodule "library/Zend"]
-	path = library/Zend
-	url = https://github.com/Zweer/zendframework.git
