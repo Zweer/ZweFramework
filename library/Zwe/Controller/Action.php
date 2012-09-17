@@ -49,7 +49,7 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
      */
     protected $_private = null;
     /**
-     * @var string
+     * @var string|array
      */
     protected $_admin = null;
 
@@ -144,14 +144,43 @@ abstract class Zwe_Controller_Action extends Zend_Controller_Action
 
     public function preDispatch()
     {
-        if(!isset($this->_private) && $this->_admin)
+        $allowed = true;
+        if(!isset($this->_private) && $this->_admin) {
             $this->_private = true;
+        }
 
-        if($this->_private && !Zwe_Auth::getInstance()->hasIdentity())
-            $this->_helper->_redirector('auth', 'error', 'default');
+        if($this->_private) {
+            $allowed = Zwe_Auth::getInstance()->hasIdentity();
+        }
 
-        if(isset($this->_admin) && !Zwe_Auth::getInstance()->getIdentity()->isAllowedAny($this->_admin))
-            $this->_helper->_redirector('auth', 'error', 'default');
+        if(isset($this->_admin)) {
+            $admin = null;
+            if(is_array($this->_admin)) {
+                if(array_key_exists($this->_getParam('action'), $this->_admin)) {
+                    $admin = $this->_admin[$this->_getParam('action')];
+                }
+            } elseif(is_string($this->_admin)) {
+                $admin = $this->_admin;
+            } else {
+                throw new Exception('$_admin is bad formatted: array or string expected');
+            }
+
+            $admin = explode('/', $admin);
+            for($i = 0; $i < count($admin); ++$i) {
+                $resource = $admin[$i];
+                $privilege = null;
+                if(!in_array($admin[$i+1], Zwe_Acl::getClone()->getResources())) {
+                    $privilege = $admin[++$i];
+                    $allowed = Zwe_Auth::getInstance()->getIdentity()->isAllowed($resource, $privilege);
+                } else {
+                    $allowed = Zwe_Auth::getInstance()->getIdentity()->isAllowedAny($resource);
+                }
+            }
+
+            if(!$allowed) {
+                $this->_helper->_redirector('auth', 'error', 'default');
+            }
+        }
     }
 
     /**

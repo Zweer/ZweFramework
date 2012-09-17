@@ -3,7 +3,7 @@
 class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
 {
     protected $_title = 'Pages';
-    protected $_admin = 'admin_page';
+    protected $_admin = 'admin_page/manage';
 
     const PAGE_ORDER_OK = 'ZweControllerActionAdminPageOrderOk';
     const PAGE_ORDER_KO = 'ZweControllerActionAdminPageOrderKo';
