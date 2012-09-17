@@ -26,7 +26,7 @@ $this->headLink()->appendStylesheet($this->baseUrl() . '/css/blog.css');
         <?php endif; ?>
         <p><?= $this->escape($post->TextPreview) ?></p>
         <span class="blog-post-text-readmore">
-            <a href="<?= $this->url(array('IDBlog' => $post->IDBlog), 'blogPost') ?>"><?= ucfirst($this->translate(Zwe_Controller_Action_Blog_Index::READ_MORE)) ?></a>
+            <a href="<?= $this->url(array('action' => 'post', 'post' => $post->IDBlog), 'dbBlogAction') ?>"><?= ucfirst($this->translate(Zwe_Controller_Action_Blog_Index::READ_MORE)) ?></a>
         </span>
     </div>
 </div>
