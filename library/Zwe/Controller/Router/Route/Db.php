@@ -80,7 +80,7 @@ class Zwe_Controller_Router_Route_Db extends Zend_Controller_Router_Route
             $page = Zwe_Model_Page::findByPrimary($idPage)->current();
         }
 
-        $return = $page->getCompleteUrl($this->_urlDelimiter);
+        $return = $page->Url;
 
         return trim($return, $this->_urlDelimiter);
     }
