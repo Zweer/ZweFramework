@@ -64,12 +64,19 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
                 if($this->view->form->getValue('id') === null) {
                     # Create new page
                     $page = Zwe_Model_Page::create($this->view->form->getValuesForDB());
+
+                    $parent = Zwe_Model_Page::findByPrimary($page->IDParent)->current();
+                    $page->Url = trim($parent->Url . Zend_Controller_Router_Route_Chain::URI_DELIMITER . $page->Url, Zend_Controller_Router_Route_Chain::URI_DELIMITER);
+
                     $maxOrderSiblin = Zwe_Model_Page::findByIDParent($page->IDParent, Zwe_Model_Tree::ORDER_KEY . ' DESC')->current();
                     $page->Order = $maxOrderSiblin->{Zwe_Model_Tree::ORDER_KEY} + 1;
                 } else {
                     # Edit existing page
                     $page = Zwe_Model_Page::findByPrimary($this->view->form->getValue('id'))->current();
                     $page->setFromArray($this->view->form->getValuesForDB());
+
+                    $parent = Zwe_Model_Page::findByPrimary($page->IDParent)->current();
+                    $page->Url = trim($parent->Url . Zend_Controller_Router_Route_Chain::URI_DELIMITER . $page->Url, Zend_Controller_Router_Route_Chain::URI_DELIMITER);
 
                     if($page->IDPage == $page->IDParent)
                         $page->IDParent = 0;
@@ -90,7 +97,8 @@ class Zwe_Controller_Action_Admin_Page extends Zwe_Controller_Action
             $this->view->form->setEditable()
                              ->setControllers($this->_getParamsAction('controllers', false, $page->Module))
                              ->setActions($this->_getParamsAction('actions', false, $page->Module, $page->Controller))
-                             ->populateFromDB($page->toArray());
+                             ->populateFromDB($page->toArray())
+                             ->setDefault('url', substr($page->Url, strrpos($page->Url, Zend_Controller_Router_Route_Chain::URI_DELIMITER+1)));
         }
     }
 
