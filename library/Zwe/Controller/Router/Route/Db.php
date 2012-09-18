@@ -18,28 +18,13 @@ class Zwe_Controller_Router_Route_Db extends Zend_Controller_Router_Route
         }
 
         $page = null;
-        $matched = '';
         if($path !== '') {
-            $path = explode($this->_urlDelimiter, $path);
-            $idParent = 0;
-            $parentPage = null;
+            $matched = '';
 
-            foreach ($path as $pathPart) {
-                $select = Zwe_Model_Page::getInstance()->select()->where('IDParent = ?', $idParent)
-                                                                 ->where('Url = ?', $pathPart);
-                $page = Zwe_Model_Page::getInstance()->fetchRow($select);
-
-                if(isset($page)) {
-                    $idParent = $page->IDPage;
-                    $parentPage = $page;
-                    $matched .= $pathPart . $this->_urlDelimiter;
-                } elseif(isset($parentPage) && $parentPage->AllowParams) {
-                    $page = $parentPage;
-                    break;
-                } else {
-                    return false;
-                }
-            }
+            do {
+                $page = Zwe_Model_Page::findByUrl($path)->current();
+                $matched = $path;
+            } while(!isset($page) && $path = substr($path, 0, strrpos($path, Zend_Controller_Router_Route_Chain::URI_DELIMITER)));
 
             if(isset($page)) {
                 foreach($this->_requirements as $key => $value) {
