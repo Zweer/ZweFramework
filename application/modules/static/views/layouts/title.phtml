@@ -1,0 +1,5 @@
+ <?php if(Zwe_Auth::getInstance()->getIdentity()->isAllowed('admin_page', 'modify')) : ?>
+<a title="<?= $this->translate('Edit this page') ?>" href="<?= $this->url(array('action' => 'modify'), 'dbStaticAction') ?>">
+    <?= $this->img('/images/icons/edit_yellow_16x16.png', array('alt' => 'Edit', 'title' => 'Edit this page')) ?>
+</a>
+<?php endif; ?>
