@@ -27,6 +27,7 @@ $menuRight = $menuLis[3]->asXML() . $menuLis[4]->asXML() . $menuLis[5]->asXML();
 $breadcrumbs = $this->navigation()->breadcrumbs()->setRenderInvisible(true)->setSeparator(' &nbsp;/&nbsp; ');
 
 $container = APPLICATION_PATH . (Zend_Controller_Front::getInstance()->getRequest()->getModuleName() == 'default' ? '' : '/modules/' . Zend_Controller_Front::getInstance()->getRequest()->getModuleName()) . '/views/layouts/container.phtml';
+$title = APPLICATION_PATH . (Zend_Controller_Front::getInstance()->getRequest()->getModuleName() == 'default' ? '' : '/modules/' . Zend_Controller_Front::getInstance()->getRequest()->getModuleName()) . '/views/layouts/title.phtml';
 
 ?>
 <?= $this->doctype() . "\n" ?>
@@ -134,7 +135,7 @@ $container = APPLICATION_PATH . (Zend_Controller_Front::getInstance()->getReques
                             <a title="Home" href="<?= $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index'), 'default') ?>">Home</a> &nbsp;/&nbsp; <?= $breadcrumbs ?>
                             <?php endif; ?>
                         </div>
-                        <h1><?= $this->title ?></h1>
+                        <h1><?= $this->title ?><?php if(file_exists($title)) include($title); ?></h1>
                     </div>
                 </div>
             </div>
